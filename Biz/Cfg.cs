@@ -8,7 +8,7 @@ namespace Biz
     {
         public static string LogRootPath
         {
-            get { return "C:\\JDA\\WinCEServiceLogs\\"; }
+            get { return "C:\\EDI\\ServiceLogs\\"; }
         }
 
         public static string LogPath

@@ -16,30 +16,39 @@ namespace Compression
     {
         static void Main(string[] args)
         {
-			DateTime now = DateTime.Now;
-			string today = now.ToString("yyyyMMdd");
-			string firstDay = new DateTime(now.Year, now.Month, 1).ToString("yyyyMMdd");
-            if (today == firstDay)
+            try
             {
-				EntDB conn = new EntDB();
-				string sql = $"SELECT DISTINCT CLIENT_C FROM EDI_FILE_CONFIG";
-				DataTable dt = conn.ExecuteToDataTable(sql);
-				string yearAndMonth = now.AddMonths(-1).ToString("yyyyMM");
-				string year = yearAndMonth.Substring(0, 4);
-				foreach (DataRow dr in dt.Rows)
+				DateTime now = DateTime.Now;
+				string today = now.ToString("yyyyMMdd");
+				string firstDay = new DateTime(now.Year, now.Month, 1).ToString("yyyyMMdd");
+				if (today == firstDay)
 				{
-					string client = dr["CLIENT_C"].ToString();
-					Console.WriteLine("当前正在压缩的客户：" + client);
-					string movePath = ConfigurationManager.AppSettings["MovePath"].ToString() + client + "\\";
-					CommonFunction.CreateDirIfNotExist(movePath);
-					startCompress(client, movePath, year, yearAndMonth);
+					EntDB conn = new EntDB();
+					string sql = $"SELECT DISTINCT CLIENT_C FROM EDI_FILE_CONFIG";
+					DataTable dt = conn.ExecuteToDataTable(sql);
+					string yearAndMonth = now.AddMonths(-1).ToString("yyyyMM");
+					string year = yearAndMonth.Substring(0, 4);
+					foreach (DataRow dr in dt.Rows)
+					{
+						string client = dr["CLIENT_C"].ToString();
+						Cfg.WriteLog(Cfg.LogRootPath, "当前正在压缩的客户：" + client);
+						//Console.WriteLine("当前正在压缩的客户：" + client);
+						string movePath = ConfigurationManager.AppSettings["MovePath"].ToString() + client + "\\";
+						CommonFunction.CreateDirIfNotExist(movePath);
+						startCompress(client, movePath, year, yearAndMonth);
+						Cfg.WriteLog(Cfg.LogRootPath, client + "压缩完成");
+					}
+					Cfg.WriteLog(Cfg.LogRootPath, "所有客户压缩完成");
 				}
-				Console.WriteLine("压缩完成~");
-            }
-            else
+				else
+				{
+					Cfg.WriteLog(Cfg.LogRootPath, "今天不是第一天");
+				}
+			}
+			catch(Exception ex)
             {
-				Console.WriteLine("今天不是第一天~");
-            }
+				Cfg.WriteLog(Cfg.LogRootPath, ex.Message);
+			}			
 		}
 		public static void startCompress(string client, string remotePath, string year, string backupFolder)
 		{
