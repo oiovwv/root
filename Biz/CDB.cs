@@ -166,6 +166,7 @@ namespace Biz
         /// <returns>true：成功   false：失败</returns>
         public bool Execute(string strSQL)
         {
+            Open();
             OleDbCommand cmd;
             try
             {

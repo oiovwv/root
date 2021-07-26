@@ -99,8 +99,8 @@ namespace Import
             {
                 var item = new ProductItem();
                 item.S1 = dr[1].ToString();
-                item.S2 = dr[4].ToString();
-                item.S3 = "0";
+                item.S2 = "0";
+                item.S3 = dr[4].ToString();
                 item.S4 = "9002";
                 item.S5 = DateTime.Now.ToString("yyyyMMdd");
                 list.Add(item);
@@ -126,17 +126,38 @@ namespace Import
         public DataTable GetTestData()
         {
             DataTable dt = new DataTable();
-            dt.Columns.Add("S1", Type.GetType("System.String"));
-            dt.Columns.Add("S2", Type.GetType("System.String"));
-            dt.Columns.Add("S3", Type.GetType("System.String"));
-            dt.Columns.Add("S4", Type.GetType("System.String"));
-            dt.Columns.Add("S5", Type.GetType("System.String"));
+            dt.Columns.Add("SKU", Type.GetType("System.String"));
+            dt.Columns.Add("A", Type.GetType("System.String"));
+            
 
             //dt.Rows.Add(new object[] { "OSRE080706600", "AA3094602DC", "540", "540", "540", "0", "0", "1" });
             //dt.Rows.Add(new object[] { "OSRE080689500", "AB3591101DC", "280", "280", "280", "0", "0", "2" });
 
-            dt.Rows.Add(new object[] { "1010359", "120", "3", "1000", "20210101"});
-            dt.Rows.Add(new object[] { "1010353", "220", "22", "280", "20210101"});
+            dt.Rows.Add(new object[] { "674199-0-1", "999.022" });
+            dt.Rows.Add(new object[] { "674248-0-1", "999.023" });
+            dt.Rows.Add(new object[] { "674258-0-1", "999.024" });
+            dt.Rows.Add(new object[] { "674389-0-1", "999.025" });
+            dt.Rows.Add(new object[] { "674400-0-1", "999.026" });
+            dt.Rows.Add(new object[] { "674431-0-1", "999.027" });
+            dt.Rows.Add(new object[] { "674198-0-1", "999.028" });
+            dt.Rows.Add(new object[] { "674243-0-1", "999.029" });
+            dt.Rows.Add(new object[] { "674247-0-1", "999.030" });
+            dt.Rows.Add(new object[] { "674257-0-1", "999.031" });
+            dt.Rows.Add(new object[] { "674346-0-1", "999.032" });
+            dt.Rows.Add(new object[] { "674347-0-1", "999.033" });
+            dt.Rows.Add(new object[] { "674380-0-1", "999.034" });
+            dt.Rows.Add(new object[] { "674396-0-1", "999.035" });
+            dt.Rows.Add(new object[] { "674441-0-1", "999.036" });
+            dt.Rows.Add(new object[] { "674815-0-1", "999.037" });
+            dt.Rows.Add(new object[] { "674816-0-1", "999.038" });
+            dt.Rows.Add(new object[] { "674817-0-1", "999.039" });
+            dt.Rows.Add(new object[] { "674200-0-1", "999.040" });
+            dt.Rows.Add(new object[] { "674393-0-1", "999.041" });
+            dt.Rows.Add(new object[] { "674432-0-1", "999.042" });
+            dt.Rows.Add(new object[] { "674427-0-1", "999.043" });
+            dt.Rows.Add(new object[] { "674242-0-1", "999.044" });
+            dt.Rows.Add(new object[] { "674821-0-1", "999.045" });
+
             return dt;
         }
         public void TestLSL1()
@@ -198,7 +219,7 @@ namespace Import
         private void button1_Click(object sender, EventArgs e)
         {
 
-            TestLSL1();
+            //TestLSL1();
 
 
 
@@ -220,15 +241,16 @@ namespace Import
             //storage();
             try
             {
-                string filePathSku = CommonFunction.ChooseFile();
+                //string filePathSku = CommonFunction.ChooseFile();
                 //入库
                 //ds = CommonFunction.ReadExcelFileToDataSet(filePathSku, 3, 40);
                 //出库
                 //ds = CommonFunction.ReadExcelFileToDataSet(filePathSku, 4, 30);
                 //库存
-                ds = CommonFunction.ReadExcelFileToDataSet(filePathSku, 4, 30);
+                //ds = CommonFunction.ReadExcelFileToDataSet(filePathSku, 4, 30);
                 int no = 1;
-                foreach (DataRow dr in ds.Tables[0].Rows)
+                var dt = GetTestData();
+                foreach (DataRow dr in dt.Rows)
                 {
                     //入库
                     //string sql = string.Format("INSERT INTO SPDA_STORAGE_AMO (\r\nCLIENT_C,\r\nIDX,\r\nSTORAGE_DATE,\r\nSTORAGE_TYPE,\r\nPRODUCT_NO,\r\nPRODUCT_NAME,\r\nSPECIFICATIONS,\r\nCOMPANY,\r\nPRODUCT_REGISTRATION,\r\nBATCH_NUMBER,\r\nBATCH_DATE,\r\nEXPIRY_DATE,\r\nQTY,\r\nUNIT,\r\nSTORAGE_CONDITION,\r\nSTORAGE_NUMBER,\r\nPRODUCT_STATUS,\r\nREMARK,\r\nOPUSER,\r\nADD_DATE,\r\nTEMP1,TEMP2,TEMP3,TEMP4,TEMP5) \r\nVALUES('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}','{10}','{11}',{12},'{13}','{14}','{15}','{16}','{17}','{18}',{19},'{20}','{21}','{22}','{23}','{24}')", "AMO", "", dr[0].ToString(), dr[1].ToString(), dr[2].ToString(), dr[3].ToString(), dr[4].ToString(), dr[5].ToString(), dr[6].ToString(), dr[7].ToString(), FormartDate(dr[9].ToString()), FormartDate(dr[10].ToString()), dr[11].ToString(), dr[12].ToString(), dr[13].ToString(), dr[14].ToString(), dr[16].ToString(), "", "", "sysdate", dr[15].ToString(), "", dr[8].ToString(), "", "");
@@ -236,7 +258,7 @@ namespace Import
                     //string sql = string.Format("INSERT INTO SPDA_OUTBOUND_AMO (\r\nCLIENT_C,\r\nIDX,\r\n\r\noutboun_type,\r\norder_no,\r\nPRODUCT_NO,\r\nPRODUCT_NAME,\r\nSPECIFICATIONS,\r\nCOMPANY,\r\nPRODUCT_REGISTRATION,\r\nBATCH_NUMBER,\r\noutbound_condition,\r\nUNIT,\r\nQTY,\r\ncliant_name,\r\naddress,\r\ncontacts,\r\nphone,\r\nREMARK,\r\nOPUSER,\r\nADD_DATE,\r\nchukuriqi,\r\nreceipt_party_no,\r\nTEMP1,TEMP2,TEMP3,TEMP4,TEMP5,TEMP6) \r\nVALUES('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}','{10}','{11}',{12},'{13}','{14}','{15}','{16}','{17}','{18}',{19},'{20}','{21}','{22}','{23}','{24}','{25}','{26}','{27}')", "AMO", "", dr[2].ToString(), dr[3].ToString(), dr[4].ToString(), dr[5].ToString(), dr[6].ToString(), dr[7].ToString(), dr[8].ToString(), dr[9].ToString(), dr[11].ToString(), dr[12].ToString(), dr[13].ToString(), dr[15].ToString(), dr[16].ToString(), dr[17].ToString(), dr[18].ToString(), "", "", "sysdate", dr[1].ToString(), dr[14].ToString(), "", "", dr[10].ToString(), "", "", "");
                     //库存
                     string sql = string.Format(@"INSERT INTO app_tags(imei,deviceclass,devicestatus,belongtowho,devicetype,deleteflag,rdc_code,simno) values('{0}','1','1','赵振文','GT420D','N','STA BEIJING','121211BJ')",dr[0].ToString());
-
+                    //sql = string.Format(@"UPDATE OMS_PRODUCT SET REFERENCE01 = '{0}' WHERE CLIENT_C='JOS' AND PRODUCT_NO ='{1}'", dr[1].ToString(), dr[0].ToString());
                     if (dB.Execute(sql))
                     {
                         no++;
@@ -249,6 +271,9 @@ namespace Import
                 //throw new Exception(ex.Message);
             }
         }
+
+        
+
         private static string FormartDate(string date)
         {
             if (string.IsNullOrEmpty(date.Trim()) || date.IndexOf("A") > 0 || date.IndexOf("/") < 0)
