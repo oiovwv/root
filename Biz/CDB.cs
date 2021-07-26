@@ -280,10 +280,10 @@ namespace Biz
         /// <returns></returns>
         public int DoTran(string[] SQLs)
         {
+            Open();
             int i = 0;
             OleDbTransaction trans = this.BeginTrans();
             string strSQL = "";
-
             try
             {
                 OleDbCommand cmd = this.DBCommand();
@@ -301,6 +301,7 @@ namespace Biz
                 }
                 trans.Commit();
                 cmd.Dispose();
+                Close();
                 cmd = null;
             }
             catch (Exception ex)
@@ -309,12 +310,16 @@ namespace Biz
                 if (trans != null)
                 {
                     trans.Rollback();
-                    throw new Exception("ExecuteSQLFail");
+                    throw new Exception("执行SQL语句组失败");
                 }
                 else
                 {
                     i = -1;
                 }
+            }
+            finally
+            {
+                Close();
             }
 
             return i;

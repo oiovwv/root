@@ -22,40 +22,41 @@ namespace Import
         {
             int a = 0;
             List<string> sqlArr = new List<string>();
-            string aaaa = "Provider=MSDAORA.1;Password=sta_ilis;User ID=sta_ilis;Data Source=PROD";
+            string aaaa = "Provider=MSDAORA.1;Password=stasoil;User ID=wh25;Data Source=PROD";
             //aaaa = "Provider=MSDAORA.1;Password=stasoil;User ID=wh25;Data Source=prod";
             EntDB dB = new EntDB();
             EntDB cc = new EntDB(aaaa);
-            string fileName = "cpo202106151158.csv";
-            fileName = fileName.ToUpper();
-            string sssql = string.Format(@"SELECT OMS_NO 
-                              FROM OMS_ORDER_HEAD S 
-                             WHERE 1 = 1 
-                               AND S.CLIENT_C = 'JOS'
-                               AND S.ORIGIN_FILE_NAME = '{0}'
-                             ORDER BY S.OMS_NO DESC", fileName);
-            DataTable dtaa = dB.ExecuteToDataTable(sssql);
-            sqlArr.Clear();
-            foreach (DataRow dra in dtaa.Rows)
-            {
-                sssql = string.Format(@"INSERT INTO T_TMP_JOS(OMS_NO,CPO_FILENAME) VALUES('{0}','{1}')", dra["OMS_NO"].ToString(), fileName);
-                sqlArr.Add(sssql);
-            }
-            a = cc.DoTran(sqlArr.ToArray());
+            //string fileName = "cpo202106151158.csv";
+            //fileName = fileName.ToUpper();
+            //string sssql = string.Format(@"SELECT OMS_NO 
+            //                  FROM OMS_ORDER_HEAD S 
+            //                 WHERE 1 = 1 
+            //                   AND S.CLIENT_C = 'JOS'
+            //                   AND S.ORIGIN_FILE_NAME = '{0}'
+            //                 ORDER BY S.OMS_NO DESC", fileName);
+            //DataTable dtaa = dB.ExecuteToDataTable(sssql);
+            //sqlArr.Clear();
+            //foreach (DataRow dra in dtaa.Rows)
+            //{
+            //    sssql = string.Format(@"INSERT INTO T_TMP_JOS(OMS_NO,CPO_FILENAME) VALUES('{0}','{1}')", dra["OMS_NO"].ToString(), fileName);
+            //    sqlArr.Add(sssql);
+            //}
+            //a = cc.DoTran(sqlArr.ToArray());
 
-            string orderId = "c5424ef0-5cb0-4e15-a0a8-0b12927ccf47";
-            string boxId = "dd5368d9-6305-4853-beb8-01c1a75b4b96";//fe5a865f-66a4-472e-8a2b-c8cad17de89b    fe5a865f-66a4-472e-8a2b-c8cad17de89b
+            //string orderId = "c5424ef0-5cb0-4e15-a0a8-0b12927ccf47";
+            //string boxId = "dd5368d9-6305-4853-beb8-01c1a75b4b96";//fe5a865f-66a4-472e-8a2b-c8cad17de89b    fe5a865f-66a4-472e-8a2b-c8cad17de89b
 
-            for (var i = 0; i < 8; i++)
-            {
-                string sku = "649799-0-1";
-                string ssql = string.Format(@"INSERT INTO SP_PACK_ITEMS(ID, ORDER_ID, BOX_ID, SKU, QTY, WHO_ADD) VALUES('{0}','{1}','{2}','{3}','{4}','{5}')", Guid.NewGuid(), orderId, boxId, sku, "1", "TEST17");
-                sqlArr.Add(ssql);
-            }
-            a = cc.DoTran(sqlArr.ToArray());
+            //for (var i = 0; i < 8; i++)
+            //{
+            //    string sku = "649799-0-1";
+            //    string ssql = string.Format(@"INSERT INTO SP_PACK_ITEMS(ID, ORDER_ID, BOX_ID, SKU, QTY, WHO_ADD) VALUES('{0}','{1}','{2}','{3}','{4}','{5}')", Guid.NewGuid(), orderId, boxId, sku, "1", "TEST17");
+            //    sqlArr.Add(ssql);
+            //}
+            //a = cc.DoTran(sqlArr.ToArray());
 
             try
             {
+                //后台手工更新JOS预期收货数量
                 string filePath = CommonFunction.ChooseFile();
                 DataSet ds = CommonFunction.ReadUperExcelFileToDataSet(filePath, 1, 50, "Sheet1");
                 string sql2 = string.Empty;
@@ -63,7 +64,7 @@ namespace Import
                 foreach (DataRow dr in ds.Tables[0].Rows)
                 {
 
-                    sql2 = string.Format(@"select oms_no from oms_order_head where client_order_no = '{0}' and Customer_Po_No = '{1}'", dr[2].ToString(), dr[0].ToString());
+                    sql2 = string.Format(@"select oms_no from oms_order_head where client_order_no = '{0}' and Customer_Po_No = '{1}'", dr[1].ToString(), dr[0].ToString());
                     DataTable dt = dB.ExecuteToDataTable(sql2);
                     if (dt.Rows.Count > 0)
                     {
@@ -72,8 +73,8 @@ namespace Import
                         
                         dt = cc.ExecuteToDataTable(sql2);
                         var receiptKey = dt.Rows[0][0].ToString();
-                        var date = FormatDate(dr[1].ToString());
-                        sql2 = string.Format("update WH25.RECEIPTDETAIL set QTYEXPECTED ='{0}',LOTTABLE09='{1}'  WHERE RECEIPTKEY = '{2}' and sku='{3}'", dr[4].ToString(), date, receiptKey,dr[3].ToString());
+                        //var date = FormatDate(dr[1].ToString());
+                        sql2 = string.Format("update WH25.RECEIPTDETAIL set QTYEXPECTED ='{0}' WHERE RECEIPTKEY = '{1}' and sku='{2}'", dr[3].ToString(), receiptKey,dr[2].ToString());
                         sqlList.Add(sql2);
                     }
 
