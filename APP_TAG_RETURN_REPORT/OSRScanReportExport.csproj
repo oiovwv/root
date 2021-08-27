@@ -115,6 +115,10 @@
       <Project>{400e3c77-c20d-4462-871b-d54a88a55ec4}</Project>
       <Name>Biz</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Scan\OSR_Scan.csproj">
+      <Project>{b50486b7-c7ab-46a9-a717-e1b5b5094feb}</Project>
+      <Name>OSR_Scan</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />

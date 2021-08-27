@@ -91,6 +91,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="SP_AM_Traceability.resx">
+      <DependentUpon>SP_AM_Traceability.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="bin\Debug\Scan.exe.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

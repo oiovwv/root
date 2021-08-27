@@ -22,37 +22,46 @@ namespace Import
         {
             int a = 0;
             List<string> sqlArr = new List<string>();
-            string aaaa = "Provider=MSDAORA.1;Password=stasoil;User ID=wh25;Data Source=PROD";
+            string aaaa = "Provider=MSDAORA.1;Password=sta_ilis;User ID=sta_ilis;Data Source=PROD";
             //aaaa = "Provider=MSDAORA.1;Password=stasoil;User ID=wh25;Data Source=prod";
             EntDB dB = new EntDB();
             EntDB cc = new EntDB(aaaa);
-            //string fileName = "cpo202106151158.csv";
-            //fileName = fileName.ToUpper();
-            //string sssql = string.Format(@"SELECT OMS_NO 
-            //                  FROM OMS_ORDER_HEAD S 
-            //                 WHERE 1 = 1 
-            //                   AND S.CLIENT_C = 'JOS'
-            //                   AND S.ORIGIN_FILE_NAME = '{0}'
-            //                 ORDER BY S.OMS_NO DESC", fileName);
-            //DataTable dtaa = dB.ExecuteToDataTable(sssql);
-            //sqlArr.Clear();
-            //foreach (DataRow dra in dtaa.Rows)
-            //{
-            //    sssql = string.Format(@"INSERT INTO T_TMP_JOS(OMS_NO,CPO_FILENAME) VALUES('{0}','{1}')", dra["OMS_NO"].ToString(), fileName);
-            //    sqlArr.Add(sssql);
-            //}
-            //a = cc.DoTran(sqlArr.ToArray());
+            string fileName = "CPO202108041172.CSV";
+            fileName = fileName.ToUpper();
+            string sssql = string.Format(@"SELECT OMS_NO 
+                              FROM OMS_ORDER_HEAD S 
+                             WHERE 1 = 1 
+                               AND S.CLIENT_C = 'JOS'
+                               AND S.ORIGIN_FILE_NAME = '{0}'
+                             ORDER BY S.OMS_NO DESC", fileName);
+            DataTable dtaa = dB.ExecuteToDataTable(sssql);
+            sqlArr.Clear();
+            foreach (DataRow dra in dtaa.Rows)
+            {
+                sssql = string.Format(@"INSERT INTO T_TMP_JOS(OMS_NO,CPO_FILENAME) VALUES('{0}','{1}')", dra["OMS_NO"].ToString(), fileName);
+                sqlArr.Add(sssql);
+            }
+            a = cc.DoTran(sqlArr.ToArray());
 
-            //string orderId = "c5424ef0-5cb0-4e15-a0a8-0b12927ccf47";
-            //string boxId = "dd5368d9-6305-4853-beb8-01c1a75b4b96";//fe5a865f-66a4-472e-8a2b-c8cad17de89b    fe5a865f-66a4-472e-8a2b-c8cad17de89b
+            sqlArr.Clear();
+            for (var i = 1; i < 2; i++)
+            {
+                string sql = string.Format(@"select spo.id as order_id,spb.id as box_id from sp_pack_orders spo,sp_pack_boxes spb where spo.id = spb.order_id and spo.order_key = '{0}' and spb.box_sort = {1}", "0000167688", i);
+                DataTable d = cc.ExecuteToDataTable(sql);
+                string orderId = d.Rows[0]["ORDER_ID"].ToString();
+                string boxId = d.Rows[0]["BOX_ID"].ToString();
+                for (var r = 0; r < 1; r++)
+                {
+                    string sku = "542045-0-8";
+                    string ssql = string.Format(@"INSERT INTO SP_PACK_ITEMS(ID, ORDER_ID, BOX_ID, SKU, QTY, WHO_ADD) VALUES('{0}','{1}','{2}','{3}','{4}','{5}')", Guid.NewGuid(), orderId, boxId, sku, "1", "TEST11");
+                    sqlArr.Add(ssql);
+                }
+                
+            }
+            a = cc.DoTran(sqlArr.ToArray());
 
-            //for (var i = 0; i < 8; i++)
-            //{
-            //    string sku = "649799-0-1";
-            //    string ssql = string.Format(@"INSERT INTO SP_PACK_ITEMS(ID, ORDER_ID, BOX_ID, SKU, QTY, WHO_ADD) VALUES('{0}','{1}','{2}','{3}','{4}','{5}')", Guid.NewGuid(), orderId, boxId, sku, "1", "TEST17");
-            //    sqlArr.Add(ssql);
-            //}
-            //a = cc.DoTran(sqlArr.ToArray());
+
+
 
             try
             {
@@ -133,20 +142,13 @@ namespace Import
             dt.Columns.Add("SKU", Type.GetType("System.String"));           
             dt.Columns.Add("CTN_QTY", Type.GetType("System.String"));
 
-            dt.Rows.Add(new object[] { "674006-0-1", "6"});
-            dt.Rows.Add(new object[] { "674007-0-1", "6"});
-            dt.Rows.Add(new object[] { "674013-0-1", "7" });
-            dt.Rows.Add(new object[] { "674014-0-1", "7" });
-            dt.Rows.Add(new object[] { "674015-0-1", "7" });
-            dt.Rows.Add(new object[] { "674022-0-1", "7" });
-            dt.Rows.Add(new object[] { "674017-0-1", "7" });
-            dt.Rows.Add(new object[] { "674008-0-1", "9" });
-            dt.Rows.Add(new object[] { "674024-0-1", "13" });
-            dt.Rows.Add(new object[] { "674026-0-1", "13" });
-            dt.Rows.Add(new object[] { "674033-0-1", "14" });
-            dt.Rows.Add(new object[] { "674032-0-1", "13" });
-            dt.Rows.Add(new object[] { "674034-0-1", "14" });
+            dt.Rows.Add(new object[] { "674620-0-1", "20"});
+            dt.Rows.Add(new object[] { "674621-0-1", "20"});
+            dt.Rows.Add(new object[] { "674622-0-1", "20" });
+            dt.Rows.Add(new object[] { "674623-0-1", "20" });
             
+
+
 
             return dt;
         }

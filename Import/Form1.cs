@@ -241,15 +241,17 @@ namespace Import
             //storage();
             try
             {
-                //string filePathSku = CommonFunction.ChooseFile();
+                string filePathSku = CommonFunction.ChooseFile();
                 //入库
                 //ds = CommonFunction.ReadExcelFileToDataSet(filePathSku, 3, 40);
                 //出库
                 //ds = CommonFunction.ReadExcelFileToDataSet(filePathSku, 4, 30);
                 //库存
-                //ds = CommonFunction.ReadExcelFileToDataSet(filePathSku, 4, 30);
+                
                 int no = 1;
                 var dt = GetTestData();
+                ds = CommonFunction.ReadExcelFileToDataSet(filePathSku, 4, 30);
+                dt = ds.Tables[0];
                 foreach (DataRow dr in dt.Rows)
                 {
                     //入库

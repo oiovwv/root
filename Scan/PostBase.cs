@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading;
 using System.Windows.Forms;
 
-internal class PostBase
+public class PostBase
 {
 	public static string GetApiResult(string param, string key, int type, string isPro)
 	{
