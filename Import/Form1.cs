@@ -13,6 +13,7 @@ using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -259,7 +260,8 @@ namespace Import
                     //出库
                     //string sql = string.Format("INSERT INTO SPDA_OUTBOUND_AMO (\r\nCLIENT_C,\r\nIDX,\r\n\r\noutboun_type,\r\norder_no,\r\nPRODUCT_NO,\r\nPRODUCT_NAME,\r\nSPECIFICATIONS,\r\nCOMPANY,\r\nPRODUCT_REGISTRATION,\r\nBATCH_NUMBER,\r\noutbound_condition,\r\nUNIT,\r\nQTY,\r\ncliant_name,\r\naddress,\r\ncontacts,\r\nphone,\r\nREMARK,\r\nOPUSER,\r\nADD_DATE,\r\nchukuriqi,\r\nreceipt_party_no,\r\nTEMP1,TEMP2,TEMP3,TEMP4,TEMP5,TEMP6) \r\nVALUES('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}','{10}','{11}',{12},'{13}','{14}','{15}','{16}','{17}','{18}',{19},'{20}','{21}','{22}','{23}','{24}','{25}','{26}','{27}')", "AMO", "", dr[2].ToString(), dr[3].ToString(), dr[4].ToString(), dr[5].ToString(), dr[6].ToString(), dr[7].ToString(), dr[8].ToString(), dr[9].ToString(), dr[11].ToString(), dr[12].ToString(), dr[13].ToString(), dr[15].ToString(), dr[16].ToString(), dr[17].ToString(), dr[18].ToString(), "", "", "sysdate", dr[1].ToString(), dr[14].ToString(), "", "", dr[10].ToString(), "", "", "");
                     //库存
-                    string sql = string.Format(@"INSERT INTO app_tags(imei,deviceclass,devicestatus,belongtowho,devicetype,deleteflag,rdc_code,simno) values('{0}','1','1','赵振文','GT420D','N','STA BEIJING','121211BJ')",dr[0].ToString());
+                    //string sql = string.Format(@"INSERT INTO app_tags(imei,deviceclass,devicestatus,belongtowho,devicetype,deleteflag,rdc_code,simno) values('{0}','1','1','赵振文','GT420D','N','STA BEIJING','121211BJ')",dr[0].ToString());
+                    string sql = string.Format("insert into oms_osr_product_bu(bu,division,ag,description) values('{0}','{1}','{2}','{3}')", dr[0].ToString(), dr[1].ToString(), dr[2].ToString(), dr[3].ToString());
                     //sql = string.Format(@"UPDATE OMS_PRODUCT SET REFERENCE01 = '{0}' WHERE CLIENT_C='JOS' AND PRODUCT_NO ='{1}'", dr[1].ToString(), dr[0].ToString());
                     if (dB.Execute(sql))
                     {
@@ -650,6 +652,619 @@ namespace Import
             int count = Convert.ToInt32(dB.GetObject(sql));
             return count > 0;
         }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            string aaaa = "Provider=MSDAORA.1;Password=sta_ilis;User ID=sta_ilis;Data Source=PROD";
+            string sql = string.Format(@"
+                select distinct s1.CONTAINERKEY,s1.F01,s1.F02,s1.F03,s1.F04,s1.F05,s1.F06,s1.F08,s1.F09,s1.F10,s1.F11,s1.F12,s1.F13,s1.F15,
+                s1.F16,s1.F19,s1.F20,s6.order_key as orderkey from
+                ST_CONTAINER  s1,  --查箱/柜
+                ST_CONTAINERD s2, --- 查托盘
+                SP_PALLETS s3,
+                SP_PALLET_BOXES s4,
+                SP_PACK_BOXES s5,
+                sp_pack_orders s6
+                where 1=1
+                and s1.CONTAINERKEY = s2.CONTAINERKEY
+                and s2.orderkey = s3.pallet_num
+                and s3.id = s4.pallet_id
+                and s4.box_id = s5.id
+                and s5.order_id = s6.id
+                and s1.CONTAINERKEY = 'ZCSU8755092'");
+            EntDB cc = new EntDB(aaaa);
+            var dt = cc.ExecuteToDataTable(sql);
+            DataTable dtNew = dt.Clone();
+            dtNew.Columns.Add("ORIGIN");
+            dtNew.Columns.Add("EXTEND02");
+            dtNew.Columns.Add("EXTERNALRECEIPTKEY2");
+            dtNew.Columns.Add("SKU");
+            dtNew.Columns.Add("ItemDesc");
+            dtNew.Columns.Add("shpqty");
+            dtNew.Columns.Add("cartons");
+            dtNew.Columns.Add("CBMS");
+            dtNew.Columns.Add("KGS");
+            dtNew.Columns.Add("LOTTABLE09");
+            dtNew.Columns.Add("invoiceNumber");
+            dtNew.Columns.Add("RetailPrice");
+            dtNew.Columns.Add("invoiceAmount");
+            dtNew.Columns.Add("freightCharge");
+            dtNew.Columns.Add("sum_shpqty");
+            dtNew.Columns.Add("sum_CBMS");
+            dtNew.Columns.Add("sum_kgs");
+            var sqlA = string.Empty;
+            foreach (DataRow dr in dt.Rows)
+            {
+                var orderkey = dr["orderkey"].ToString();
+                var sqlTemp = string.Format(@"
+select 
+--s8.orderkey,
+s9.sku,
+s11.STDGROSSWGT,
+s11.STDCUBE,
+wh25.f_split(s10.EXTEND03, '|+|', 4) as RetailPrice,
+s13.lottable09,
+s13.lottable10--,
+--sum(a3.qty) as qty
+from 
+wh25.orders s8,
+wh25.orderdetail s9,
+wh25.St_Orderdetail_Extend s10,
+wh25.sku s11,
+wh25.pickdetail s12,
+wh25.lotattribute s13--,
+--sp_pack_orders a1,
+--sp_pack_boxes a2,
+--sp_pack_items a3
+where s8.orderkey = s9.orderkey
+and s9.orderkey = s10.orderkey
+and s9.orderlinenumber = s10.orderlinenumber
+and s9.sku = s11.sku
+and s8.storerkey = s11.storerkey
+and s9.orderkey = s12.orderkey
+and s9.orderlinenumber = s12.orderlinenumber
+and s9.sku = s12.sku
+and s12.lot = s13.lot
+--and s8.orderkey = a1.order_key
+--and a1.id = a2.order_id
+--and a2.id = a3.box_id
+--and s9.sku = a3.sku
+and s8.orderkey = '{0}'", orderkey);
+                sqlA += sqlA.Length > 0 ? (" union " + sqlTemp) : sqlTemp;
+                
+                
+            }
+            var dtQty = cc.ExecuteToDataTable(sqlA);
+
+            //foreach (DataRow dr1 in dtQty.Rows)
+            //{
+            //    DataRow row = dtNew.NewRow();
+            //    var receiptKey = dr1["lottable10"].ToString();
+            //    var sku = dr1["sku"].ToString();
+            //    sql = string.Format(@"select b1.externalreceiptkey2,b3.extend02,b4.extend06 from 
+            //            WH25.RECEIPT b1,WH25.RECEIPTDETAIL b2,WH25.ST_RECEIPT_EXTEND b3,WH25.ST_RECEIPTDETAIL_EXTEND b4
+            //            where b1.receiptkey = b2.receiptkey
+            //            and b1.receiptkey = b3.receiptkey
+            //            and b2.receiptkey = b4.receiptkey
+            //            and b2.receiptlinenumber = b4.receiptlinenumber
+            //            and b1.receiptkey = '{0}'
+            //            and b2.sku = '{1}'", receiptKey, sku);
+            //    DataTable skuTable = cc.ExecuteToDataTable(sql);
+            //    row["CONTAINERKEY"] = dr["CONTAINERKEY"].ToString();
+            //    row["F01"] = dr["F01"].ToString();
+            //    row["F02"] = dr["F02"].ToString();
+            //    row["F03"] = dr["F03"].ToString();
+            //    row["F05"] = dr["F05"].ToString();
+            //    row["F06"] = dr["F06"].ToString();
+            //    row["F08"] = dr["F08"].ToString();
+            //    row["F09"] = dr["F09"].ToString();
+            //    row["F10"] = dr["F10"].ToString();
+            //    row["F11"] = dr["F11"].ToString();
+            //    row["F12"] = dr["F12"].ToString();
+            //    row["F13"] = dr["F13"].ToString();
+            //    row["F15"] = dr["F15"].ToString();
+            //    row["F16"] = dr["F16"].ToString();
+            //    row["F19"] = dr["F19"].ToString();
+            //    row["F20"] = dr["F20"].ToString();
+            //    row["ORIGIN"] = "Shenzhen";
+            //    row["EXTEND02"] = skuTable.Rows[0]["EXTEND02"].ToString();
+            //    row["EXTERNALRECEIPTKEY2"] = skuTable.Rows[0]["EXTERNALRECEIPTKEY2"].ToString();
+            //    row["SKU"] = dr1["sku"].ToString();
+            //    row["ItemDesc"] = skuTable.Rows[0]["EXTEND06"].ToString();
+            //    row["shpqty"] = dr1["qty"].ToString();
+            //    row["cartons"] = "0";
+            //    //CBMS
+            //    //KGS
+            //    row["LOTTABLE09"] = dr1["LOTTABLE09"].ToString();
+            //    row["invoiceNumber"] = "IN0810240A";
+            //    row["RetailPrice"] = dr1["RetailPrice"].ToString();
+            //    //row["invoiceAmount"] = "0";
+            //    row["freightCharge"] = "0.00";
+            //    row["sum_shpqty"] = "";
+            //    row["sum_CBMS"] = "";
+            //    row["sum_kgs"] = "";
+            //    dtNew.Rows.Add(row);
+            //}
+            //var a = dtQty.Columns.Count;
+            //var fieldNames = new List<string>();
+            //foreach(DataColumn column in dtQty.Columns)
+            //{
+            //    fieldNames.Add(column.ColumnName);
+            //}
+            //var dtRes = DistinctSomeColumn(dtQty, fieldNames.ToArray());
+            var dtResClone = dtQty.Clone();
+            dtResClone.Columns.Add("externalreceiptkey2", Type.GetType("System.String"));
+            dtResClone.Columns.Add("extend02", Type.GetType("System.String"));
+            dtResClone.Columns.Add("extend06", Type.GetType("System.String"));
+            sqlA = string.Empty;
+            foreach(DataRow row in dtQty.Rows)
+            {
+                var receiptKey = row[5].ToString();
+                var sku = row[0].ToString();
+                var sqlTemp2 = string.Format(@"select b1.receiptkey,b2.sku,b1.externalreceiptkey2, b3.extend02, b4.extend06 from
+                        WH25.RECEIPT b1,WH25.RECEIPTDETAIL b2,WH25.ST_RECEIPT_EXTEND b3,WH25.ST_RECEIPTDETAIL_EXTEND b4
+                     where b1.receiptkey = b2.receiptkey
+                       and b1.receiptkey = b3.receiptkey
+                      and b2.receiptkey = b4.receiptkey
+                      and b2.receiptlinenumber = b4.receiptlinenumber
+                      and b1.receiptkey = '{0}'
+                      and b2.sku = '{1}'", receiptKey, sku);
+                sqlA += sqlA.Length > 0 ? (" union " + sqlTemp2) : sqlTemp2;
+            }
+            var ddd = cc.ExecuteToDataTable(sqlA);
+            foreach(DataRow dr1 in ddd.Rows)
+            {
+                DataRow[] drs = dtQty.Select("sku='" + dr1[1].ToString() + "' and lottable10 = '" + dr1[0].ToString() + "'");
+                foreach(DataRow item in drs)
+                {
+//                    s9.sku,
+//s11.STDGROSSWGT,
+//s11.STDCUBE,
+//wh25.f_split(s10.EXTEND03, '|+|', 4) as RetailPrice,
+//s13.lottable09,
+//s13.lottable10
+                    DataRow newRow = dtResClone.NewRow();
+                    newRow["sku"] = item[0].ToString();
+                    newRow["STDGROSSWGT"] = item[1].ToString();
+                    newRow["STDCUBE"] = item[2].ToString();
+                    newRow["RetailPrice"] = item[3].ToString();
+                    newRow["lottable09"] = item[4].ToString();
+                    newRow["lottable10"] = item[5].ToString();
+                    newRow["externalreceiptkey2"] = dr1[0].ToString();
+                    newRow["extend02"] = dr1[2].ToString();
+                    newRow["extend06"] = dr1[3].ToString();
+                    dtResClone.Rows.Add(newRow);
+                }
+
+            }
+            sql = string.Format(@"select spi.sku,
+                               --spo.order_key, 
+                               sum(spi.qty) as shpqty
+                                  from sp_pack_items   spi,
+                                       sp_pallet_boxes spb,
+                                       sp_pallets      sp,
+                                       st_containerd   sc--,
+                                       --sp_pack_orders spo
+                                 where 1 = 1
+                                   and sc.orderkey = sp.pallet_num
+                                   and sp.id = spb.pallet_id
+                                   and spb.box_id = spi.box_id
+                                   --and spo.id = spi.order_id
+                                   and sc.containerkey = 'ZCSU8755092' 
+                                   group by spi.sku");
+            var qtyDt = cc.ExecuteToDataTable(sql);
+            dtResClone.Columns.Add("qty", Type.GetType("System.String"));
+            //double totalGt = qtyDt.AsEnumerable().Select(d => Convert.ToDouble(d.Field<string>("shpqty"))).Sum();
+            List<string> skuList = new List<string>();
+
+            foreach (DataRow row1 in qtyDt.Rows)
+            {
+                DataRow[] drSkuRows = dtResClone.Select("sku='" + row1[0].ToString() + "'");
+                
+                if (drSkuRows.Length == 1)
+                {
+                    
+                    drSkuRows[0]["qty"] = row1[1].ToString();
+                }
+                else
+                {
+                    foreach (DataRow qtyRow in drSkuRows)
+                    {
+                        skuList.Add(qtyRow[0].ToString());
+                    }
+                }
+                //foreach(DataRow qtyRow in drSkuRows)
+                //{
+                //    qtyRow["qty"] = row1[1].ToString();
+                //}
+            }
+
+            
+            foreach (DataRow drNew in dtNew.Rows)
+            {
+
+            }
+            var a = "";
+        }
+
+
+        public string GetSql()
+        {
+            var res = string.Empty;
+            return res;
+        }
+
+
+        public DataTable DistinctSomeColumn(DataTable sourceTable, string[] fieldName)
+        {
+            DataTable dt2 = sourceTable.Clone();
+            DataView v1 = dt2.DefaultView;
+            StringBuilder filter = new StringBuilder();
+            foreach (DataRow row in sourceTable.Rows)
+            {
+                for (int i = 0; i < fieldName.Length; i++)
+                {
+                    filter.AppendFormat("{0}='{1}'", fieldName[i], row[fieldName[i]].ToString().TrimEnd());
+                    if (i < fieldName.Length - 1)
+                    {
+                        filter.Append(" and ");
+                    }
+                }
+
+                v1.RowFilter = filter.ToString();
+
+                if (v1.Count > 0)
+                {
+                    filter = new StringBuilder();
+                    continue;
+                }
+                dt2.Rows.Add(row.ItemArray);
+                filter = new StringBuilder();
+            }
+            return dt2;
+        }
+
+        public void TestAAA()
+        {
+            string aaaa = "Provider=MSDAORA.1;Password=sta_ilis;User ID=sta_ilis;Data Source=PROD";
+            EntDB cc = new EntDB(aaaa);
+            var sql= string.Format(@" 
+select 
+distinct 
+s1.CONTAINERKEY,
+s1.F01,
+s1.F02,
+s1.F03,
+s1.F04,
+s1.F05,
+s1.F06,
+s1.F08,
+s1.F09,
+s1.F10,
+s1.F11,
+s1.F12,
+s1.F13,
+s1.F15,
+s1.F16,
+s1.F19,
+s1.F20,
+s6.order_key
+from
+ST_CONTAINER  s1,  --查箱/柜
+ST_CONTAINERD s2, --- 查托盘
+SP_PALLETS s3,
+SP_PALLET_BOXES s4, --箱
+SP_PACK_BOXES s5,  ---装箱
+sp_pack_orders s6,  ---订单
+sp_pack_items s7,---扫描明细
+wh25.orders s8--,wh25.orderdetail s9,
+--wh25.St_Orderdetail_Extend s10
+where 1=1
+and s1.CONTAINERKEY = s2.CONTAINERKEY
+and s2.orderkey = s3.pallet_num
+and s3.id = s4.pallet_id
+and s4.box_id = s5.id
+and s5.order_id = s6.id
+and s5.id = s7.box_id
+and s6.id = s7.order_id
+and s4.box_id = s7.box_id
+and s6.order_key = s8.orderkey
+and s1.CONTAINERKEY = 'ZCSU8755092'");
+            var orderDt = cc.ExecuteToDataTable(sql);
+            sql = string.Format(@"select spi.sku, sum(spi.qty) as shpqty
+                                  from sp_pack_items   spi,
+                                       sp_pallet_boxes spb,
+                                       sp_pallets      sp,
+                                       st_containerd   sc
+                                 where 1 = 1
+                                   and sc.orderkey = sp.pallet_num
+                                   and sp.id = spb.pallet_id
+                                   and spb.box_id = spi.box_id
+                                   and sc.containerkey = 'ZCSU8755092'
+            group by spi.sku");
+            var qtyDt = cc.ExecuteToDataTable(sql);
+            var strSql = string.Empty;
+            for(var i = 0; i < orderDt.Rows.Count; i++)
+            {
+                var orderkey = orderDt.Rows[i]["order_key"].ToString();
+                var sqlTemp = string.Format(@"select distinct s8.orderkey,s9.sku from wh25.orders s8,wh25.orderdetail s9
+                    where s8.orderkey = s9.orderkey and s8.orderkey = '{0}'", orderkey);
+                strSql += strSql.Length > 0 ? (" union " + sqlTemp) : sqlTemp;
+            }
+            var skuDt = cc.ExecuteToDataTable(strSql);
+            var dtSkuClone = skuDt.Clone();
+            for(var r = 0; r < qtyDt.Rows.Count; r++)
+            {
+                var sku = qtyDt.Rows[r]["sku"].ToString();                
+                DataRow[] rows = skuDt.Select("SKU = '" + sku + "'");
+                foreach(DataRow dr in rows)
+                {
+                    DataRow row = dtSkuClone.NewRow();
+                    row["orderkey"] = dr["orderkey"].ToString();
+                    row["SKU"] = dr["SKU"].ToString();
+                    dtSkuClone.Rows.Add(row);
+                }
+            }
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            TestAAA();
+
+            string aaaa = "Provider=MSDAORA.1;Password=sta_ilis;User ID=sta_ilis;Data Source=PROD";
+            string sql = string.Format(@"
+                
+select 
+distinct 
+s1.CONTAINERKEY,
+s1.F01,
+s1.F02,
+s1.F03,
+s1.F04,
+s1.F05,
+s1.F06,
+s1.F08,
+s1.F09,
+s1.F10,
+s1.F11,
+s1.F12,
+s1.F13,
+s1.F15,
+s1.F16,
+s1.F19,
+s1.F20,
+s6.order_key,
+s7.sku,
+--wh25.f_split(s10.EXTEND03, '|+|', 4) as RetailPrice,
+sum(s7.qty) as shpqty
+from
+ST_CONTAINER  s1,  --查箱/柜
+ST_CONTAINERD s2, --- 查托盘
+SP_PALLETS s3,
+SP_PALLET_BOXES s4, --箱
+SP_PACK_BOXES s5,  ---装箱
+sp_pack_orders s6,  ---订单
+sp_pack_items s7,---扫描明细
+wh25.orders s8--,wh25.orderdetail s9--,
+--wh25.St_Orderdetail_Extend s10
+where 1=1
+and s1.CONTAINERKEY = s2.CONTAINERKEY
+and s2.orderkey = s3.pallet_num
+and s3.id = s4.pallet_id
+and s4.box_id = s5.id
+and s5.order_id = s6.id
+and s5.id = s7.box_id
+and s6.id = s7.order_id
+and s4.box_id = s7.box_id
+and s6.order_key = s8.orderkey
+--and s8.orderkey = s9.orderkey
+/*and s6.order_key = s9.orderkey
+and s9.orderkey = s10.orderkey
+and s9.orderlinenumber = s10.orderlinenumber
+and s7.sku = s9.sku*/
+and s1.CONTAINERKEY = 'ZCSU8755092'
+group by 
+s1.CONTAINERKEY,
+s1.F01,
+s1.F02,
+s1.F03,
+s1.F04,
+s1.F05,
+s1.F06,
+s1.F08,
+s1.F09,
+s1.F10,
+s1.F11,
+s1.F12,
+s1.F13,
+s1.F15,
+s1.F16,
+s1.F19,
+s1.F20,
+s6.order_key,
+--s8.externorderkey,
+s7.sku");
+            EntDB cc = new EntDB(aaaa);
+            var dt = cc.ExecuteToDataTable(sql);
+            var dtNew = CloneDatatale(dt);
+
+            sql = doSth(dt);
+            var dtSku = cc.ExecuteToDataTable(sql);
+
+        }
+
+        public DataTable CloneDatatale(DataTable dt)
+        {
+            var dtNew = dt.Clone();
+            dtNew.Columns.Add("ORIGIN");
+            dtNew.Columns.Add("EXTEND02");
+            dtNew.Columns.Add("EXTERNALRECEIPTKEY2");
+            //dtNew.Columns.Add("SKU");
+            dtNew.Columns.Add("ItemDesc");
+            //dtNew.Columns.Add("shpqty");
+            dtNew.Columns.Add("cartons");
+            dtNew.Columns.Add("CBMS");
+            dtNew.Columns.Add("KGS");
+            dtNew.Columns.Add("LOTTABLE09");
+            dtNew.Columns.Add("invoiceNumber");
+            dtNew.Columns.Add("RetailPrice");
+            dtNew.Columns.Add("invoiceAmount");
+            dtNew.Columns.Add("freightCharge");
+            dtNew.Columns.Add("sum_shpqty");
+            dtNew.Columns.Add("sum_CBMS");
+            dtNew.Columns.Add("sum_kgs");
+            return dtNew;
+        }
+
+        public string doSth(DataTable dt)
+        {
+            var sql = string.Empty;
+            foreach (DataRow dr in dt.Rows)
+            {
+                var orderkey = dr["order_key"].ToString();
+                var sku = dr["sku"].ToString();
+                var sqlTemp = string.Format(@"
+select 
+s11.STDGROSSWGT,
+s11.STDCUBE,
+wh25.f_split(s10.EXTEND03, '|+|', 4) as RetailPrice,
+s13.lottable09,
+s13.lottable10
+from 
+wh25.orders s8,
+wh25.orderdetail s9,
+wh25.St_Orderdetail_Extend s10,
+wh25.sku s11,
+wh25.pickdetail s12,
+wh25.lotattribute s13
+where s8.orderkey = s9.orderkey
+and s9.orderkey = s10.orderkey
+and s9.orderlinenumber = s10.orderlinenumber
+and s9.sku = s11.sku
+and s8.storerkey = s11.storerkey
+and s9.orderkey = s12.orderkey
+and s9.orderlinenumber = s12.orderlinenumber
+and s9.sku = s12.sku
+and s12.lot = s13.lot
+and s12.sku = s13.sku
+and s12.storerkey =s13.storerkey
+and s8.orderkey = '{0}'
+and s9.sku='{1}'", orderkey, sku);
+                sql += sql.Length > 0 ? (" union " + sqlTemp) : sqlTemp;
+                //var dtSku = cc.ExecuteToDataTable(sql);
+                //foreach (DataRow dr1 in dtSku.Rows)
+                //{
+                //    DataRow row = dtNew.NewRow();
+                //    var receiptKey = dr1["lottable10"].ToString();
+                //    //var sku = dr1["sku"].ToString();
+                //    sql = string.Format(@"select b1.externalreceiptkey2,b3.extend02,b4.extend06 from 
+                //        WH25.RECEIPT b1,WH25.RECEIPTDETAIL b2,WH25.ST_RECEIPT_EXTEND b3,WH25.ST_RECEIPTDETAIL_EXTEND b4
+                //        where b1.receiptkey = b2.receiptkey
+                //        and b1.receiptkey = b3.receiptkey
+                //        and b2.receiptkey = b4.receiptkey
+                //        and b2.receiptlinenumber = b4.receiptlinenumber
+                //        and b1.receiptkey = '{0}'
+                //        and b2.sku = '{1}'", receiptKey, sku);
+                //    DataTable skuTable = cc.ExecuteToDataTable(sql);
+                //    row["CONTAINERKEY"] = dr["CONTAINERKEY"].ToString();
+                //    row["F01"] = dr["F01"].ToString();
+                //    row["F02"] = dr["F02"].ToString();
+                //    row["F03"] = dr["F03"].ToString();
+                //    row["F05"] = dr["F05"].ToString();
+                //    row["F06"] = dr["F06"].ToString();
+                //    row["F08"] = dr["F08"].ToString();
+                //    row["F09"] = dr["F09"].ToString();
+                //    row["F10"] = dr["F10"].ToString();
+                //    row["F11"] = dr["F11"].ToString();
+                //    row["F12"] = dr["F12"].ToString();
+                //    row["F13"] = dr["F13"].ToString();
+                //    row["F15"] = dr["F15"].ToString();
+                //    row["F16"] = dr["F16"].ToString();
+                //    row["F19"] = dr["F19"].ToString();
+                //    row["F20"] = dr["F20"].ToString();
+                //    row["ORIGIN"] = "Shenzhen";
+                //    row["EXTEND02"] = skuTable.Rows[0]["EXTEND02"].ToString();
+                //    row["EXTERNALRECEIPTKEY2"] = skuTable.Rows[0]["EXTERNALRECEIPTKEY2"].ToString();
+                //    row["SKU"] = sku;
+                //    row["ItemDesc"] = skuTable.Rows[0]["EXTEND06"].ToString();
+                //    row["shpqty"] = dr["shpqty"].ToString();
+                //    row["cartons"] = "0";
+                //    //CBMS
+                //    //KGS
+                //    row["LOTTABLE09"] = dr1["LOTTABLE09"].ToString();
+                //    row["invoiceNumber"] = "IN0810240A";
+                //    row["RetailPrice"] = dr1["RetailPrice"].ToString();
+                //    //row["invoiceAmount"] = "0";
+                //    row["freightCharge"] = "0.00";
+                //    row["sum_shpqty"] = "";
+                //    row["sum_CBMS"] = "";
+                //    row["sum_kgs"] = "";
+                //    dtNew.Rows.Add(row);
+                //}
+            }
+            return sql;
+        } 
+
+        public void Test(DataTable dt)
+        {
+            int sid = dt.Rows.Count % 1000 == 0 ? (dt.Rows.Count / 1000) : (dt.Rows.Count / 1000 + 1);
+            for (int i = 1; i <= sid; i++)
+            {
+                ThreadParam threadParam = new ThreadParam();
+                threadParam.startindex = Convert.ToInt32(i.ToString());
+                threadParam.limitstep = Convert.ToInt32(sid.ToString());
+                threadParam.data = dt;
+                ThreadPool.QueueUserWorkItem(todo, threadParam);
+            }
+
+            //int rowCount = dt.Rows.Count;
+            //int threadCount = dt.Rows.Count % 1000 == 0 ? (dt.Rows.Count / 1000) : (dt.Rows.Count / 1000 + 1);
+            //for (int i = 0; i < threadCount; i++)
+            //{
+            //    int start = i * threadCount;
+            //    int end = (i == threadCount - 1) ? rowCount - 1 : start + threadCount;
+            //    Thread thread = new Thread(new ThreadStart(
+            //        () => Run(start, end, dt)));
+
+            //    thread.Start();
+            //}
+
+        }
+        public void todo(object aa)
+        {
+            ThreadParam param = aa as ThreadParam;
+            var startindex = param.startindex;
+            var limitstep = param.limitstep;
+            var dt = param.data;
+            for (int i = (startindex > 1 ? ((startindex - 1) * 1000) : 0); i < (startindex == limitstep ? (dt.Rows.Count) : startindex * 1000); i++)
+            {
+                //todo数据操作
+                var dtNew = doSth(dt);
+                var aaaaa = string.Empty;
+            }
+            Thread.Sleep(2000);
+        }
+
+
+        public void Run(int start, int end, DataTable table)
+        {
+            for (int i = start; i <= end; i++)
+            {
+                var dataRow = table.Rows[i];
+
+                dataRow["Type"] = 1;
+                string email = dataRow["Email"].ToString();
+                //......
+            }
+        }
     }   
-    
+
+    public class ThreadParam
+    {
+        public int startindex { get; set; }
+        public int limitstep { get; set; }
+        public DataTable data { get; set; }
+    }
+
+
 }

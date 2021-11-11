@@ -138,7 +138,7 @@ namespace Biz
             DataSet data;
             try
             {
-                WriteLog(strSQL);
+                //WriteLog(strSQL);
 
                 cmd = new OleDbCommand(strSQL, m_oConn);
                 dap = new OleDbDataAdapter(cmd);
@@ -148,7 +148,7 @@ namespace Biz
             }
             catch (Exception ex)
             {
-                WriteLog(strSQL + "+|+" + ex.Message);
+                //WriteLog(strSQL + "+|+" + ex.Message);
                 throw new Exception("GetDataTableFail");
             }
             finally

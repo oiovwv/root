@@ -58,7 +58,7 @@ public class PostBase
 		{
 			WebClient web = new WebClient();
 			byte[] byRemoteInfo = web.UploadValues("http://10.205.200.28:9527/api/OSR/" + actionName, "POST", VarPost);
-            //byte[] byRemoteInfo = web.UploadValues("http://123.58.54.50:9527/api/OSR/" + actionName, "POST", VarPost);
+            //byte[] byRemoteInfo = web.UploadValues("http://localhost:11379/api/OSR/" + actionName, "POST", VarPost);
             return Encoding.UTF8.GetString(byRemoteInfo);
 		}
 		catch (Exception ex)

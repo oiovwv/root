@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:tns="http://ws.apache.org/axis2/services/SVCUserManager/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns="http://inca.com" xmlns:ns1="http://org.apache.axis2/xsd" targetNamespace="http://ws.apache.org/axis2/services/SVCUserManager/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:documentation>erpservice</wsdl:documentation>
+  <wsdl:types>
+    <xs:schema attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://inca.com">
+      <xs:element name="incaWs">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="type" nillable="true" type="xs:string" />
+            <xs:element minOccurs="0" name="jsonstr" nillable="true" type="xs:string" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="incaWsResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="return" nillable="true" type="xs:string" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:schema>
+  </wsdl:types>
+  <wsdl:message name="incaWsRequest">
+    <wsdl:part name="parameters" element="ns:incaWs" />
+  </wsdl:message>
+  <wsdl:message name="incaWsResponse">
+    <wsdl:part name="parameters" element="ns:incaWsResponse" />
+  </wsdl:message>
+  <wsdl:portType name="erpservicePortType">
+    <wsdl:operation name="incaWs">
+      <wsdl:input wsaw:Action="urn:incaWs" message="tns:incaWsRequest" />
+      <wsdl:output wsaw:Action="urn:incaWsResponse" message="tns:incaWsResponse" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="erpserviceSoap11Binding" type="tns:erpservicePortType">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="incaWs">
+      <soap:operation soapAction="urn:incaWs" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="erpserviceSoap12Binding" type="tns:erpservicePortType">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="incaWs">
+      <soap12:operation soapAction="urn:incaWs" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="erpserviceHttpBinding" type="tns:erpservicePortType">
+    <http:binding verb="POST" />
+    <wsdl:operation name="incaWs">
+      <http:operation location="incaWs" />
+      <wsdl:input>
+        <mime:content part="parameters" type="application/xml" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="parameters" type="application/xml" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="erpservice">
+    <wsdl:port name="erpserviceHttpSoap11Endpoint" binding="tns:erpserviceSoap11Binding">
+      <soap:address location="http://47.103.1.140:8085/webservice/services/erpservice.erpserviceHttpSoap11Endpoint/" />
+    </wsdl:port>
+    <wsdl:port name="erpserviceHttpSoap12Endpoint" binding="tns:erpserviceSoap12Binding">
+      <soap12:address location="http://47.103.1.140:8085/webservice/services/erpservice.erpserviceHttpSoap12Endpoint/" />
+    </wsdl:port>
+    <wsdl:port name="erpserviceHttpEndpoint" binding="tns:erpserviceHttpBinding">
+      <http:address location="http://47.103.1.140:8085/webservice/services/erpservice.erpserviceHttpEndpoint/" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
