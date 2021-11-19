@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
@@ -347,6 +349,89 @@ namespace Biz
                 return ds;
             }
             throw new Exception("第一个表格没有订单");
+        }
+
+        public static string ModelToJson<T>(T model)
+        {
+            return JsonConvert.SerializeObject(model,
+                new JsonSerializerSettings
+                {
+                    ContractResolver = new SortContractResolver(),
+                    StringEscapeHandling = StringEscapeHandling.Default
+                });
+
+            //NullValueHandling = NullValueHandling.Ignore    排除空值设置
+        }
+        public class SortContractResolver : DefaultContractResolver
+        {
+            protected override IList<JsonProperty> CreateProperties(Type type, MemberSerialization memberSerialization)
+            {
+                IList<JsonProperty> properties = base.CreateProperties(type, memberSerialization);
+
+                return properties.OrderBy(x => x.PropertyName).ToList();
+            }
+        }
+
+        public static string ModelToJsonA<T>(T model)
+        {
+            JsonSerializer serializer = new JsonSerializer();
+            StringWriter sw = new StringWriter();
+            serializer.Serialize(new JsonTextWriter(sw), model);
+            return sw.GetStringBuilder().ToString();
+        }
+
+        public static string Post(string postdata, string url)
+        {
+            //var baseUrl = "http://120.79.157.84:30001";
+            HttpWebResponse hw;
+            string result = string.Empty;
+            HttpWebRequest req = (HttpWebRequest)WebRequest.Create(url);
+            req.Method = "POST";
+            req.ContentType = "application/json";
+            
+
+
+            var appkey = "11000";
+            var format = "json";
+            var timestamp = "12345672333";
+            var method = "open.api.openCommon.queryPublicRoute";
+            var sign = "CF529FFB8B49499EC30BE2C29C02AE67";
+            var token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9";
+
+            req.Headers.Add("appkey", appkey);
+            req.Headers.Add("format", format);
+            req.Headers.Add("timestamp", timestamp);
+            req.Headers.Add("method", method);
+            req.Headers.Add("sign", sign);
+            req.Headers.Add("token", token);
+
+            #region 添加Post 参数  
+            byte[] data = Encoding.UTF8.GetBytes(postdata);
+            req.ContentLength = data.Length;
+            using (Stream reqStream = req.GetRequestStream())
+            {
+                reqStream.Write(data, 0, data.Length);//将post对象放入请求流中
+                reqStream.Close();
+            }
+            #endregion
+            try
+            {
+                HttpWebResponse resp = (HttpWebResponse)req.GetResponse();
+                Stream stream = resp.GetResponseStream();
+                //获取响应内容  
+                using (StreamReader reader = new StreamReader(stream, Encoding.UTF8))
+                {
+                    result = reader.ReadToEnd();
+                }
+            }
+            catch (WebException w)
+            {
+                hw = (HttpWebResponse)w.Response;
+                StreamReader sr = new StreamReader(hw.GetResponseStream(), Encoding.UTF8, false);
+                result = sr.ReadToEnd();
+            }
+
+            return result;
         }
     }
 }

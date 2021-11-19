@@ -1257,7 +1257,18 @@ and s9.sku='{1}'", orderkey, sku);
                 //......
             }
         }
-    }   
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            var url = "https://open.ky-express.com/sandbox/router/rest";
+            var dto = new RequestOSRDto();
+            List<string> waybillNumbers = new List<string>();
+            waybillNumbers.Add("80009802184");
+            dto.waybillNumbers = waybillNumbers;
+            var str = CommonFunction.ModelToJsonA(dto);
+            var res = CommonFunction.Post(str, url);
+        }
+    }
 
     public class ThreadParam
     {

@@ -11,4 +11,10 @@ namespace Biz.Models
         public bool success { get; set; }
         public T result { get; set; }
     }
+
+    public class RequestOSRDto
+    {
+        public List<string> waybillNumbers { get; set; }
+        public List<string> productCodes { get; set; }
+    }
 }

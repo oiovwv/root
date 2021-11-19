@@ -306,12 +306,13 @@ namespace Import
             var c = 28;
             for (var i = 1; i < 2; i++)
             {
-                string sql = string.Format(@"select spo.id as order_id,spb.id as box_id from sp_pack_orders spo,sp_pack_boxes spb where spo.id = spb.order_id and spo.order_key = '{0}' and spb.box_sort = {1}", "0000178783", i);
+                string sql = string.Format(@"select spo.id as order_id,spb.id as box_id 
+                from sp_pack_orders spo,sp_pack_boxes spb where spo.id = spb.order_id and spo.order_key = '{0}' and spb.box_sort = {1}", "0000176509", i);
                 DataTable d = cc.ExecuteToDataTable(sql);
                 string orderId = d.Rows[0]["ORDER_ID"].ToString();
                 string boxId = d.Rows[0]["BOX_ID"].ToString();
 
-                string sku = "655231-0-1";
+                string sku = "655033-0-1";
                 for (var r = 0; r < 1; r++)
                 {
                     string ssql = string.Format(@"INSERT INTO SP_PACK_ITEMS(ID, ORDER_ID, BOX_ID, SKU, QTY, WHO_ADD) VALUES('{0}','{1}','{2}','{3}','{4}','{5}')", Guid.NewGuid(), orderId, boxId, sku, "1", "TEST11");
