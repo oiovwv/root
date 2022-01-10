@@ -278,24 +278,28 @@ namespace Import
         //}
         void InsertFileName()
         {
-            List<string> sqlArr = new List<string>();
-            string fileName = "cpo202110251183.csv";
-            fileName = fileName.ToUpper();
-            string sssql = string.Format(@"SELECT OMS_NO 
+            for(var i = 1194; i < 1211; i++)
+            {
+                List<string> sqlArr = new List<string>();
+                string fileName = "cpo20211216" + i + ".csv";
+                fileName = fileName.ToUpper();
+                string sssql = string.Format(@"SELECT OMS_NO 
                               FROM OMS_ORDER_HEAD S 
                              WHERE 1 = 1 
                                AND S.CLIENT_C = 'JOS'
                                AND S.ORIGIN_FILE_NAME = '{0}'
                              ORDER BY S.OMS_NO DESC", fileName);
-            DataTable dtaa = dB.ExecuteToDataTable(sssql);
-            sqlArr.Clear();
-            foreach (DataRow dra in dtaa.Rows)
-            {
-                sssql = string.Format(@"INSERT INTO T_TMP_JOS(OMS_NO,CPO_FILENAME) VALUES('{0}','{1}')", dra["OMS_NO"].ToString(), fileName);
-                sqlArr.Add(sssql);
+                DataTable dtaa = dB.ExecuteToDataTable(sssql);
+                sqlArr.Clear();
+                foreach (DataRow dra in dtaa.Rows)
+                {
+                    sssql = string.Format(@"INSERT INTO T_TMP_JOS(OMS_NO,CPO_FILENAME) VALUES('{0}','{1}')", dra["OMS_NO"].ToString(), fileName);
+                    sqlArr.Add(sssql);
+                }
+                var a = cc.DoTran(sqlArr.ToArray());
+                var ssss = "";
             }
-            var a = cc.DoTran(sqlArr.ToArray());
-            var ssss = "";
+            
         }
 
         void InsertScanItem()
@@ -307,12 +311,12 @@ namespace Import
             for (var i = 1; i < 2; i++)
             {
                 string sql = string.Format(@"select spo.id as order_id,spb.id as box_id 
-                from sp_pack_orders spo,sp_pack_boxes spb where spo.id = spb.order_id and spo.order_key = '{0}' and spb.box_sort = {1}", "0000176509", i);
+                from sp_pack_orders spo,sp_pack_boxes spb where spo.id = spb.order_id and spo.order_key = '{0}' and spb.box_sort = {1}", "0000185549", i);
                 DataTable d = cc.ExecuteToDataTable(sql);
                 string orderId = d.Rows[0]["ORDER_ID"].ToString();
                 string boxId = d.Rows[0]["BOX_ID"].ToString();
 
-                string sku = "655033-0-1";
+                string sku = "546950-0-8";
                 for (var r = 0; r < 1; r++)
                 {
                     string ssql = string.Format(@"INSERT INTO SP_PACK_ITEMS(ID, ORDER_ID, BOX_ID, SKU, QTY, WHO_ADD) VALUES('{0}','{1}','{2}','{3}','{4}','{5}')", Guid.NewGuid(), orderId, boxId, sku, "1", "TEST11");
@@ -333,7 +337,7 @@ namespace Import
             //InsertFileName();
             InsertScanItem();
 
-            UpdateOriginQty();
+            //UpdateOriginQty();
 
 
 
@@ -356,7 +360,7 @@ namespace Import
                 foreach (DataRow dr in ds.Tables[0].Rows)
                 {
 
-                    sql2 = string.Format(@"select oms_no from oms_order_head where client_order_no = '{0}' and Customer_Po_No = '{1}'", dr[1].ToString(), dr[0].ToString());
+                    sql2 = string.Format(@"select oms_no from oms_order_head where client_order_no = '{0}' and Customer_Po_No = '{1}'", dr[2].ToString(), dr[0].ToString());
                     DataTable dt = dB.ExecuteToDataTable(sql2);
                     if (dt.Rows.Count > 0)
                     {
@@ -366,7 +370,7 @@ namespace Import
                         dt = cc.ExecuteToDataTable(sql2);
                         var receiptKey = dt.Rows[0][0].ToString();
                         //var date = FormatDate(dr[1].ToString());
-                        sql2 = string.Format("update WH25.RECEIPTDETAIL set QTYEXPECTED ='{0}' WHERE RECEIPTKEY = '{1}' and sku='{2}'", dr[3].ToString(), receiptKey, dr[2].ToString());
+                        sql2 = string.Format("update WH25.RECEIPTDETAIL set QTYEXPECTED ='{0}' WHERE RECEIPTKEY = '{1}' and sku='{2}'", dr[3].ToString(), receiptKey, dr[1].ToString());
                         sqlList.Add(sql2);
                     }
 

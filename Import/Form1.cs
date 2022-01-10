@@ -1,6 +1,7 @@
 ﻿using Biz;
 using Biz.Models;
 using Newtonsoft.Json;
+using OSR_OrderTracking.Models;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -1267,6 +1268,259 @@ and s9.sku='{1}'", orderkey, sku);
             dto.waybillNumbers = waybillNumbers;
             var str = CommonFunction.ModelToJsonA(dto);
             var res = CommonFunction.Post(str, url);
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            var aaaaa = "22|+||+|687892-0-1|+|";
+            var sss = aaaaa.Split(new string[] { "|+|"}, StringSplitOptions.None);
+
+            //var path = CommonFunction.ChooseFile();
+            //var ds = CommonFunction.ReadUperExcelFileToDataSet(path, 1, 60, "Sheet1");
+
+            ExteriorRoute route = new ExteriorRoute();
+            route.waybillNumber = "KY5000020045120";
+            route.omsNo = "AAAAAA";            
+            //route.clientOrderNo = "TPA99971435201";
+            //route.ref_h_01 = "4545554";
+            //route.ref_h_02 = "asfasf";
+            //route.ref_h_03 = "5698awfa";
+            //route.ref_h_04 = "23511~~!!!!";
+            //route.ref_h_05 = "///////";
+            route.timestamp = DateTime.Now.ToString("yyyyMMddHH");
+            var dt = CreateWmsData();
+            List<ExteriorRouteListItem> items = new List<ExteriorRouteListItem>();
+            var column = 39;
+            //for (var i = 0; i < 5; i++)
+            //{
+            //    ExteriorRouteListItem item = new ExteriorRouteListItem();
+            //    item.id = i + 1;
+            //    item.routeStep = ds.Tables[0].Rows[0][column + 1].ToString().Replace("'", "");
+            //    item.routeDescription = ds.Tables[0].Rows[0][column + 1].ToString().Replace("'", "");
+            //    item.uploadDate = ds.Tables[0].Rows[0][column].ToString().Replace("'", "");
+            //    //item.city = dr[4].ToString();
+            //    //item.address = dr[5].ToString();
+            //    //item.carInfo = dr[6].ToString();
+            //    //item.intransitInfo = dr[7].ToString();
+            //    //item.ref_d_01 = dr[8].ToString();
+            //    //item.ref_d_02 = dr[9].ToString();
+            //    //item.ref_d_03 = dr[10].ToString();
+            //    //item.ref_d_04 = dr[11].ToString();
+            //    //item.ref_d_05 = dr[12].ToString();
+
+
+            //    column += 2;
+            //    if (!string.IsNullOrEmpty(item.uploadDate))
+            //    {
+            //        items.Add(item);
+            //    }
+            //}
+            foreach (DataRow dr in dt.Rows)
+            {
+                ExteriorRouteListItem item = new ExteriorRouteListItem();
+                item.id = int.Parse(dr[0].ToString());
+                item.routeStep = dr[1].ToString();
+                item.routeDescription = dr[2].ToString();
+                item.uploadDate = dr[3].ToString();
+                item.city = dr[4].ToString();
+                item.address = dr[5].ToString();
+                item.carInfo = dr[6].ToString();
+                item.intransitInfo = dr[7].ToString();
+                item.ref_d_01 = dr[8].ToString();
+                item.ref_d_02 = dr[9].ToString();
+                item.ref_d_03 = dr[10].ToString();
+                item.ref_d_04 = dr[11].ToString();
+                item.ref_d_05 = dr[12].ToString();
+                items.Add(item);
+            }
+            route.exteriorRouteList = items;
+            List<ExteriorRoute> dto = new List<ExteriorRoute>();
+            dto.Add(route);
+            var str = CommonFunction.ModelToJsonA(dto);
+            string appkey = "OSREdiUser";
+            string appsecret = "2021OSR12";
+            var timestamp = route.timestamp;
+            string myAccessToken = appkey + timestamp + appsecret;
+            var accesstoken = encryptMD5(myAccessToken);
+            var url = "http://wp.tgl.tollgroup.com/Search/UploadTrackRoute?appkey=" + appkey + "&appsecret=" + accesstoken;
+            url= "http://localhost:7812/Search/UploadTrackRoute?appkey=" + appkey + "&appsecret=" + accesstoken;
+            //var url=""
+            var res = CommonFunction.Post(str, url);
+            var aaa = "";
+
+        }
+        public string encryptMD5(string data)
+        {
+            using (MD5 mi = MD5.Create())
+            {
+                byte[] buffer = Encoding.UTF8.GetBytes(data);
+                //开始加密
+                byte[] newBuffer = mi.ComputeHash(buffer);
+                StringBuilder sb = new StringBuilder();
+                for (int i = 0; i < newBuffer.Length; i++)
+                {
+                    sb.Append(newBuffer[i].ToString("x2"));
+                }
+                return sb.ToString();
+            }
+        }
+        private DataTable CreateWmsData()
+        {
+            DataTable dt = new DataTable();
+            dt.Columns.Add("id", typeof(int));
+            dt.Columns.Add("routeStep", typeof(string));
+            dt.Columns.Add("routeDescription", typeof(string));
+            dt.Columns.Add("uploadDate", typeof(string));
+            dt.Columns.Add("city", typeof(string));
+            dt.Columns.Add("address", typeof(string));
+            dt.Columns.Add("carInfo", typeof(string));
+            dt.Columns.Add("intransitInfo", typeof(string));
+            dt.Columns.Add("ref_d_01", typeof(string));
+            dt.Columns.Add("ref_d_02", typeof(string));
+            dt.Columns.Add("ref_d_03", typeof(string));
+            dt.Columns.Add("ref_d_04", typeof(string));
+            dt.Columns.Add("ref_d_05", typeof(string));
+
+
+
+            //dt.Rows.Add(new object[] { "OSRE080706600", "AA3094602DC", "540", "540", "540", "0", "0", "1" });
+            //dt.Rows.Add(new object[] { "OSRE080689500", "AB3591101DC", "280", "280", "280", "0", "0", "2" });
+
+            dt.Rows.Add(new object[] { 100, "签收完毕", "快件已由李四签收", "2021-12-14 15:49:18", "深圳市", "花样年美年广场", "车牌4445", "空", "2021-12-16 00:00:00", "", "", "", "" });
+            //dt.Rows.Add(new object[] { 4, "交接扫描（取）", "快件已装入客户处，准备送往跨越专车", "2019-05-07 20:24:14", "广州", "大沙地", "车牌4445", "中转", "dd1", "dd2", "dd3", "dd4", "dd5" });
+
+            return dt;
+        }
+
+        private void button8_Click(object sender, EventArgs e)
+        {
+            //var path = CommonFunction.ChooseFile();
+
+            var sql = string.Format(@"
+SELECT ORDERS.ORDERKEY,
+       ORDERS.STORERKEY,
+       ORDERS.EXTERNORDERKEY,
+       ORDERS.CONSIGNEEKEY,
+       ORDERS.C_COMPANY,
+       ORDERS.C_ADDRESS1,
+       ORDERS.EXTERNALORDERKEY2,
+       ORDERDETAIL.EXTERNORDERKEY,
+       ORDERDETAIL.EXTERNLINENO,
+       ORDERDETAIL.SKU,
+       ORDERDETAIL.SUSR1,
+       ST_ORDERS_EXTEND.EXTEND01,
+       ST_ORDERS_EXTEND.EXTEND03,
+       ST_ORDERS_EXTEND.EXTEND04,
+       ST_ORDERS_EXTEND.EXTEND07,
+       ST_ORDERS_EXTEND.EXTEND08,
+       ST_ORDERDETAIL_EXTEND.EXTEND01 as A,
+       PICKDETAIL.QTY,
+       PICKDETAIL.LOC,
+       SKU.SUSR2,
+       SKU.STDGROSSWGT,
+       SKU.STDCUBE,
+       SKU.BUSR4
+  FROM WH25.ORDERS@wms                ORDERS,
+       WH25.ORDERDETAIL@wms         ORDERDETAIL,
+       WH25.ST_ORDERS_EXTEND@wms      ST_ORDERS_EXTEND,
+       WH25.ST_ORDERDETAIL_EXTEND@wms ST_ORDERDETAIL_EXTEND,
+       WH25.PICKDETAIL@wms            PICKDETAIL,
+       WH25.SKU@wms                   SKU
+ WHERE ORDERS.ORDERKEY = ORDERDETAIL.ORDERKEY
+   AND ORDERS.ORDERKEY = ST_ORDERS_EXTEND.ORDERKEY
+   AND ORDERDETAIL.ORDERKEY = ST_ORDERDETAIL_EXTEND.ORDERKEY
+   AND ORDERDETAIL.ORDERLINENUMBER = ST_ORDERDETAIL_EXTEND.ORDERLINENUMBER
+   AND ORDERDETAIL.ORDERKEY = PICKDETAIL.ORDERKEY
+   AND ORDERDETAIL.ORDERLINENUMBER = PICKDETAIL.ORDERLINENUMBER
+   AND PICKDETAIL.STORERKEY = SKU.STORERKEY
+   AND PICKDETAIL.SKU = SKU.SKU
+   AND ORDERS.STORERKEY = 'JOS'
+   AND ORDERS.ORDERKEY >= '0000183950'
+   and ORDERS.ORDERKEY <= '0000184160'
+----0000183898 - 0000184672
+ ORDER BY ORDERDETAIL.EXTERNORDERKEY ASC, SKU.BUSR3 ASC");
+            var a = 0;
+            var orderkey = string.Empty;
+            //var ds = OpenCSV(path);
+            EntDB dB = new EntDB();
+            var dt = dB.ExecuteToDataTable(sql);
+            try
+            {
+                for(var i = 0; i < dt.Rows.Count; i++)
+                {
+                    orderkey = dt.Rows[i]["ORDERKEY"].ToString();
+                    var sssss = int.Parse(dt.Rows[i]["A"].ToString().Split(new string[] { "|+|" }, StringSplitOptions.None)[0]);
+                    a++;
+                }
+            }
+            catch(Exception ex)
+            {
+                var sss = "";
+            }
+            var ccccc = "";
+        }
+
+        public DataSet OpenCSV(string filePath)
+        {
+
+            DataSet ds = new DataSet();
+            DataTable dt = new DataTable();
+            FileStream fs = new FileStream(filePath, System.IO.FileMode.Open, System.IO.FileAccess.Read);
+
+            //StreamReader sr = new StreamReader(fs, Encoding.UTF8);
+            StreamReader sr = new StreamReader(fs, Encoding.GetEncoding("gb2312"));
+            //string fileContent = sr.ReadToEnd();
+            //encoding = sr.CurrentEncoding;
+            //记录每次读取的一行记录
+            string strLine = "";
+            //记录每行记录中的各字段内容
+            string[] aryLine = null;
+            string[] tableHead = null;
+            //标示列数
+            int columnCount = 0;
+            //标示是否是读取的第一行
+            bool IsFirst = true;
+            //逐行读取CSV中的数据
+            int a = 0;
+            while ((strLine = sr.ReadLine()) != null)
+            {
+                //strLine = Common.ConvertStringUTF8(strLine, encoding);
+                //strLine = Common.ConvertStringUTF8(strLine);
+
+                if (IsFirst == true)
+                {
+                    tableHead = strLine.Split(',');
+                    IsFirst = false;
+                    columnCount = tableHead.Length;
+                    //创建列
+                    for (int i = 0; i < columnCount; i++)
+                    {
+                        DataColumn dc = new DataColumn("Column_" + i);
+                        dt.Columns.Add(dc);
+                    }
+                }
+                else
+                {
+                    aryLine = strLine.Split(',');
+                    DataRow dr = dt.NewRow();
+                    for (int j = 0; j < columnCount; j++)
+                    {
+                        dr[j] = aryLine[j].Replace("\"", "");
+                    }
+                    dt.Rows.Add(dr);
+                }
+                a++;
+            }
+            //if (aryLine != null && aryLine.Length > 0)
+            //{
+            //    dt.DefaultView.Sort = tableHead[0] + " " + "asc";
+            //}
+
+            sr.Close();
+            fs.Close();
+            dt.TableName = "FileTable";
+            ds.Tables.Add(dt.Copy());
+            return ds;
         }
     }
 

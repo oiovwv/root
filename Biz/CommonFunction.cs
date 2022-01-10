@@ -391,19 +391,19 @@ namespace Biz
             
 
 
-            var appkey = "11000";
-            var format = "json";
-            var timestamp = "12345672333";
-            var method = "open.api.openCommon.queryPublicRoute";
-            var sign = "CF529FFB8B49499EC30BE2C29C02AE67";
-            var token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9";
+            //var appkey = "11000";
+            //var format = "json";
+            //var timestamp = "12345672333";
+            //var method = "open.api.openCommon.queryPublicRoute";
+            //var sign = "CF529FFB8B49499EC30BE2C29C02AE67";
+            //var token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9";
 
-            req.Headers.Add("appkey", appkey);
-            req.Headers.Add("format", format);
-            req.Headers.Add("timestamp", timestamp);
-            req.Headers.Add("method", method);
-            req.Headers.Add("sign", sign);
-            req.Headers.Add("token", token);
+            //req.Headers.Add("appkey", appkey);
+            //req.Headers.Add("format", format);
+            //req.Headers.Add("timestamp", timestamp);
+            //req.Headers.Add("method", method);
+            //req.Headers.Add("sign", sign);
+            //req.Headers.Add("token", token);
 
             #region 添加Post 参数  
             byte[] data = Encoding.UTF8.GetBytes(postdata);

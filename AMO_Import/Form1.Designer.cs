@@ -85,27 +85,12 @@
             this.粘贴新行ToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.dataGridView3 = new System.Windows.Forms.DataGridView();
-            this.s1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.s2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.s3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.s4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.s5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.s6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.s7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.s8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.s9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.s10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.s11 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.s12 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.s13 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.s14 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.s15 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.SCheck = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.contextMenuStrip3 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.导入库存信息ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.清空列表ToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.删除当天导入信息ToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.粘贴新行ToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.清空库存信息ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.dataGridView4 = new System.Windows.Forms.DataGridView();
             this.p1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -126,7 +111,22 @@
             this.清空列表ToolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
             this.删除当天导入信息ToolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
             this.粘贴新行ToolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
-            this.清空库存信息ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.s1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.s2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.s3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.s4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.s5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.s6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.s7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.s8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.s9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.s10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.s11 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.s12 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.s13 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.s14 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.s15 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.SCheck = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -150,18 +150,20 @@
             this.tabControl1.Controls.Add(this.tabPage4);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
+            this.tabControl1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(800, 450);
+            this.tabControl1.Size = new System.Drawing.Size(1067, 600);
             this.tabControl1.TabIndex = 0;
             // 
             // tabPage1
             // 
             this.tabPage1.Controls.Add(this.dataGridView1);
-            this.tabPage1.Location = new System.Drawing.Point(4, 22);
+            this.tabPage1.Location = new System.Drawing.Point(4, 25);
+            this.tabPage1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(792, 424);
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabPage1.Size = new System.Drawing.Size(1059, 571);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "入库数据导入";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -192,156 +194,194 @@
             this.ICheck});
             this.dataGridView1.ContextMenuStrip = this.contextMenuStrip1;
             this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView1.Location = new System.Drawing.Point(3, 3);
+            this.dataGridView1.Location = new System.Drawing.Point(4, 4);
+            this.dataGridView1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.RowHeadersWidth = 49;
             this.dataGridView1.RowTemplate.Height = 23;
-            this.dataGridView1.Size = new System.Drawing.Size(786, 418);
+            this.dataGridView1.Size = new System.Drawing.Size(1051, 563);
             this.dataGridView1.TabIndex = 0;
             // 
             // Column1
             // 
             this.Column1.HeaderText = "入库日期";
+            this.Column1.MinimumWidth = 6;
             this.Column1.Name = "Column1";
+            this.Column1.Width = 120;
             // 
             // Column2
             // 
             this.Column2.HeaderText = "入库类型";
+            this.Column2.MinimumWidth = 6;
             this.Column2.Name = "Column2";
+            this.Column2.Width = 120;
             // 
             // Column3
             // 
             this.Column3.HeaderText = "产品代码";
+            this.Column3.MinimumWidth = 6;
             this.Column3.Name = "Column3";
+            this.Column3.Width = 120;
             // 
             // Column4
             // 
             this.Column4.HeaderText = "产品名称";
+            this.Column4.MinimumWidth = 6;
             this.Column4.Name = "Column4";
+            this.Column4.Width = 120;
             // 
             // Column5
             // 
             this.Column5.HeaderText = "规格（型号）";
+            this.Column5.MinimumWidth = 6;
             this.Column5.Name = "Column5";
             this.Column5.Width = 120;
             // 
             // Column6
             // 
             this.Column6.HeaderText = "生产企业";
+            this.Column6.MinimumWidth = 6;
             this.Column6.Name = "Column6";
+            this.Column6.Width = 120;
             // 
             // Column7
             // 
             this.Column7.HeaderText = "产品注册证号/备案凭证号";
+            this.Column7.MinimumWidth = 6;
             this.Column7.Name = "Column7";
             this.Column7.Width = 300;
             // 
             // Column8
             // 
             this.Column8.HeaderText = "生产批号";
+            this.Column8.MinimumWidth = 6;
             this.Column8.Name = "Column8";
+            this.Column8.Width = 120;
             // 
             // Column9
             // 
             this.Column9.HeaderText = "序列号";
+            this.Column9.MinimumWidth = 6;
             this.Column9.Name = "Column9";
+            this.Column9.Width = 120;
             // 
             // Column10
             // 
             this.Column10.HeaderText = "生产日期";
+            this.Column10.MinimumWidth = 6;
             this.Column10.Name = "Column10";
+            this.Column10.Width = 120;
             // 
             // Column11
             // 
             this.Column11.HeaderText = "有效期";
+            this.Column11.MinimumWidth = 6;
             this.Column11.Name = "Column11";
+            this.Column11.Width = 120;
             // 
             // Column12
             // 
             this.Column12.HeaderText = "数量";
+            this.Column12.MinimumWidth = 6;
             this.Column12.Name = "Column12";
+            this.Column12.Width = 120;
             // 
             // Column13
             // 
             this.Column13.HeaderText = "单位";
+            this.Column13.MinimumWidth = 6;
             this.Column13.Name = "Column13";
+            this.Column13.Width = 120;
             // 
             // Column14
             // 
             this.Column14.HeaderText = "储运条件";
+            this.Column14.MinimumWidth = 6;
             this.Column14.Name = "Column14";
+            this.Column14.Width = 120;
             // 
             // Column15
             // 
             this.Column15.HeaderText = "入库贮存区货位号";
+            this.Column15.MinimumWidth = 6;
             this.Column15.Name = "Column15";
             this.Column15.Width = 150;
             // 
             // Column16
             // 
             this.Column16.HeaderText = "仓库名称";
+            this.Column16.MinimumWidth = 6;
             this.Column16.Name = "Column16";
+            this.Column16.Width = 120;
             // 
             // Column17
             // 
             this.Column17.HeaderText = "质量状态";
+            this.Column17.MinimumWidth = 6;
             this.Column17.Name = "Column17";
+            this.Column17.Width = 120;
             // 
             // IRemark
             // 
             this.IRemark.HeaderText = "备注";
+            this.IRemark.MinimumWidth = 6;
             this.IRemark.Name = "IRemark";
+            this.IRemark.Width = 120;
             // 
             // ICheck
             // 
             this.ICheck.HeaderText = "检查/更新结果";
+            this.ICheck.MinimumWidth = 6;
             this.ICheck.Name = "ICheck";
             this.ICheck.Width = 120;
             // 
             // contextMenuStrip1
             // 
+            this.contextMenuStrip1.ImageScalingSize = new System.Drawing.Size(19, 19);
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.导入入库信息ToolStripMenuItem,
             this.清空列表ToolStripMenuItem,
             this.删除当天导入信息ToolStripMenuItem,
             this.粘贴新行ToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(173, 92);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(199, 100);
             // 
             // 导入入库信息ToolStripMenuItem
             // 
             this.导入入库信息ToolStripMenuItem.Name = "导入入库信息ToolStripMenuItem";
-            this.导入入库信息ToolStripMenuItem.Size = new System.Drawing.Size(172, 22);
+            this.导入入库信息ToolStripMenuItem.Size = new System.Drawing.Size(198, 24);
             this.导入入库信息ToolStripMenuItem.Text = "导入入库信息";
             this.导入入库信息ToolStripMenuItem.Click += new System.EventHandler(this.导入入库信息ToolStripMenuItem_Click);
             // 
             // 清空列表ToolStripMenuItem
             // 
             this.清空列表ToolStripMenuItem.Name = "清空列表ToolStripMenuItem";
-            this.清空列表ToolStripMenuItem.Size = new System.Drawing.Size(172, 22);
+            this.清空列表ToolStripMenuItem.Size = new System.Drawing.Size(198, 24);
             this.清空列表ToolStripMenuItem.Text = "清空列表";
             this.清空列表ToolStripMenuItem.Click += new System.EventHandler(this.清空列表ToolStripMenuItem_Click);
             // 
             // 删除当天导入信息ToolStripMenuItem
             // 
             this.删除当天导入信息ToolStripMenuItem.Name = "删除当天导入信息ToolStripMenuItem";
-            this.删除当天导入信息ToolStripMenuItem.Size = new System.Drawing.Size(172, 22);
+            this.删除当天导入信息ToolStripMenuItem.Size = new System.Drawing.Size(198, 24);
             this.删除当天导入信息ToolStripMenuItem.Text = "删除当天导入信息";
             this.删除当天导入信息ToolStripMenuItem.Click += new System.EventHandler(this.删除当天导入信息ToolStripMenuItem_Click);
             // 
             // 粘贴新行ToolStripMenuItem
             // 
             this.粘贴新行ToolStripMenuItem.Name = "粘贴新行ToolStripMenuItem";
-            this.粘贴新行ToolStripMenuItem.Size = new System.Drawing.Size(172, 22);
+            this.粘贴新行ToolStripMenuItem.Size = new System.Drawing.Size(198, 24);
             this.粘贴新行ToolStripMenuItem.Text = "粘贴新行";
             this.粘贴新行ToolStripMenuItem.Click += new System.EventHandler(this.粘贴新行ToolStripMenuItem_Click);
             // 
             // tabPage2
             // 
             this.tabPage2.Controls.Add(this.dataGridView2);
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
+            this.tabPage2.Location = new System.Drawing.Point(4, 25);
+            this.tabPage2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(792, 424);
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabPage2.Size = new System.Drawing.Size(1059, 571);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "出库数据导入";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -373,160 +413,201 @@
             this.OCheck});
             this.dataGridView2.ContextMenuStrip = this.contextMenuStrip2;
             this.dataGridView2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView2.Location = new System.Drawing.Point(3, 3);
+            this.dataGridView2.Location = new System.Drawing.Point(4, 4);
+            this.dataGridView2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.dataGridView2.Name = "dataGridView2";
+            this.dataGridView2.RowHeadersWidth = 49;
             this.dataGridView2.RowTemplate.Height = 23;
-            this.dataGridView2.Size = new System.Drawing.Size(786, 418);
+            this.dataGridView2.Size = new System.Drawing.Size(1051, 563);
             this.dataGridView2.TabIndex = 0;
             // 
             // o1
             // 
             this.o1.HeaderText = "出库日期";
+            this.o1.MinimumWidth = 6;
             this.o1.Name = "o1";
+            this.o1.Width = 120;
             // 
             // o2
             // 
             this.o2.HeaderText = "出库类型";
+            this.o2.MinimumWidth = 6;
             this.o2.Name = "o2";
+            this.o2.Width = 120;
             // 
             // o3
             // 
             this.o3.HeaderText = "订单号码";
+            this.o3.MinimumWidth = 6;
             this.o3.Name = "o3";
+            this.o3.Width = 120;
             // 
             // o4
             // 
             this.o4.HeaderText = "产品代码";
+            this.o4.MinimumWidth = 6;
             this.o4.Name = "o4";
+            this.o4.Width = 120;
             // 
             // o5
             // 
             this.o5.HeaderText = "产品名称";
+            this.o5.MinimumWidth = 6;
             this.o5.Name = "o5";
+            this.o5.Width = 120;
             // 
             // o6
             // 
             this.o6.HeaderText = "规格（型号）";
+            this.o6.MinimumWidth = 6;
             this.o6.Name = "o6";
             this.o6.Width = 120;
             // 
             // o7
             // 
             this.o7.HeaderText = "生产企业";
+            this.o7.MinimumWidth = 6;
             this.o7.Name = "o7";
+            this.o7.Width = 120;
             // 
             // o8
             // 
             this.o8.HeaderText = "产品注册证号/备案凭证号";
+            this.o8.MinimumWidth = 6;
             this.o8.Name = "o8";
             this.o8.Width = 200;
             // 
             // o9
             // 
             this.o9.HeaderText = "生产批号";
+            this.o9.MinimumWidth = 6;
             this.o9.Name = "o9";
+            this.o9.Width = 120;
             // 
             // o10
             // 
             this.o10.HeaderText = "序列号";
+            this.o10.MinimumWidth = 6;
             this.o10.Name = "o10";
+            this.o10.Width = 120;
             // 
             // o11
             // 
             this.o11.HeaderText = "储运条件";
+            this.o11.MinimumWidth = 6;
             this.o11.Name = "o11";
+            this.o11.Width = 120;
             // 
             // o12
             // 
             this.o12.HeaderText = "单位";
+            this.o12.MinimumWidth = 6;
             this.o12.Name = "o12";
+            this.o12.Width = 120;
             // 
             // o13
             // 
             this.o13.HeaderText = "数量";
+            this.o13.MinimumWidth = 6;
             this.o13.Name = "o13";
+            this.o13.Width = 120;
             // 
             // o14
             // 
             this.o14.HeaderText = "收货客户";
+            this.o14.MinimumWidth = 6;
             this.o14.Name = "o14";
+            this.o14.Width = 120;
             // 
             // o15
             // 
             this.o15.HeaderText = "收货客户名称";
+            this.o15.MinimumWidth = 6;
             this.o15.Name = "o15";
+            this.o15.Width = 120;
             // 
             // o16
             // 
             this.o16.HeaderText = "收货地址";
+            this.o16.MinimumWidth = 6;
             this.o16.Name = "o16";
+            this.o16.Width = 120;
             // 
             // o17
             // 
             this.o17.HeaderText = "联系人";
+            this.o17.MinimumWidth = 6;
             this.o17.Name = "o17";
+            this.o17.Width = 120;
             // 
             // o18
             // 
             this.o18.HeaderText = "联系方式";
+            this.o18.MinimumWidth = 6;
             this.o18.Name = "o18";
+            this.o18.Width = 120;
             // 
             // o19
             // 
             this.o19.HeaderText = "备注";
+            this.o19.MinimumWidth = 6;
             this.o19.Name = "o19";
+            this.o19.Width = 120;
             // 
             // OCheck
             // 
             this.OCheck.HeaderText = "检查/更新结果";
+            this.OCheck.MinimumWidth = 6;
             this.OCheck.Name = "OCheck";
             this.OCheck.Width = 120;
             // 
             // contextMenuStrip2
             // 
+            this.contextMenuStrip2.ImageScalingSize = new System.Drawing.Size(19, 19);
             this.contextMenuStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.导入出库信息ToolStripMenuItem,
             this.清空列表ToolStripMenuItem1,
             this.删除当天导入信息ToolStripMenuItem1,
             this.粘贴新行ToolStripMenuItem1});
             this.contextMenuStrip2.Name = "contextMenuStrip2";
-            this.contextMenuStrip2.Size = new System.Drawing.Size(173, 92);
+            this.contextMenuStrip2.Size = new System.Drawing.Size(199, 100);
             // 
             // 导入出库信息ToolStripMenuItem
             // 
             this.导入出库信息ToolStripMenuItem.Name = "导入出库信息ToolStripMenuItem";
-            this.导入出库信息ToolStripMenuItem.Size = new System.Drawing.Size(172, 22);
+            this.导入出库信息ToolStripMenuItem.Size = new System.Drawing.Size(198, 24);
             this.导入出库信息ToolStripMenuItem.Text = "导入出库信息";
             this.导入出库信息ToolStripMenuItem.Click += new System.EventHandler(this.导入出库信息ToolStripMenuItem_Click);
             // 
             // 清空列表ToolStripMenuItem1
             // 
             this.清空列表ToolStripMenuItem1.Name = "清空列表ToolStripMenuItem1";
-            this.清空列表ToolStripMenuItem1.Size = new System.Drawing.Size(172, 22);
+            this.清空列表ToolStripMenuItem1.Size = new System.Drawing.Size(198, 24);
             this.清空列表ToolStripMenuItem1.Text = "清空列表";
             this.清空列表ToolStripMenuItem1.Click += new System.EventHandler(this.清空列表ToolStripMenuItem1_Click);
             // 
             // 删除当天导入信息ToolStripMenuItem1
             // 
             this.删除当天导入信息ToolStripMenuItem1.Name = "删除当天导入信息ToolStripMenuItem1";
-            this.删除当天导入信息ToolStripMenuItem1.Size = new System.Drawing.Size(172, 22);
+            this.删除当天导入信息ToolStripMenuItem1.Size = new System.Drawing.Size(198, 24);
             this.删除当天导入信息ToolStripMenuItem1.Text = "删除当天导入信息";
             this.删除当天导入信息ToolStripMenuItem1.Click += new System.EventHandler(this.删除当天导入信息ToolStripMenuItem1_Click);
             // 
             // 粘贴新行ToolStripMenuItem1
             // 
             this.粘贴新行ToolStripMenuItem1.Name = "粘贴新行ToolStripMenuItem1";
-            this.粘贴新行ToolStripMenuItem1.Size = new System.Drawing.Size(172, 22);
+            this.粘贴新行ToolStripMenuItem1.Size = new System.Drawing.Size(198, 24);
             this.粘贴新行ToolStripMenuItem1.Text = "粘贴新行";
             this.粘贴新行ToolStripMenuItem1.Click += new System.EventHandler(this.粘贴新行ToolStripMenuItem1_Click);
             // 
             // tabPage3
             // 
             this.tabPage3.Controls.Add(this.dataGridView3);
-            this.tabPage3.Location = new System.Drawing.Point(4, 22);
+            this.tabPage3.Location = new System.Drawing.Point(4, 25);
+            this.tabPage3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(792, 424);
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabPage3.Size = new System.Drawing.Size(1059, 571);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "库存数据导入";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -554,99 +635,17 @@
             this.SCheck});
             this.dataGridView3.ContextMenuStrip = this.contextMenuStrip3;
             this.dataGridView3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView3.Location = new System.Drawing.Point(3, 3);
+            this.dataGridView3.Location = new System.Drawing.Point(4, 4);
+            this.dataGridView3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.dataGridView3.Name = "dataGridView3";
+            this.dataGridView3.RowHeadersWidth = 49;
             this.dataGridView3.RowTemplate.Height = 23;
-            this.dataGridView3.Size = new System.Drawing.Size(786, 418);
+            this.dataGridView3.Size = new System.Drawing.Size(1051, 563);
             this.dataGridView3.TabIndex = 0;
-            // 
-            // s1
-            // 
-            this.s1.HeaderText = "产品代码";
-            this.s1.Name = "s1";
-            // 
-            // s2
-            // 
-            this.s2.HeaderText = "产品名称";
-            this.s2.Name = "s2";
-            // 
-            // s3
-            // 
-            this.s3.HeaderText = "规格（型号）";
-            this.s3.Name = "s3";
-            this.s3.Width = 120;
-            // 
-            // s4
-            // 
-            this.s4.HeaderText = "生产企业";
-            this.s4.Name = "s4";
-            // 
-            // s5
-            // 
-            this.s5.HeaderText = "产品注册证号/备案凭证号";
-            this.s5.Name = "s5";
-            this.s5.Width = 200;
-            // 
-            // s6
-            // 
-            this.s6.HeaderText = "生产批号/序列号";
-            this.s6.Name = "s6";
-            this.s6.Width = 150;
-            // 
-            // s7
-            // 
-            this.s7.HeaderText = "有效期";
-            this.s7.Name = "s7";
-            // 
-            // s8
-            // 
-            this.s8.HeaderText = "生产日期";
-            this.s8.Name = "s8";
-            // 
-            // s9
-            // 
-            this.s9.HeaderText = "库存数量";
-            this.s9.Name = "s9";
-            // 
-            // s10
-            // 
-            this.s10.HeaderText = "单位";
-            this.s10.Name = "s10";
-            // 
-            // s11
-            // 
-            this.s11.HeaderText = "库存地点（货架号）";
-            this.s11.Name = "s11";
-            this.s11.Width = 150;
-            // 
-            // s12
-            // 
-            this.s12.HeaderText = "仓库名称";
-            this.s12.Name = "s12";
-            // 
-            // s13
-            // 
-            this.s13.HeaderText = "储运条件";
-            this.s13.Name = "s13";
-            // 
-            // s14
-            // 
-            this.s14.HeaderText = "质量状态";
-            this.s14.Name = "s14";
-            // 
-            // s15
-            // 
-            this.s15.HeaderText = "备注";
-            this.s15.Name = "s15";
-            // 
-            // SCheck
-            // 
-            this.SCheck.HeaderText = "检查/更新结果";
-            this.SCheck.Name = "SCheck";
-            this.SCheck.Width = 150;
             // 
             // contextMenuStrip3
             // 
+            this.contextMenuStrip3.ImageScalingSize = new System.Drawing.Size(19, 19);
             this.contextMenuStrip3.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.导入库存信息ToolStripMenuItem,
             this.清空列表ToolStripMenuItem2,
@@ -654,43 +653,51 @@
             this.粘贴新行ToolStripMenuItem2,
             this.清空库存信息ToolStripMenuItem});
             this.contextMenuStrip3.Name = "contextMenuStrip3";
-            this.contextMenuStrip3.Size = new System.Drawing.Size(181, 136);
+            this.contextMenuStrip3.Size = new System.Drawing.Size(199, 124);
             // 
             // 导入库存信息ToolStripMenuItem
             // 
             this.导入库存信息ToolStripMenuItem.Name = "导入库存信息ToolStripMenuItem";
-            this.导入库存信息ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.导入库存信息ToolStripMenuItem.Size = new System.Drawing.Size(198, 24);
             this.导入库存信息ToolStripMenuItem.Text = "导入库存信息";
             this.导入库存信息ToolStripMenuItem.Click += new System.EventHandler(this.导入库存信息ToolStripMenuItem_Click);
             // 
             // 清空列表ToolStripMenuItem2
             // 
             this.清空列表ToolStripMenuItem2.Name = "清空列表ToolStripMenuItem2";
-            this.清空列表ToolStripMenuItem2.Size = new System.Drawing.Size(180, 22);
+            this.清空列表ToolStripMenuItem2.Size = new System.Drawing.Size(198, 24);
             this.清空列表ToolStripMenuItem2.Text = "清空列表";
             this.清空列表ToolStripMenuItem2.Click += new System.EventHandler(this.清空列表ToolStripMenuItem2_Click);
             // 
             // 删除当天导入信息ToolStripMenuItem2
             // 
             this.删除当天导入信息ToolStripMenuItem2.Name = "删除当天导入信息ToolStripMenuItem2";
-            this.删除当天导入信息ToolStripMenuItem2.Size = new System.Drawing.Size(180, 22);
+            this.删除当天导入信息ToolStripMenuItem2.Size = new System.Drawing.Size(198, 24);
             this.删除当天导入信息ToolStripMenuItem2.Text = "删除当天导入信息";
             this.删除当天导入信息ToolStripMenuItem2.Click += new System.EventHandler(this.删除当天导入信息ToolStripMenuItem2_Click);
             // 
             // 粘贴新行ToolStripMenuItem2
             // 
             this.粘贴新行ToolStripMenuItem2.Name = "粘贴新行ToolStripMenuItem2";
-            this.粘贴新行ToolStripMenuItem2.Size = new System.Drawing.Size(180, 22);
+            this.粘贴新行ToolStripMenuItem2.Size = new System.Drawing.Size(198, 24);
             this.粘贴新行ToolStripMenuItem2.Text = "粘贴新行";
             this.粘贴新行ToolStripMenuItem2.Click += new System.EventHandler(this.粘贴新行ToolStripMenuItem2_Click);
+            // 
+            // 清空库存信息ToolStripMenuItem
+            // 
+            this.清空库存信息ToolStripMenuItem.Name = "清空库存信息ToolStripMenuItem";
+            this.清空库存信息ToolStripMenuItem.Size = new System.Drawing.Size(198, 24);
+            this.清空库存信息ToolStripMenuItem.Text = "清空库存信息";
+            this.清空库存信息ToolStripMenuItem.Click += new System.EventHandler(this.清空库存信息ToolStripMenuItem_Click);
             // 
             // tabPage4
             // 
             this.tabPage4.Controls.Add(this.dataGridView4);
-            this.tabPage4.Location = new System.Drawing.Point(4, 22);
+            this.tabPage4.Location = new System.Drawing.Point(4, 25);
+            this.tabPage4.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(792, 424);
+            this.tabPage4.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabPage4.Size = new System.Drawing.Size(1059, 571);
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "委托产品数据导入";
             this.tabPage4.UseVisualStyleBackColor = true;
@@ -715,133 +722,263 @@
             this.PCheck});
             this.dataGridView4.ContextMenuStrip = this.contextMenuStrip4;
             this.dataGridView4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView4.Location = new System.Drawing.Point(3, 3);
+            this.dataGridView4.Location = new System.Drawing.Point(4, 4);
+            this.dataGridView4.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.dataGridView4.Name = "dataGridView4";
+            this.dataGridView4.RowHeadersWidth = 49;
             this.dataGridView4.RowTemplate.Height = 23;
-            this.dataGridView4.Size = new System.Drawing.Size(786, 418);
+            this.dataGridView4.Size = new System.Drawing.Size(1051, 563);
             this.dataGridView4.TabIndex = 0;
             // 
             // p1
             // 
             this.p1.HeaderText = "产品代码";
+            this.p1.MinimumWidth = 6;
             this.p1.Name = "p1";
+            this.p1.Width = 120;
             // 
             // p2
             // 
             this.p2.HeaderText = "委托产品名称";
+            this.p2.MinimumWidth = 6;
             this.p2.Name = "p2";
+            this.p2.Width = 120;
             // 
             // p3
             // 
             this.p3.HeaderText = "规格（型号）";
+            this.p3.MinimumWidth = 6;
             this.p3.Name = "p3";
             this.p3.Width = 120;
             // 
             // p4
             // 
             this.p4.HeaderText = "产品注册证号/备案凭证号 ";
+            this.p4.MinimumWidth = 6;
             this.p4.Name = "p4";
             this.p4.Width = 200;
             // 
             // p5
             // 
             this.p5.HeaderText = "批准日期";
+            this.p5.MinimumWidth = 6;
             this.p5.Name = "p5";
+            this.p5.Width = 120;
             // 
             // p6
             // 
             this.p6.HeaderText = "有效期";
+            this.p6.MinimumWidth = 6;
             this.p6.Name = "p6";
+            this.p6.Width = 120;
             // 
             // p7
             // 
             this.p7.HeaderText = "生产企业";
+            this.p7.MinimumWidth = 6;
             this.p7.Name = "p7";
+            this.p7.Width = 120;
             // 
             // p8
             // 
             this.p8.HeaderText = "生产企业许可证号/备案凭证号";
+            this.p8.MinimumWidth = 6;
             this.p8.Name = "p8";
             this.p8.Width = 200;
             // 
             // p9
             // 
             this.p9.HeaderText = "单位";
+            this.p9.MinimumWidth = 6;
             this.p9.Name = "p9";
+            this.p9.Width = 120;
             // 
             // p10
             // 
             this.p10.HeaderText = "储运条件";
+            this.p10.MinimumWidth = 6;
             this.p10.Name = "p10";
+            this.p10.Width = 120;
             // 
             // p11
             // 
             this.p11.HeaderText = "储存仓库类型";
+            this.p11.MinimumWidth = 6;
             this.p11.Name = "p11";
             this.p11.Width = 150;
             // 
             // p12
             // 
             this.p12.HeaderText = "备注";
+            this.p12.MinimumWidth = 6;
             this.p12.Name = "p12";
+            this.p12.Width = 120;
             // 
             // PCheck
             // 
             this.PCheck.HeaderText = "检查/更新结果";
+            this.PCheck.MinimumWidth = 6;
             this.PCheck.Name = "PCheck";
             this.PCheck.Width = 150;
             // 
             // contextMenuStrip4
             // 
+            this.contextMenuStrip4.ImageScalingSize = new System.Drawing.Size(19, 19);
             this.contextMenuStrip4.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.导入委托产品信息ToolStripMenuItem,
             this.清空列表ToolStripMenuItem3,
             this.删除当天导入信息ToolStripMenuItem3,
             this.粘贴新行ToolStripMenuItem3});
             this.contextMenuStrip4.Name = "contextMenuStrip4";
-            this.contextMenuStrip4.Size = new System.Drawing.Size(173, 92);
+            this.contextMenuStrip4.Size = new System.Drawing.Size(199, 100);
             // 
             // 导入委托产品信息ToolStripMenuItem
             // 
             this.导入委托产品信息ToolStripMenuItem.Name = "导入委托产品信息ToolStripMenuItem";
-            this.导入委托产品信息ToolStripMenuItem.Size = new System.Drawing.Size(172, 22);
+            this.导入委托产品信息ToolStripMenuItem.Size = new System.Drawing.Size(198, 24);
             this.导入委托产品信息ToolStripMenuItem.Text = "导入委托产品信息";
             this.导入委托产品信息ToolStripMenuItem.Click += new System.EventHandler(this.导入委托产品信息ToolStripMenuItem_Click);
             // 
             // 清空列表ToolStripMenuItem3
             // 
             this.清空列表ToolStripMenuItem3.Name = "清空列表ToolStripMenuItem3";
-            this.清空列表ToolStripMenuItem3.Size = new System.Drawing.Size(172, 22);
+            this.清空列表ToolStripMenuItem3.Size = new System.Drawing.Size(198, 24);
             this.清空列表ToolStripMenuItem3.Text = "清空列表";
             this.清空列表ToolStripMenuItem3.Click += new System.EventHandler(this.清空列表ToolStripMenuItem3_Click);
             // 
             // 删除当天导入信息ToolStripMenuItem3
             // 
             this.删除当天导入信息ToolStripMenuItem3.Name = "删除当天导入信息ToolStripMenuItem3";
-            this.删除当天导入信息ToolStripMenuItem3.Size = new System.Drawing.Size(172, 22);
+            this.删除当天导入信息ToolStripMenuItem3.Size = new System.Drawing.Size(198, 24);
             this.删除当天导入信息ToolStripMenuItem3.Text = "删除当天导入信息";
             this.删除当天导入信息ToolStripMenuItem3.Click += new System.EventHandler(this.删除当天导入信息ToolStripMenuItem3_Click);
             // 
             // 粘贴新行ToolStripMenuItem3
             // 
             this.粘贴新行ToolStripMenuItem3.Name = "粘贴新行ToolStripMenuItem3";
-            this.粘贴新行ToolStripMenuItem3.Size = new System.Drawing.Size(172, 22);
+            this.粘贴新行ToolStripMenuItem3.Size = new System.Drawing.Size(198, 24);
             this.粘贴新行ToolStripMenuItem3.Text = "粘贴新行";
             this.粘贴新行ToolStripMenuItem3.Click += new System.EventHandler(this.粘贴新行ToolStripMenuItem3_Click);
             // 
-            // 清空库存信息ToolStripMenuItem
+            // s1
             // 
-            this.清空库存信息ToolStripMenuItem.Name = "清空库存信息ToolStripMenuItem";
-            this.清空库存信息ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.清空库存信息ToolStripMenuItem.Text = "清空库存信息";
-            this.清空库存信息ToolStripMenuItem.Click += new System.EventHandler(this.清空库存信息ToolStripMenuItem_Click);
+            this.s1.HeaderText = "产品代码";
+            this.s1.MinimumWidth = 6;
+            this.s1.Name = "s1";
+            this.s1.Width = 120;
+            // 
+            // s2
+            // 
+            this.s2.HeaderText = "产品名称";
+            this.s2.MinimumWidth = 6;
+            this.s2.Name = "s2";
+            this.s2.Width = 120;
+            // 
+            // s3
+            // 
+            this.s3.HeaderText = "规格（型号）";
+            this.s3.MinimumWidth = 6;
+            this.s3.Name = "s3";
+            this.s3.Width = 120;
+            // 
+            // s4
+            // 
+            this.s4.HeaderText = "生产企业";
+            this.s4.MinimumWidth = 6;
+            this.s4.Name = "s4";
+            this.s4.Width = 120;
+            // 
+            // s5
+            // 
+            this.s5.HeaderText = "产品注册证号/备案凭证号";
+            this.s5.MinimumWidth = 6;
+            this.s5.Name = "s5";
+            this.s5.Width = 200;
+            // 
+            // s6
+            // 
+            this.s6.HeaderText = "生产批号/序列号";
+            this.s6.MinimumWidth = 6;
+            this.s6.Name = "s6";
+            this.s6.Width = 150;
+            // 
+            // s7
+            // 
+            this.s7.HeaderText = "生产日期";
+            this.s7.MinimumWidth = 6;
+            this.s7.Name = "s7";
+            this.s7.Width = 120;
+            // 
+            // s8
+            // 
+            this.s8.HeaderText = "有效期";
+            this.s8.MinimumWidth = 6;
+            this.s8.Name = "s8";
+            this.s8.Width = 120;
+            // 
+            // s9
+            // 
+            this.s9.HeaderText = "库存数量";
+            this.s9.MinimumWidth = 6;
+            this.s9.Name = "s9";
+            this.s9.Width = 120;
+            // 
+            // s10
+            // 
+            this.s10.HeaderText = "单位";
+            this.s10.MinimumWidth = 6;
+            this.s10.Name = "s10";
+            this.s10.Width = 120;
+            // 
+            // s11
+            // 
+            this.s11.HeaderText = "库存地点（货架号）";
+            this.s11.MinimumWidth = 6;
+            this.s11.Name = "s11";
+            this.s11.Width = 150;
+            // 
+            // s12
+            // 
+            this.s12.HeaderText = "仓库名称";
+            this.s12.MinimumWidth = 6;
+            this.s12.Name = "s12";
+            this.s12.Width = 120;
+            // 
+            // s13
+            // 
+            this.s13.HeaderText = "储运条件";
+            this.s13.MinimumWidth = 6;
+            this.s13.Name = "s13";
+            this.s13.Width = 120;
+            // 
+            // s14
+            // 
+            this.s14.HeaderText = "质量状态";
+            this.s14.MinimumWidth = 6;
+            this.s14.Name = "s14";
+            this.s14.Width = 120;
+            // 
+            // s15
+            // 
+            this.s15.HeaderText = "备注";
+            this.s15.MinimumWidth = 6;
+            this.s15.Name = "s15";
+            this.s15.Width = 120;
+            // 
+            // SCheck
+            // 
+            this.SCheck.HeaderText = "检查/更新结果";
+            this.SCheck.MinimumWidth = 6;
+            this.SCheck.Name = "SCheck";
+            this.SCheck.Width = 150;
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(1067, 600);
             this.Controls.Add(this.tabControl1);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "AMO药监数据导入";
@@ -932,6 +1069,20 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn o18;
         private System.Windows.Forms.DataGridViewTextBoxColumn o19;
         private System.Windows.Forms.DataGridViewTextBoxColumn OCheck;
+        private System.Windows.Forms.DataGridViewTextBoxColumn p1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn p2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn p3;
+        private System.Windows.Forms.DataGridViewTextBoxColumn p4;
+        private System.Windows.Forms.DataGridViewTextBoxColumn p5;
+        private System.Windows.Forms.DataGridViewTextBoxColumn p6;
+        private System.Windows.Forms.DataGridViewTextBoxColumn p7;
+        private System.Windows.Forms.DataGridViewTextBoxColumn p8;
+        private System.Windows.Forms.DataGridViewTextBoxColumn p9;
+        private System.Windows.Forms.DataGridViewTextBoxColumn p10;
+        private System.Windows.Forms.DataGridViewTextBoxColumn p11;
+        private System.Windows.Forms.DataGridViewTextBoxColumn p12;
+        private System.Windows.Forms.DataGridViewTextBoxColumn PCheck;
+        private System.Windows.Forms.ToolStripMenuItem 清空库存信息ToolStripMenuItem;
         private System.Windows.Forms.DataGridViewTextBoxColumn s1;
         private System.Windows.Forms.DataGridViewTextBoxColumn s2;
         private System.Windows.Forms.DataGridViewTextBoxColumn s3;
@@ -948,20 +1099,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn s14;
         private System.Windows.Forms.DataGridViewTextBoxColumn s15;
         private System.Windows.Forms.DataGridViewTextBoxColumn SCheck;
-        private System.Windows.Forms.DataGridViewTextBoxColumn p1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn p2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn p3;
-        private System.Windows.Forms.DataGridViewTextBoxColumn p4;
-        private System.Windows.Forms.DataGridViewTextBoxColumn p5;
-        private System.Windows.Forms.DataGridViewTextBoxColumn p6;
-        private System.Windows.Forms.DataGridViewTextBoxColumn p7;
-        private System.Windows.Forms.DataGridViewTextBoxColumn p8;
-        private System.Windows.Forms.DataGridViewTextBoxColumn p9;
-        private System.Windows.Forms.DataGridViewTextBoxColumn p10;
-        private System.Windows.Forms.DataGridViewTextBoxColumn p11;
-        private System.Windows.Forms.DataGridViewTextBoxColumn p12;
-        private System.Windows.Forms.DataGridViewTextBoxColumn PCheck;
-        private System.Windows.Forms.ToolStripMenuItem 清空库存信息ToolStripMenuItem;
     }
 }
 
