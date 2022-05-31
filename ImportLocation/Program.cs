@@ -22,16 +22,18 @@ namespace ImportLocation
                 var sql = string.Format(@"select  max(l.serialkey) from wh2.loc l");
                 EntDB dB = new EntDB("Provider=MSDAORA.1;Password=stagrape;User ID=wh2;Data Source=prod");
                 var o = Convert.ToInt32(dB.GetObject(sql));
+                var no = o;
                 List<string> sqls = new List<string>();
                 sqls.Clear();
                 for(var i = 0; i < dsRes.Tables[0].Rows.Count; i++)
                 {
-                    o++;
+                    
                     var dr = dsRes.Tables[0].Rows[i];
                     sql = string.Format(@"select * from wh2.loc where loc = '{0}'",dr[0].ToString());
                     var dt = dB.ExecuteToDataTable(sql);
                     if (dt.Rows.Count <= 0)
                     {
+                        o++;
                         sql = string.Format(@"insert into wh2.loc
   (LOC,
    LOGICALLOCATION,
@@ -70,23 +72,23 @@ namespace ImportLocation
 
   (SELECT '{0}',
           '{1}',
-          '{2}',
+          {2},
           a.WHSEID,
           a.CUBE,
-          '{6}',
-          '{7}',
-          '{8}',
+          a.LENGTH,
+          a.WIDTH,
+          a.HEIGHT,
           a.LOCATIONTYPE,
           a.LOCATIONFLAG,
           a.LOCATIONHANDLING,
           a.LOCATIONCATEGORY,
-          '{3}',
-          '{4}',
+          a.CUBICCAPACITY,
+          a.WEIGHTCAPACITY,
           a.STATUS,
           a.LOSEID,
           a.FACILITY,
           a.SECTION,
-          '{5}',
+          a.ABC,
           a.PICKZONE,
           a.PUTAWAYZONE,
           a.SECTIONKEY,
@@ -103,10 +105,10 @@ namespace ImportLocation
           a.LOCGROUPID,
           a.LOCSTATUS
    
-     FROM WH2.LOC A
-    WHERE A.serialkey = '146513'
+     FROM wh2.LOC A
+    WHERE A.serialkey = '{3}'
    
-   )", dr[0].ToString(), dr[0].ToString(), o, dr[15].ToString(), dr[16].ToString(), dr[7].ToString(), dr[10].ToString(), dr[11].ToString(), dr[12].ToString());
+   )", dr[0].ToString(), dr[0].ToString(), o, no.ToString());
 
 
                         //                  sql = string.Format(@"insert into wh35.loc

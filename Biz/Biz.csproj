@@ -51,6 +51,11 @@
     <Compile Include="CDB.cs" />
     <Compile Include="Cfg.cs" />
     <Compile Include="CommonFunction.cs" />
+    <Compile Include="Connected Services\SySWS\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
     <Compile Include="CText.cs" />
     <Compile Include="EntDB.cs" />
     <Compile Include="Models\LSLRmModel.cs" />
@@ -64,9 +69,28 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="Connected Services\SySWS\SystemWS.wsdl" />
     <None Include="packages.config" />
     <None Include="Properties\DataSources\System.Data.DataSet.datasource" />
+    <None Include="Properties\DataSources\System.Data.DataTable.datasource" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <WCFMetadataStorage Include="Connected Services\SySWS\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\SySWS\SystemWS.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\SySWS\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\SySWS\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\SySWS\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

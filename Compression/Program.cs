@@ -19,9 +19,11 @@ namespace Compression
             try
             {
 				var isTempRun = ConfigurationManager.AppSettings["IsTempRun"].ToString() == "Y" ? true : false;
-                if (isTempRun)
+				var month = int.Parse(ConfigurationManager.AppSettings["Month"].ToString());
+
+				if (isTempRun)
                 {
-					Run();
+					Run(month);
                 }
                 else
                 {
@@ -30,7 +32,7 @@ namespace Compression
 					string firstDay = new DateTime(now.Year, now.Month, 1).ToString("yyyyMMdd");
 					if (today == firstDay)
 					{
-						Run();
+						Run(month);
 					}
 					else
 					{
@@ -45,12 +47,12 @@ namespace Compression
 			}			
 		}
 
-		public static void Run()
+		public static void Run(int month)
         {
 			EntDB conn = new EntDB();
 			string sql = $"SELECT DISTINCT CLIENT_C FROM EDI_FILE_CONFIG";
 			DataTable dt = conn.ExecuteToDataTable(sql);
-			string yearAndMonth = DateTime.Now.AddMonths(-1).ToString("yyyyMM");
+			string yearAndMonth = DateTime.Now.AddMonths(-month).ToString("yyyyMM");
 			string year = yearAndMonth.Substring(0, 4);
 			foreach (DataRow dr in dt.Rows)
 			{

@@ -2,7 +2,6 @@ using Scan;
 using Scan.Models;
 using System;
 using System.ComponentModel;
-using System.Drawing;
 using System.Windows.Forms;
 
 public class SP_Blocking_Checking : Form
@@ -50,36 +49,45 @@ public class SP_Blocking_Checking : Form
 	private void SPChecking()
 	{
 		string Pcode = txtPcode.Text.Trim();
+		string result = string.Empty;
 		if (!string.IsNullOrEmpty(Pcode))
 		{
-			string result = PostBase.GetApiResult(Pcode, "P", 1, isPro);
-			if (!string.IsNullOrEmpty(result))
+			//result = PostBase.GetApiResult(Pcode, "P", 1, isPro);
+			result = PostBase.GetApiResultNew(Pcode, 1, isPro);
+			if (!string.IsNullOrEmpty(result) && result.IndexOf("异常") < 0)
 			{
 				PcodeRootA res = PostBase.ToObject<PcodeRootA>(result);
-				if (res.result.d.results.Count > 0)
+				if (res.result == null)
 				{
-					string type = res.result.d.results[0].ExPcodeMsg.results[0].Type.ToString();
-					string msg = res.result.d.results[0].ExPcodeMsg.results[0].Message.ToString();
-					if (type == "S" && msg == "OK")
-					{
-						Form1 form = (Form1)base.Owner;
-						form.PCode = Pcode;
-						MessageBox.Show("It's OK~");
-						Close();
-					}
-					else
-					{
-						MessageBox.Show(msg);
-					}
+					MessageBox.Show("请求数据为null,请稍后再试");
 				}
 				else
 				{
-					MessageBox.Show("请求成功，无返回数据~");
+					if (res.result.d.results.Count > 0)
+					{
+						string type = res.result.d.results[0].ExPcodeMsg.results[0].Type.ToString();
+						string msg = res.result.d.results[0].ExPcodeMsg.results[0].Message.ToString();
+						if (type == "S" && msg == "OK")
+						{
+							Form1 form = (Form1)base.Owner;
+							form.PCode = Pcode;
+							MessageBox.Show("It's OK~");
+							Close();
+						}
+						else
+						{
+							MessageBox.Show(msg);
+						}
+					}
+					else
+					{
+						MessageBox.Show("请求成功，但无数据返回~");
+					}
 				}
 			}
 			else
 			{
-				MessageBox.Show("请求失败，暂无数据~");
+				MessageBox.Show("请求出现异常，稍后再试~");
 			}
 		}
 		else

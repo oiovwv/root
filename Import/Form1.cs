@@ -1,7 +1,8 @@
 ﻿using Biz;
 using Biz.Models;
+using Biz.SySWS;
 using Newtonsoft.Json;
-using OSR_OrderTracking.Models;
+//using OSR_OrderTracking.Models;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -220,6 +221,16 @@ namespace Import
 
         private void button1_Click(object sender, EventArgs e)
         {
+            //SystemWSSoapClient c = new SystemWSSoapClient();
+            ////var afsdgsd = c.checkUserLogin(new string[]{
+            //        "lichengd",
+            //        "121211",
+            //        "STA TESTRDC",
+            //        "10.250.133.119,192.168.0.103",
+            //        "F4:4E:E3:31:BE:A1,00:05:9A:3C:7A:00"
+            //        });
+            //var sql = string.Format(@""); 
+
 
             //TestLSL1();
 
@@ -243,32 +254,78 @@ namespace Import
             //storage();
             try
             {
-                string filePathSku = CommonFunction.ChooseFile();
+                //string filePathSku = CommonFunction.ChooseFile();
                 //入库
-                //ds = CommonFunction.ReadExcelFileToDataSet(filePathSku, 3, 40);
+                //ds = CommonFunction.ReadExcelFileToDataSet(filePathSku, 0, 40);
                 //出库
                 //ds = CommonFunction.ReadExcelFileToDataSet(filePathSku, 4, 30);
                 //库存
-                
+
                 int no = 1;
-                var dt = GetTestData();
-                ds = CommonFunction.ReadExcelFileToDataSet(filePathSku, 4, 30);
-                dt = ds.Tables[0];
+                List<string> sqls = new List<string>();
+                //var dt = GetTestData();
+                //ds = CommonFunction.ReadExcelFileToDataSet(filePathSku, 4, 30);
+                //
+                var dt = CreateWmsDataA();
+                //var dt = ds.Tables[0];
                 foreach (DataRow dr in dt.Rows)
                 {
+
+                    //if (dr["Column_16"].ToString() == "BAG" && !string.IsNullOrEmpty(dr["Column_15"].ToString()) && dr["Column_15"].ToString() != "0")
+                    //{
+                    //    var sql = string.Format(@"update oms_product set product_class = '{0}' where client_c = 'LSL' and product_no = '{1}'", dr["Column_15"].ToString(), dr["Column_0"].ToString());
+                    //    sqls.Add(sql);
+                    //}
+                    //var sql = string.Format(@"select count(*) from APP_SIGNIN_CUSTOMER where client_code = 'COL' and  customer_code = '{0}' ", dr[0].ToString());
+                    ////var sql = string.Format(@"select count(*) from app_tags where imei = '{0}' ", dr[0].ToString());
+                    //bool res = Convert.ToInt32(dB.GetObject(sql)) > 0;
+                    //if (res)
+                    //{
+                    //    continue;
+                    //}
+                    //else
+                    //{
+                    //    //sql = string.Format(@"INSERT INTO app_tags(imei,deviceclass,devicestatus,belongtowho,devicetype,deleteflag,rdc_code,simno) values('{0}','1','1','卢魁','GT420D','N','STA SHANGHAI','121211SH')", dr[0].ToString());
+                    //    sql = string.Format(@"INSERT INTO APP_SIGNIN_CUSTOMER(client_code,customer_code) values('COL','{0}')", dr[0].ToString());
+                    //    //string sql = string.Format("insert into oms_osr_product_bu(bu,division,ag,description) values('{0}','{1}','{2}','{3}')", dr[0].ToString(), dr[1].ToString(), dr[2].ToString(), dr[3].ToString());
+                    //    //sql = string.Format(@"UPDATE OMS_PRODUCT SET REFERENCE01 = '{0}' WHERE CLIENT_C='JOS' AND PRODUCT_NO ='{1}'", dr[1].ToString(), dr[0].ToString());
+                    //    //if (dB.Execute(sql))
+                    //    //{
+                    //    //    no++;
+                    //    //}
+                    //    //sqls.Add(sql);
+                    //}
                     //入库
                     //string sql = string.Format("INSERT INTO SPDA_STORAGE_AMO (\r\nCLIENT_C,\r\nIDX,\r\nSTORAGE_DATE,\r\nSTORAGE_TYPE,\r\nPRODUCT_NO,\r\nPRODUCT_NAME,\r\nSPECIFICATIONS,\r\nCOMPANY,\r\nPRODUCT_REGISTRATION,\r\nBATCH_NUMBER,\r\nBATCH_DATE,\r\nEXPIRY_DATE,\r\nQTY,\r\nUNIT,\r\nSTORAGE_CONDITION,\r\nSTORAGE_NUMBER,\r\nPRODUCT_STATUS,\r\nREMARK,\r\nOPUSER,\r\nADD_DATE,\r\nTEMP1,TEMP2,TEMP3,TEMP4,TEMP5) \r\nVALUES('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}','{10}','{11}',{12},'{13}','{14}','{15}','{16}','{17}','{18}',{19},'{20}','{21}','{22}','{23}','{24}')", "AMO", "", dr[0].ToString(), dr[1].ToString(), dr[2].ToString(), dr[3].ToString(), dr[4].ToString(), dr[5].ToString(), dr[6].ToString(), dr[7].ToString(), FormartDate(dr[9].ToString()), FormartDate(dr[10].ToString()), dr[11].ToString(), dr[12].ToString(), dr[13].ToString(), dr[14].ToString(), dr[16].ToString(), "", "", "sysdate", dr[15].ToString(), "", dr[8].ToString(), "", "");
                     //出库
                     //string sql = string.Format("INSERT INTO SPDA_OUTBOUND_AMO (\r\nCLIENT_C,\r\nIDX,\r\n\r\noutboun_type,\r\norder_no,\r\nPRODUCT_NO,\r\nPRODUCT_NAME,\r\nSPECIFICATIONS,\r\nCOMPANY,\r\nPRODUCT_REGISTRATION,\r\nBATCH_NUMBER,\r\noutbound_condition,\r\nUNIT,\r\nQTY,\r\ncliant_name,\r\naddress,\r\ncontacts,\r\nphone,\r\nREMARK,\r\nOPUSER,\r\nADD_DATE,\r\nchukuriqi,\r\nreceipt_party_no,\r\nTEMP1,TEMP2,TEMP3,TEMP4,TEMP5,TEMP6) \r\nVALUES('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}','{10}','{11}',{12},'{13}','{14}','{15}','{16}','{17}','{18}',{19},'{20}','{21}','{22}','{23}','{24}','{25}','{26}','{27}')", "AMO", "", dr[2].ToString(), dr[3].ToString(), dr[4].ToString(), dr[5].ToString(), dr[6].ToString(), dr[7].ToString(), dr[8].ToString(), dr[9].ToString(), dr[11].ToString(), dr[12].ToString(), dr[13].ToString(), dr[15].ToString(), dr[16].ToString(), dr[17].ToString(), dr[18].ToString(), "", "", "sysdate", dr[1].ToString(), dr[14].ToString(), "", "", dr[10].ToString(), "", "", "");
                     //库存
-                    //string sql = string.Format(@"INSERT INTO app_tags(imei,deviceclass,devicestatus,belongtowho,devicetype,deleteflag,rdc_code,simno) values('{0}','1','1','赵振文','GT420D','N','STA BEIJING','121211BJ')",dr[0].ToString());
-                    string sql = string.Format("insert into oms_osr_product_bu(bu,division,ag,description) values('{0}','{1}','{2}','{3}')", dr[0].ToString(), dr[1].ToString(), dr[2].ToString(), dr[3].ToString());
-                    //sql = string.Format(@"UPDATE OMS_PRODUCT SET REFERENCE01 = '{0}' WHERE CLIENT_C='JOS' AND PRODUCT_NO ='{1}'", dr[1].ToString(), dr[0].ToString());
-                    if (dB.Execute(sql))
-                    {
-                        no++;
-                    }
+//                    var sql = string.Format(@"INSERT INTO {0}(CLIENT_C, 
+//storage_date, 
+//product_no, 
+//product_name, 
+//specifications, 
+//company, 
+//product_registration, 
+//batch_number, 
+//batch_date,
+//expiry_date,
+//qty,
+//unit,
+//storage_number,
+//temp1,
+//storage_condition,
+//product_status) VALUES
+//('{1}', '{2}', '{3}', '{4}', '{5}', '{6}', '{7}', '{8}', '{9}', '{10}', {11}, '{12}', '{13}', '{14}', '{15}','{16}')",
+//                        "spda_stock","JNJ", "", dr[2].ToString(), dr[3].ToString(), dr[4].ToString(), dr[5].ToString(), dr[6].ToString(), 
+//                        dr[7].ToString(), dr[8].ToString(), dr[9].ToString(), dr[10].ToString(), dr[11].ToString(), dr[12].ToString(), dr[13].ToString(), dr[14].ToString(), dr[15].ToString());
+
+                    var sql = string.Format(@"update oms_product set PERIOD_OF_VALIDITY = '{0}' where client_c = 'ZQL' and product_no = '{1}'", dr[1].ToString(), dr[0].ToString());
+                    sqls.Add(sql);
+                    //string sql = string.Format(@"INSERT INTO app_tags(imei,deviceclass,devicestatus,belongtowho,devicetype,deleteflag,rdc_code,simno) values('{0}','1','1','卢魁','GT420D','N','STA SHANGHAI','121211SH')",dr[0].ToString());
+
                 }
+                dB.DoTran(sqls.ToArray());
                 string a = "asfa";
             }
             catch (Exception ex)
@@ -277,7 +334,80 @@ namespace Import
             }
         }
 
-        
+        private DataTable CreateWmsDataA()
+        {
+            DataTable dt = new DataTable();
+            dt.Columns.Add("sku", Type.GetType("System.String"));
+            dt.Columns.Add("a", Type.GetType("System.String"));
+
+
+            //dt.Rows.Add(new object[] { "OSRE080706600", "AA3094602DC", "540", "540", "540", "0", "0", "1" });
+            //dt.Rows.Add(new object[] { "OSRE080689500", "AB3591101DC", "280", "280", "280", "0", "0", "2" });
+
+
+            //dt.Rows.Add(new object[] { "收货人代码" });
+            dt.Rows.Add(new object[] { "1710815", "912" });
+            dt.Rows.Add(new object[] { "1710816", "912" });
+            dt.Rows.Add(new object[] { "1710817", "912" });
+            dt.Rows.Add(new object[] { "1710819", "912" });
+            dt.Rows.Add(new object[] { "1710824", "912" });
+            dt.Rows.Add(new object[] { "1710828", "1095" });
+            dt.Rows.Add(new object[] { "1710829", "1095" });
+            dt.Rows.Add(new object[] { "1710830", "1095" });
+            dt.Rows.Add(new object[] { "1710833", "912" });
+            dt.Rows.Add(new object[] { "1710835", "912" });
+            dt.Rows.Add(new object[] { "1710836", "912" });
+            dt.Rows.Add(new object[] { "1710846", "912" });
+            dt.Rows.Add(new object[] { "1710853", "912" });
+            dt.Rows.Add(new object[] { "1710860", "912" });
+            dt.Rows.Add(new object[] { "1710924", "1095" });
+            dt.Rows.Add(new object[] { "1710926", "1095" });
+            dt.Rows.Add(new object[] { "1710928", "1095" });
+            dt.Rows.Add(new object[] { "1710929", "1095" });
+            dt.Rows.Add(new object[] { "1710934", "1095" });
+            dt.Rows.Add(new object[] { "1710935", "1095" });
+            dt.Rows.Add(new object[] { "1710936", "1095" });
+            dt.Rows.Add(new object[] { "1710937", "1095" });
+            dt.Rows.Add(new object[] { "1710940", "1095" });
+            dt.Rows.Add(new object[] { "1710945", "912" });
+            dt.Rows.Add(new object[] { "1710948", "1095" });
+            dt.Rows.Add(new object[] { "1710950", "1095" });
+            dt.Rows.Add(new object[] { "1710956", "1095" });
+            dt.Rows.Add(new object[] { "1710958", "1095" });
+            dt.Rows.Add(new object[] { "1710960", "1095" });
+            dt.Rows.Add(new object[] { "1710961", "1095" });
+            dt.Rows.Add(new object[] { "1710970", "1095" });
+            dt.Rows.Add(new object[] { "1710976", "912" });
+            dt.Rows.Add(new object[] { "1710977", "912" });
+            dt.Rows.Add(new object[] { "1710984", "912" });
+            dt.Rows.Add(new object[] { "2780157", "1185" });
+            dt.Rows.Add(new object[] { "2780158", "1185" });
+            dt.Rows.Add(new object[] { "2780160", "1185" });
+            dt.Rows.Add(new object[] { "2780175", "1185" });
+            dt.Rows.Add(new object[] { "2780178", "1185" });
+            dt.Rows.Add(new object[] { "2780846", "1185" });
+            dt.Rows.Add(new object[] { "338548", "1095" });
+            dt.Rows.Add(new object[] { "344645", "1095" });
+            dt.Rows.Add(new object[] { "344646", "1095" });
+            dt.Rows.Add(new object[] { "344660", "1095" });
+            dt.Rows.Add(new object[] { "344670", "730" });
+            dt.Rows.Add(new object[] { "344674", "1095" });
+            dt.Rows.Add(new object[] { "344675", "1095" });
+            dt.Rows.Add(new object[] { "344677", "1095" });
+            dt.Rows.Add(new object[] { "344678", "1095" });
+
+
+
+
+
+
+
+
+            return dt;
+        }
+
+
+
 
         private static string FormartDate(string date)
         {
@@ -1272,81 +1402,81 @@ and s9.sku='{1}'", orderkey, sku);
 
         private void button7_Click(object sender, EventArgs e)
         {
-            var aaaaa = "22|+||+|687892-0-1|+|";
-            var sss = aaaaa.Split(new string[] { "|+|"}, StringSplitOptions.None);
+            //var aaaaa = "22|+||+|687892-0-1|+|";
+            //var sss = aaaaa.Split(new string[] { "|+|"}, StringSplitOptions.None);
 
-            //var path = CommonFunction.ChooseFile();
-            //var ds = CommonFunction.ReadUperExcelFileToDataSet(path, 1, 60, "Sheet1");
+            ////var path = CommonFunction.ChooseFile();
+            ////var ds = CommonFunction.ReadUperExcelFileToDataSet(path, 1, 60, "Sheet1");
 
-            ExteriorRoute route = new ExteriorRoute();
-            route.waybillNumber = "KY5000020045120";
-            route.omsNo = "AAAAAA";            
-            //route.clientOrderNo = "TPA99971435201";
-            //route.ref_h_01 = "4545554";
-            //route.ref_h_02 = "asfasf";
-            //route.ref_h_03 = "5698awfa";
-            //route.ref_h_04 = "23511~~!!!!";
-            //route.ref_h_05 = "///////";
-            route.timestamp = DateTime.Now.ToString("yyyyMMddHH");
-            var dt = CreateWmsData();
-            List<ExteriorRouteListItem> items = new List<ExteriorRouteListItem>();
-            var column = 39;
-            //for (var i = 0; i < 5; i++)
+            //ExteriorRoute route = new ExteriorRoute();
+            //route.waybillNumber = "KY5000020045120";
+            //route.omsNo = "AAAAAA";            
+            ////route.clientOrderNo = "TPA99971435201";
+            ////route.ref_h_01 = "4545554";
+            ////route.ref_h_02 = "asfasf";
+            ////route.ref_h_03 = "5698awfa";
+            ////route.ref_h_04 = "23511~~!!!!";
+            ////route.ref_h_05 = "///////";
+            //route.timestamp = DateTime.Now.ToString("yyyyMMddHH");
+            ////var dt = CreateWmsData();
+            //List<ExteriorRouteListItem> items = new List<ExteriorRouteListItem>();
+            //var column = 39;
+            ////for (var i = 0; i < 5; i++)
+            ////{
+            ////    ExteriorRouteListItem item = new ExteriorRouteListItem();
+            ////    item.id = i + 1;
+            ////    item.routeStep = ds.Tables[0].Rows[0][column + 1].ToString().Replace("'", "");
+            ////    item.routeDescription = ds.Tables[0].Rows[0][column + 1].ToString().Replace("'", "");
+            ////    item.uploadDate = ds.Tables[0].Rows[0][column].ToString().Replace("'", "");
+            ////    //item.city = dr[4].ToString();
+            ////    //item.address = dr[5].ToString();
+            ////    //item.carInfo = dr[6].ToString();
+            ////    //item.intransitInfo = dr[7].ToString();
+            ////    //item.ref_d_01 = dr[8].ToString();
+            ////    //item.ref_d_02 = dr[9].ToString();
+            ////    //item.ref_d_03 = dr[10].ToString();
+            ////    //item.ref_d_04 = dr[11].ToString();
+            ////    //item.ref_d_05 = dr[12].ToString();
+
+
+            ////    column += 2;
+            ////    if (!string.IsNullOrEmpty(item.uploadDate))
+            ////    {
+            ////        items.Add(item);
+            ////    }
+            ////}
+            //foreach (DataRow dr in dt.Rows)
             //{
             //    ExteriorRouteListItem item = new ExteriorRouteListItem();
-            //    item.id = i + 1;
-            //    item.routeStep = ds.Tables[0].Rows[0][column + 1].ToString().Replace("'", "");
-            //    item.routeDescription = ds.Tables[0].Rows[0][column + 1].ToString().Replace("'", "");
-            //    item.uploadDate = ds.Tables[0].Rows[0][column].ToString().Replace("'", "");
-            //    //item.city = dr[4].ToString();
-            //    //item.address = dr[5].ToString();
-            //    //item.carInfo = dr[6].ToString();
-            //    //item.intransitInfo = dr[7].ToString();
-            //    //item.ref_d_01 = dr[8].ToString();
-            //    //item.ref_d_02 = dr[9].ToString();
-            //    //item.ref_d_03 = dr[10].ToString();
-            //    //item.ref_d_04 = dr[11].ToString();
-            //    //item.ref_d_05 = dr[12].ToString();
-
-
-            //    column += 2;
-            //    if (!string.IsNullOrEmpty(item.uploadDate))
-            //    {
-            //        items.Add(item);
-            //    }
+            //    item.id = int.Parse(dr[0].ToString());
+            //    item.routeStep = dr[1].ToString();
+            //    item.routeDescription = dr[2].ToString();
+            //    item.uploadDate = dr[3].ToString();
+            //    item.city = dr[4].ToString();
+            //    item.address = dr[5].ToString();
+            //    item.carInfo = dr[6].ToString();
+            //    item.intransitInfo = dr[7].ToString();
+            //    item.ref_d_01 = dr[8].ToString();
+            //    item.ref_d_02 = dr[9].ToString();
+            //    item.ref_d_03 = dr[10].ToString();
+            //    item.ref_d_04 = dr[11].ToString();
+            //    item.ref_d_05 = dr[12].ToString();
+            //    items.Add(item);
             //}
-            foreach (DataRow dr in dt.Rows)
-            {
-                ExteriorRouteListItem item = new ExteriorRouteListItem();
-                item.id = int.Parse(dr[0].ToString());
-                item.routeStep = dr[1].ToString();
-                item.routeDescription = dr[2].ToString();
-                item.uploadDate = dr[3].ToString();
-                item.city = dr[4].ToString();
-                item.address = dr[5].ToString();
-                item.carInfo = dr[6].ToString();
-                item.intransitInfo = dr[7].ToString();
-                item.ref_d_01 = dr[8].ToString();
-                item.ref_d_02 = dr[9].ToString();
-                item.ref_d_03 = dr[10].ToString();
-                item.ref_d_04 = dr[11].ToString();
-                item.ref_d_05 = dr[12].ToString();
-                items.Add(item);
-            }
-            route.exteriorRouteList = items;
-            List<ExteriorRoute> dto = new List<ExteriorRoute>();
-            dto.Add(route);
-            var str = CommonFunction.ModelToJsonA(dto);
-            string appkey = "OSREdiUser";
-            string appsecret = "2021OSR12";
-            var timestamp = route.timestamp;
-            string myAccessToken = appkey + timestamp + appsecret;
-            var accesstoken = encryptMD5(myAccessToken);
-            var url = "http://wp.tgl.tollgroup.com/Search/UploadTrackRoute?appkey=" + appkey + "&appsecret=" + accesstoken;
-            url= "http://localhost:7812/Search/UploadTrackRoute?appkey=" + appkey + "&appsecret=" + accesstoken;
-            //var url=""
-            var res = CommonFunction.Post(str, url);
-            var aaa = "";
+            //route.exteriorRouteList = items;
+            //List<ExteriorRoute> dto = new List<ExteriorRoute>();
+            //dto.Add(route);
+            //var str = CommonFunction.ModelToJsonA(dto);
+            //string appkey = "OSREdiUser";
+            //string appsecret = "2021OSR12";
+            //var timestamp = route.timestamp;
+            //string myAccessToken = appkey + timestamp + appsecret;
+            //var accesstoken = encryptMD5(myAccessToken);
+            //var url = "http://wp.tgl.tollgroup.com/Search/UploadTrackRoute?appkey=" + appkey + "&appsecret=" + accesstoken;
+            //url= "http://localhost:7812/Search/UploadTrackRoute?appkey=" + appkey + "&appsecret=" + accesstoken;
+            ////var url=""
+            //var res = CommonFunction.Post(str, url);
+            //var aaa = "";
 
         }
         public string encryptMD5(string data)

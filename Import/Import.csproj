@@ -137,10 +137,6 @@
       <Project>{400e3c77-c20d-4462-871b-d54a88a55ec4}</Project>
       <Name>Biz</Name>
     </ProjectReference>
-    <ProjectReference Include="..\OSR_OrderTracking\OSR_OrderTracking.csproj">
-      <Project>{e234c3b9-c6ba-4fba-9878-558420cc3664}</Project>
-      <Name>OSR_OrderTracking</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

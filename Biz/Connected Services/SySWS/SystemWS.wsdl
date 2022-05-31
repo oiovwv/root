@@ -1,0 +1,2883 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://st-anda.com/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://st-anda.com/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://st-anda.com/">
+      <s:element name="SetUser">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Username" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="IP" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="MAC" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SetUserResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="checkUserLogin">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="conditions" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfString">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="string" nillable="true" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="checkUserLoginResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="checkUserLoginResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="updateUserPass">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="uid" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="upass" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="uname" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="uemail" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="utel" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="cellPhone" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="userad" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="updateUserPassResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="updateUserPassResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Refresh">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="dt">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RefreshResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RefreshResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getClientListOfRDC">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sql" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getClientListOfRDCResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="getClientListOfRDCResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getAllRDCList">
+        <s:complexType />
+      </s:element>
+      <s:element name="getAllRDCListResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="getAllRDCListResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getAllRolesOfParty">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="party_c" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getAllRolesOfPartyResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="getAllRolesOfPartyResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getAllClientsForRights">
+        <s:complexType />
+      </s:element>
+      <s:element name="getAllClientsForRightsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="getAllClientsForRightsResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getAllClients">
+        <s:complexType />
+      </s:element>
+      <s:element name="getAllClientsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="getAllClientsResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getClients">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="party_property" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getClientsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="getClientsResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="batchUpdate">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="columnName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="columnValue" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="OMS_NOs" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="batchUpdateResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="batchUpdateResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getOrdersHeaderAndDetail">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="OMS_NOs" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getOrdersHeaderAndDetailResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="getOrdersHeaderAndDetailResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getUsersList">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="keyword" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="RDC" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getUsersListResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="getUsersListResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="deleteUser">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sys_user_id" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="deleteUserResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="deleteUserResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="deleteRole">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sys_role_id" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="deleteRoleResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="deleteRoleResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getUserInfo">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sys_user_id" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getUserInfoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="getUserInfoResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getRoleInfo">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sys_role_id" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getRoleInfoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="getRoleInfoResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="updateUserInfo">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="dsUserInfo">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="updateUserInfoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="updateUserInfoResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="updateRoleInfo">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="dsRoleInfo">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="updateRoleInfoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="updateRoleInfoResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getAllRoles">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="keyword" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="RDC" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getAllRolesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="getAllRolesResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="updateOrderInfo">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="dsOrderInfo">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+            <s:element minOccurs="0" maxOccurs="1" name="conditions" type="tns:ArrayOfString" />
+            <s:element minOccurs="0" maxOccurs="1" name="useLog" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="updateOrderInfoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="updateOrderInfoResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="transferRDC">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="conditions" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="transferRDCResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="transferRDCResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PLChange">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="omsList" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="clientList" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PLChangeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PLChangeResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getNewGSN_NO">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="client_c" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="order_no" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getNewGSN_NOResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="getNewGSN_NOResult" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getNewGSN_NO_NEW">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="client_c" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="order_no" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strRDCCode" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getNewGSN_NO_NEWResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="getNewGSN_NO_NEWResult" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GenerateGSN_NO_NEW">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="client_c" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="order_no" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strRDCCode" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GenerateGSN_NO_NEWResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GenerateGSN_NO_NEWResult" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ApplyColQARelease">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="strUserID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strRDC" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ApplyColQAReleaseResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="ApplyColQAReleaseResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CheckSplitReason">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="strGSN" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strReason" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strRDC" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CheckSplitReasonResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CheckSplitReasonResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GenerateGSN_NO">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="client_c" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="order_no" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GenerateGSN_NOResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GenerateGSN_NOResult" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getNewOMS_NO">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="gsn_no" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getNewOMS_NOResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="getNewOMS_NOResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GenerateOMS_NO">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="gsn_no" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GenerateOMS_NOResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GenerateOMS_NOResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="auditOrders">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="dsInfo">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="auditOrdersResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="auditOrdersResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Log">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="moduleName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="action" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sql" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="LogResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="fillDataSetForExport">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="conditions" type="tns:ArrayOfString" />
+            <s:element minOccurs="0" maxOccurs="1" name="ds">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="fillDataSetForExportResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="fillDataSetForExportResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GSN_CHECK">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="strRDC" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GSN_CHECKResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="GSN_CHECKResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ExportXML2">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="conditions" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ExportXML2Response">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="ExportXML2Result" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ExportXML">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="conditions" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ExportXMLResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ExportXMLResult" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getCheckOrders">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="searchConditions" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getCheckOrdersResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="getCheckOrdersResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getOrderInfo">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="oms" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Details_Columns" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getOrderInfoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="getOrderInfoResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="checkOrders">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="OMS_NOs" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="checkOrdersResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="checkOrdersResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="searchOrders">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="paramColumnName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ds">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+            <s:element minOccurs="1" maxOccurs="1" name="pagestart" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="pageend" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="searchOrdersResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="searchOrdersResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="collectOrders">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="conditions" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="collectOrdersResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="collectOrdersResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="deleteStatStyleInfo">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="conditions" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="deleteStatStyleInfoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="deleteStatStyleInfoResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getAllStatStyles">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="conditions" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getAllStatStylesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="getAllStatStylesResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="updateStatStyleInfo">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="dsStatStyleInfo">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="updateStatStyleInfoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="updateStatStyleInfoResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="fillDataSetForExportExcel">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="conditions" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="fillDataSetForExportExcelResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="fillDataSetForExportExcelResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="fillExportExcel">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="conditions" type="tns:ArrayOfAnyType" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfAnyType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="anyType" nillable="true" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="fillExportExcelResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="fillExportExcelResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="updateVasInfo">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="dsVas">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+            <s:element minOccurs="0" maxOccurs="1" name="conditions" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="updateVasInfoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="updateVasInfoResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getVasTypesOfProduct">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="conditions" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getVasTypesOfProductResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="getVasTypesOfProductResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getRDCListOfClient">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="client_c" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getRDCListOfClientResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="getRDCListOfClientResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getPartyInfoByCode">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="party_c" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="belong_dep" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getPartyInfoByCodeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="getPartyInfoByCodeResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="updateParty">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="party_c" type="tns:ArrayOfAnyType" />
+            <s:element minOccurs="0" maxOccurs="1" name="userIn" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="updatePartyResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="updatePartyResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getOrderDetails">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="conditions" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getOrderDetailsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="getOrderDetailsResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="merge">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="omsList" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="client_c" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="addWho" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="mergeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="mergeResult" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="fillDataSetForPrint">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="conditions" type="tns:ArrayOfString" />
+            <s:element minOccurs="0" maxOccurs="1" name="ds">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="fillDataSetForPrintResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="fillDataSetForPrintResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="mutiSplit">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="_params" type="tns:ArrayOfAnyType" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="mutiSplitResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="mutiSplitResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getUserEmail">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="user_id" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getUserEmailResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="getUserEmailResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getRDCWHCode">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="rdcCode" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getRDCWHCodeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="getRDCWHCodeResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getWmsStatus">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="isIssue" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="omsNo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="whCode" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getWmsStatusResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="getWmsStatusResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getTmsStatus">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="omsNo" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getTmsStatusResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="getTmsStatusResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DoTrans">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sql" type="tns:ArrayOfAnyType" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DoTransResponse">
+        <s:complexType />
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="SetUserSoapIn">
+    <wsdl:part name="parameters" element="tns:SetUser" />
+  </wsdl:message>
+  <wsdl:message name="SetUserSoapOut">
+    <wsdl:part name="parameters" element="tns:SetUserResponse" />
+  </wsdl:message>
+  <wsdl:message name="checkUserLoginSoapIn">
+    <wsdl:part name="parameters" element="tns:checkUserLogin" />
+  </wsdl:message>
+  <wsdl:message name="checkUserLoginSoapOut">
+    <wsdl:part name="parameters" element="tns:checkUserLoginResponse" />
+  </wsdl:message>
+  <wsdl:message name="updateUserPassSoapIn">
+    <wsdl:part name="parameters" element="tns:updateUserPass" />
+  </wsdl:message>
+  <wsdl:message name="updateUserPassSoapOut">
+    <wsdl:part name="parameters" element="tns:updateUserPassResponse" />
+  </wsdl:message>
+  <wsdl:message name="RefreshSoapIn">
+    <wsdl:part name="parameters" element="tns:Refresh" />
+  </wsdl:message>
+  <wsdl:message name="RefreshSoapOut">
+    <wsdl:part name="parameters" element="tns:RefreshResponse" />
+  </wsdl:message>
+  <wsdl:message name="getClientListOfRDCSoapIn">
+    <wsdl:part name="parameters" element="tns:getClientListOfRDC" />
+  </wsdl:message>
+  <wsdl:message name="getClientListOfRDCSoapOut">
+    <wsdl:part name="parameters" element="tns:getClientListOfRDCResponse" />
+  </wsdl:message>
+  <wsdl:message name="getAllRDCListSoapIn">
+    <wsdl:part name="parameters" element="tns:getAllRDCList" />
+  </wsdl:message>
+  <wsdl:message name="getAllRDCListSoapOut">
+    <wsdl:part name="parameters" element="tns:getAllRDCListResponse" />
+  </wsdl:message>
+  <wsdl:message name="getAllRolesOfPartySoapIn">
+    <wsdl:part name="parameters" element="tns:getAllRolesOfParty" />
+  </wsdl:message>
+  <wsdl:message name="getAllRolesOfPartySoapOut">
+    <wsdl:part name="parameters" element="tns:getAllRolesOfPartyResponse" />
+  </wsdl:message>
+  <wsdl:message name="getAllClientsForRightsSoapIn">
+    <wsdl:part name="parameters" element="tns:getAllClientsForRights" />
+  </wsdl:message>
+  <wsdl:message name="getAllClientsForRightsSoapOut">
+    <wsdl:part name="parameters" element="tns:getAllClientsForRightsResponse" />
+  </wsdl:message>
+  <wsdl:message name="getAllClientsSoapIn">
+    <wsdl:part name="parameters" element="tns:getAllClients" />
+  </wsdl:message>
+  <wsdl:message name="getAllClientsSoapOut">
+    <wsdl:part name="parameters" element="tns:getAllClientsResponse" />
+  </wsdl:message>
+  <wsdl:message name="getClientsSoapIn">
+    <wsdl:part name="parameters" element="tns:getClients" />
+  </wsdl:message>
+  <wsdl:message name="getClientsSoapOut">
+    <wsdl:part name="parameters" element="tns:getClientsResponse" />
+  </wsdl:message>
+  <wsdl:message name="batchUpdateSoapIn">
+    <wsdl:part name="parameters" element="tns:batchUpdate" />
+  </wsdl:message>
+  <wsdl:message name="batchUpdateSoapOut">
+    <wsdl:part name="parameters" element="tns:batchUpdateResponse" />
+  </wsdl:message>
+  <wsdl:message name="getOrdersHeaderAndDetailSoapIn">
+    <wsdl:part name="parameters" element="tns:getOrdersHeaderAndDetail" />
+  </wsdl:message>
+  <wsdl:message name="getOrdersHeaderAndDetailSoapOut">
+    <wsdl:part name="parameters" element="tns:getOrdersHeaderAndDetailResponse" />
+  </wsdl:message>
+  <wsdl:message name="getUsersListSoapIn">
+    <wsdl:part name="parameters" element="tns:getUsersList" />
+  </wsdl:message>
+  <wsdl:message name="getUsersListSoapOut">
+    <wsdl:part name="parameters" element="tns:getUsersListResponse" />
+  </wsdl:message>
+  <wsdl:message name="deleteUserSoapIn">
+    <wsdl:part name="parameters" element="tns:deleteUser" />
+  </wsdl:message>
+  <wsdl:message name="deleteUserSoapOut">
+    <wsdl:part name="parameters" element="tns:deleteUserResponse" />
+  </wsdl:message>
+  <wsdl:message name="deleteRoleSoapIn">
+    <wsdl:part name="parameters" element="tns:deleteRole" />
+  </wsdl:message>
+  <wsdl:message name="deleteRoleSoapOut">
+    <wsdl:part name="parameters" element="tns:deleteRoleResponse" />
+  </wsdl:message>
+  <wsdl:message name="getUserInfoSoapIn">
+    <wsdl:part name="parameters" element="tns:getUserInfo" />
+  </wsdl:message>
+  <wsdl:message name="getUserInfoSoapOut">
+    <wsdl:part name="parameters" element="tns:getUserInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="getRoleInfoSoapIn">
+    <wsdl:part name="parameters" element="tns:getRoleInfo" />
+  </wsdl:message>
+  <wsdl:message name="getRoleInfoSoapOut">
+    <wsdl:part name="parameters" element="tns:getRoleInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="updateUserInfoSoapIn">
+    <wsdl:part name="parameters" element="tns:updateUserInfo" />
+  </wsdl:message>
+  <wsdl:message name="updateUserInfoSoapOut">
+    <wsdl:part name="parameters" element="tns:updateUserInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="updateRoleInfoSoapIn">
+    <wsdl:part name="parameters" element="tns:updateRoleInfo" />
+  </wsdl:message>
+  <wsdl:message name="updateRoleInfoSoapOut">
+    <wsdl:part name="parameters" element="tns:updateRoleInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="getAllRolesSoapIn">
+    <wsdl:part name="parameters" element="tns:getAllRoles" />
+  </wsdl:message>
+  <wsdl:message name="getAllRolesSoapOut">
+    <wsdl:part name="parameters" element="tns:getAllRolesResponse" />
+  </wsdl:message>
+  <wsdl:message name="updateOrderInfoSoapIn">
+    <wsdl:part name="parameters" element="tns:updateOrderInfo" />
+  </wsdl:message>
+  <wsdl:message name="updateOrderInfoSoapOut">
+    <wsdl:part name="parameters" element="tns:updateOrderInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="transferRDCSoapIn">
+    <wsdl:part name="parameters" element="tns:transferRDC" />
+  </wsdl:message>
+  <wsdl:message name="transferRDCSoapOut">
+    <wsdl:part name="parameters" element="tns:transferRDCResponse" />
+  </wsdl:message>
+  <wsdl:message name="PLChangeSoapIn">
+    <wsdl:part name="parameters" element="tns:PLChange" />
+  </wsdl:message>
+  <wsdl:message name="PLChangeSoapOut">
+    <wsdl:part name="parameters" element="tns:PLChangeResponse" />
+  </wsdl:message>
+  <wsdl:message name="getNewGSN_NOSoapIn">
+    <wsdl:part name="parameters" element="tns:getNewGSN_NO" />
+  </wsdl:message>
+  <wsdl:message name="getNewGSN_NOSoapOut">
+    <wsdl:part name="parameters" element="tns:getNewGSN_NOResponse" />
+  </wsdl:message>
+  <wsdl:message name="getNewGSN_NO_NEWSoapIn">
+    <wsdl:part name="parameters" element="tns:getNewGSN_NO_NEW" />
+  </wsdl:message>
+  <wsdl:message name="getNewGSN_NO_NEWSoapOut">
+    <wsdl:part name="parameters" element="tns:getNewGSN_NO_NEWResponse" />
+  </wsdl:message>
+  <wsdl:message name="GenerateGSN_NO_NEWSoapIn">
+    <wsdl:part name="parameters" element="tns:GenerateGSN_NO_NEW" />
+  </wsdl:message>
+  <wsdl:message name="GenerateGSN_NO_NEWSoapOut">
+    <wsdl:part name="parameters" element="tns:GenerateGSN_NO_NEWResponse" />
+  </wsdl:message>
+  <wsdl:message name="ApplyColQAReleaseSoapIn">
+    <wsdl:part name="parameters" element="tns:ApplyColQARelease" />
+  </wsdl:message>
+  <wsdl:message name="ApplyColQAReleaseSoapOut">
+    <wsdl:part name="parameters" element="tns:ApplyColQAReleaseResponse" />
+  </wsdl:message>
+  <wsdl:message name="CheckSplitReasonSoapIn">
+    <wsdl:part name="parameters" element="tns:CheckSplitReason" />
+  </wsdl:message>
+  <wsdl:message name="CheckSplitReasonSoapOut">
+    <wsdl:part name="parameters" element="tns:CheckSplitReasonResponse" />
+  </wsdl:message>
+  <wsdl:message name="GenerateGSN_NOSoapIn">
+    <wsdl:part name="parameters" element="tns:GenerateGSN_NO" />
+  </wsdl:message>
+  <wsdl:message name="GenerateGSN_NOSoapOut">
+    <wsdl:part name="parameters" element="tns:GenerateGSN_NOResponse" />
+  </wsdl:message>
+  <wsdl:message name="getNewOMS_NOSoapIn">
+    <wsdl:part name="parameters" element="tns:getNewOMS_NO" />
+  </wsdl:message>
+  <wsdl:message name="getNewOMS_NOSoapOut">
+    <wsdl:part name="parameters" element="tns:getNewOMS_NOResponse" />
+  </wsdl:message>
+  <wsdl:message name="GenerateOMS_NOSoapIn">
+    <wsdl:part name="parameters" element="tns:GenerateOMS_NO" />
+  </wsdl:message>
+  <wsdl:message name="GenerateOMS_NOSoapOut">
+    <wsdl:part name="parameters" element="tns:GenerateOMS_NOResponse" />
+  </wsdl:message>
+  <wsdl:message name="auditOrdersSoapIn">
+    <wsdl:part name="parameters" element="tns:auditOrders" />
+  </wsdl:message>
+  <wsdl:message name="auditOrdersSoapOut">
+    <wsdl:part name="parameters" element="tns:auditOrdersResponse" />
+  </wsdl:message>
+  <wsdl:message name="LogSoapIn">
+    <wsdl:part name="parameters" element="tns:Log" />
+  </wsdl:message>
+  <wsdl:message name="LogSoapOut">
+    <wsdl:part name="parameters" element="tns:LogResponse" />
+  </wsdl:message>
+  <wsdl:message name="fillDataSetForExportSoapIn">
+    <wsdl:part name="parameters" element="tns:fillDataSetForExport" />
+  </wsdl:message>
+  <wsdl:message name="fillDataSetForExportSoapOut">
+    <wsdl:part name="parameters" element="tns:fillDataSetForExportResponse" />
+  </wsdl:message>
+  <wsdl:message name="GSN_CHECKSoapIn">
+    <wsdl:part name="parameters" element="tns:GSN_CHECK" />
+  </wsdl:message>
+  <wsdl:message name="GSN_CHECKSoapOut">
+    <wsdl:part name="parameters" element="tns:GSN_CHECKResponse" />
+  </wsdl:message>
+  <wsdl:message name="ExportXML2SoapIn">
+    <wsdl:part name="parameters" element="tns:ExportXML2" />
+  </wsdl:message>
+  <wsdl:message name="ExportXML2SoapOut">
+    <wsdl:part name="parameters" element="tns:ExportXML2Response" />
+  </wsdl:message>
+  <wsdl:message name="ExportXMLSoapIn">
+    <wsdl:part name="parameters" element="tns:ExportXML" />
+  </wsdl:message>
+  <wsdl:message name="ExportXMLSoapOut">
+    <wsdl:part name="parameters" element="tns:ExportXMLResponse" />
+  </wsdl:message>
+  <wsdl:message name="getCheckOrdersSoapIn">
+    <wsdl:part name="parameters" element="tns:getCheckOrders" />
+  </wsdl:message>
+  <wsdl:message name="getCheckOrdersSoapOut">
+    <wsdl:part name="parameters" element="tns:getCheckOrdersResponse" />
+  </wsdl:message>
+  <wsdl:message name="getOrderInfoSoapIn">
+    <wsdl:part name="parameters" element="tns:getOrderInfo" />
+  </wsdl:message>
+  <wsdl:message name="getOrderInfoSoapOut">
+    <wsdl:part name="parameters" element="tns:getOrderInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="checkOrdersSoapIn">
+    <wsdl:part name="parameters" element="tns:checkOrders" />
+  </wsdl:message>
+  <wsdl:message name="checkOrdersSoapOut">
+    <wsdl:part name="parameters" element="tns:checkOrdersResponse" />
+  </wsdl:message>
+  <wsdl:message name="searchOrdersSoapIn">
+    <wsdl:part name="parameters" element="tns:searchOrders" />
+  </wsdl:message>
+  <wsdl:message name="searchOrdersSoapOut">
+    <wsdl:part name="parameters" element="tns:searchOrdersResponse" />
+  </wsdl:message>
+  <wsdl:message name="collectOrdersSoapIn">
+    <wsdl:part name="parameters" element="tns:collectOrders" />
+  </wsdl:message>
+  <wsdl:message name="collectOrdersSoapOut">
+    <wsdl:part name="parameters" element="tns:collectOrdersResponse" />
+  </wsdl:message>
+  <wsdl:message name="deleteStatStyleInfoSoapIn">
+    <wsdl:part name="parameters" element="tns:deleteStatStyleInfo" />
+  </wsdl:message>
+  <wsdl:message name="deleteStatStyleInfoSoapOut">
+    <wsdl:part name="parameters" element="tns:deleteStatStyleInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="getAllStatStylesSoapIn">
+    <wsdl:part name="parameters" element="tns:getAllStatStyles" />
+  </wsdl:message>
+  <wsdl:message name="getAllStatStylesSoapOut">
+    <wsdl:part name="parameters" element="tns:getAllStatStylesResponse" />
+  </wsdl:message>
+  <wsdl:message name="updateStatStyleInfoSoapIn">
+    <wsdl:part name="parameters" element="tns:updateStatStyleInfo" />
+  </wsdl:message>
+  <wsdl:message name="updateStatStyleInfoSoapOut">
+    <wsdl:part name="parameters" element="tns:updateStatStyleInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="fillDataSetForExportExcelSoapIn">
+    <wsdl:part name="parameters" element="tns:fillDataSetForExportExcel" />
+  </wsdl:message>
+  <wsdl:message name="fillDataSetForExportExcelSoapOut">
+    <wsdl:part name="parameters" element="tns:fillDataSetForExportExcelResponse" />
+  </wsdl:message>
+  <wsdl:message name="fillExportExcelSoapIn">
+    <wsdl:part name="parameters" element="tns:fillExportExcel" />
+  </wsdl:message>
+  <wsdl:message name="fillExportExcelSoapOut">
+    <wsdl:part name="parameters" element="tns:fillExportExcelResponse" />
+  </wsdl:message>
+  <wsdl:message name="updateVasInfoSoapIn">
+    <wsdl:part name="parameters" element="tns:updateVasInfo" />
+  </wsdl:message>
+  <wsdl:message name="updateVasInfoSoapOut">
+    <wsdl:part name="parameters" element="tns:updateVasInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="getVasTypesOfProductSoapIn">
+    <wsdl:part name="parameters" element="tns:getVasTypesOfProduct" />
+  </wsdl:message>
+  <wsdl:message name="getVasTypesOfProductSoapOut">
+    <wsdl:part name="parameters" element="tns:getVasTypesOfProductResponse" />
+  </wsdl:message>
+  <wsdl:message name="getRDCListOfClientSoapIn">
+    <wsdl:part name="parameters" element="tns:getRDCListOfClient" />
+  </wsdl:message>
+  <wsdl:message name="getRDCListOfClientSoapOut">
+    <wsdl:part name="parameters" element="tns:getRDCListOfClientResponse" />
+  </wsdl:message>
+  <wsdl:message name="getPartyInfoByCodeSoapIn">
+    <wsdl:part name="parameters" element="tns:getPartyInfoByCode" />
+  </wsdl:message>
+  <wsdl:message name="getPartyInfoByCodeSoapOut">
+    <wsdl:part name="parameters" element="tns:getPartyInfoByCodeResponse" />
+  </wsdl:message>
+  <wsdl:message name="updatePartySoapIn">
+    <wsdl:part name="parameters" element="tns:updateParty" />
+  </wsdl:message>
+  <wsdl:message name="updatePartySoapOut">
+    <wsdl:part name="parameters" element="tns:updatePartyResponse" />
+  </wsdl:message>
+  <wsdl:message name="getOrderDetailsSoapIn">
+    <wsdl:part name="parameters" element="tns:getOrderDetails" />
+  </wsdl:message>
+  <wsdl:message name="getOrderDetailsSoapOut">
+    <wsdl:part name="parameters" element="tns:getOrderDetailsResponse" />
+  </wsdl:message>
+  <wsdl:message name="mergeSoapIn">
+    <wsdl:part name="parameters" element="tns:merge" />
+  </wsdl:message>
+  <wsdl:message name="mergeSoapOut">
+    <wsdl:part name="parameters" element="tns:mergeResponse" />
+  </wsdl:message>
+  <wsdl:message name="fillDataSetForPrintSoapIn">
+    <wsdl:part name="parameters" element="tns:fillDataSetForPrint" />
+  </wsdl:message>
+  <wsdl:message name="fillDataSetForPrintSoapOut">
+    <wsdl:part name="parameters" element="tns:fillDataSetForPrintResponse" />
+  </wsdl:message>
+  <wsdl:message name="mutiSplitSoapIn">
+    <wsdl:part name="parameters" element="tns:mutiSplit" />
+  </wsdl:message>
+  <wsdl:message name="mutiSplitSoapOut">
+    <wsdl:part name="parameters" element="tns:mutiSplitResponse" />
+  </wsdl:message>
+  <wsdl:message name="getUserEmailSoapIn">
+    <wsdl:part name="parameters" element="tns:getUserEmail" />
+  </wsdl:message>
+  <wsdl:message name="getUserEmailSoapOut">
+    <wsdl:part name="parameters" element="tns:getUserEmailResponse" />
+  </wsdl:message>
+  <wsdl:message name="getRDCWHCodeSoapIn">
+    <wsdl:part name="parameters" element="tns:getRDCWHCode" />
+  </wsdl:message>
+  <wsdl:message name="getRDCWHCodeSoapOut">
+    <wsdl:part name="parameters" element="tns:getRDCWHCodeResponse" />
+  </wsdl:message>
+  <wsdl:message name="getWmsStatusSoapIn">
+    <wsdl:part name="parameters" element="tns:getWmsStatus" />
+  </wsdl:message>
+  <wsdl:message name="getWmsStatusSoapOut">
+    <wsdl:part name="parameters" element="tns:getWmsStatusResponse" />
+  </wsdl:message>
+  <wsdl:message name="getTmsStatusSoapIn">
+    <wsdl:part name="parameters" element="tns:getTmsStatus" />
+  </wsdl:message>
+  <wsdl:message name="getTmsStatusSoapOut">
+    <wsdl:part name="parameters" element="tns:getTmsStatusResponse" />
+  </wsdl:message>
+  <wsdl:message name="DoTransSoapIn">
+    <wsdl:part name="parameters" element="tns:DoTrans" />
+  </wsdl:message>
+  <wsdl:message name="DoTransSoapOut">
+    <wsdl:part name="parameters" element="tns:DoTransResponse" />
+  </wsdl:message>
+  <wsdl:portType name="SystemWSSoap">
+    <wsdl:operation name="SetUser">
+      <wsdl:input message="tns:SetUserSoapIn" />
+      <wsdl:output message="tns:SetUserSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="checkUserLogin">
+      <wsdl:input message="tns:checkUserLoginSoapIn" />
+      <wsdl:output message="tns:checkUserLoginSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="updateUserPass">
+      <wsdl:input message="tns:updateUserPassSoapIn" />
+      <wsdl:output message="tns:updateUserPassSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Refresh">
+      <wsdl:input message="tns:RefreshSoapIn" />
+      <wsdl:output message="tns:RefreshSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getClientListOfRDC">
+      <wsdl:input message="tns:getClientListOfRDCSoapIn" />
+      <wsdl:output message="tns:getClientListOfRDCSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getAllRDCList">
+      <wsdl:input message="tns:getAllRDCListSoapIn" />
+      <wsdl:output message="tns:getAllRDCListSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getAllRolesOfParty">
+      <wsdl:input message="tns:getAllRolesOfPartySoapIn" />
+      <wsdl:output message="tns:getAllRolesOfPartySoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getAllClientsForRights">
+      <wsdl:input message="tns:getAllClientsForRightsSoapIn" />
+      <wsdl:output message="tns:getAllClientsForRightsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getAllClients">
+      <wsdl:input message="tns:getAllClientsSoapIn" />
+      <wsdl:output message="tns:getAllClientsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getClients">
+      <wsdl:input message="tns:getClientsSoapIn" />
+      <wsdl:output message="tns:getClientsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="batchUpdate">
+      <wsdl:input message="tns:batchUpdateSoapIn" />
+      <wsdl:output message="tns:batchUpdateSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getOrdersHeaderAndDetail">
+      <wsdl:input message="tns:getOrdersHeaderAndDetailSoapIn" />
+      <wsdl:output message="tns:getOrdersHeaderAndDetailSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getUsersList">
+      <wsdl:input message="tns:getUsersListSoapIn" />
+      <wsdl:output message="tns:getUsersListSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="deleteUser">
+      <wsdl:input message="tns:deleteUserSoapIn" />
+      <wsdl:output message="tns:deleteUserSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="deleteRole">
+      <wsdl:input message="tns:deleteRoleSoapIn" />
+      <wsdl:output message="tns:deleteRoleSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getUserInfo">
+      <wsdl:input message="tns:getUserInfoSoapIn" />
+      <wsdl:output message="tns:getUserInfoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getRoleInfo">
+      <wsdl:input message="tns:getRoleInfoSoapIn" />
+      <wsdl:output message="tns:getRoleInfoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="updateUserInfo">
+      <wsdl:input message="tns:updateUserInfoSoapIn" />
+      <wsdl:output message="tns:updateUserInfoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="updateRoleInfo">
+      <wsdl:input message="tns:updateRoleInfoSoapIn" />
+      <wsdl:output message="tns:updateRoleInfoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getAllRoles">
+      <wsdl:input message="tns:getAllRolesSoapIn" />
+      <wsdl:output message="tns:getAllRolesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="updateOrderInfo">
+      <wsdl:input message="tns:updateOrderInfoSoapIn" />
+      <wsdl:output message="tns:updateOrderInfoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="transferRDC">
+      <wsdl:input message="tns:transferRDCSoapIn" />
+      <wsdl:output message="tns:transferRDCSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="PLChange">
+      <wsdl:input message="tns:PLChangeSoapIn" />
+      <wsdl:output message="tns:PLChangeSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getNewGSN_NO">
+      <wsdl:input message="tns:getNewGSN_NOSoapIn" />
+      <wsdl:output message="tns:getNewGSN_NOSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getNewGSN_NO_NEW">
+      <wsdl:input message="tns:getNewGSN_NO_NEWSoapIn" />
+      <wsdl:output message="tns:getNewGSN_NO_NEWSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GenerateGSN_NO_NEW">
+      <wsdl:input message="tns:GenerateGSN_NO_NEWSoapIn" />
+      <wsdl:output message="tns:GenerateGSN_NO_NEWSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ApplyColQARelease">
+      <wsdl:input message="tns:ApplyColQAReleaseSoapIn" />
+      <wsdl:output message="tns:ApplyColQAReleaseSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CheckSplitReason">
+      <wsdl:input message="tns:CheckSplitReasonSoapIn" />
+      <wsdl:output message="tns:CheckSplitReasonSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GenerateGSN_NO">
+      <wsdl:input message="tns:GenerateGSN_NOSoapIn" />
+      <wsdl:output message="tns:GenerateGSN_NOSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getNewOMS_NO">
+      <wsdl:input message="tns:getNewOMS_NOSoapIn" />
+      <wsdl:output message="tns:getNewOMS_NOSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GenerateOMS_NO">
+      <wsdl:input message="tns:GenerateOMS_NOSoapIn" />
+      <wsdl:output message="tns:GenerateOMS_NOSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="auditOrders">
+      <wsdl:input message="tns:auditOrdersSoapIn" />
+      <wsdl:output message="tns:auditOrdersSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Log">
+      <wsdl:input message="tns:LogSoapIn" />
+      <wsdl:output message="tns:LogSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="fillDataSetForExport">
+      <wsdl:input message="tns:fillDataSetForExportSoapIn" />
+      <wsdl:output message="tns:fillDataSetForExportSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GSN_CHECK">
+      <wsdl:input message="tns:GSN_CHECKSoapIn" />
+      <wsdl:output message="tns:GSN_CHECKSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ExportXML2">
+      <wsdl:input message="tns:ExportXML2SoapIn" />
+      <wsdl:output message="tns:ExportXML2SoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ExportXML">
+      <wsdl:input message="tns:ExportXMLSoapIn" />
+      <wsdl:output message="tns:ExportXMLSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getCheckOrders">
+      <wsdl:input message="tns:getCheckOrdersSoapIn" />
+      <wsdl:output message="tns:getCheckOrdersSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getOrderInfo">
+      <wsdl:input message="tns:getOrderInfoSoapIn" />
+      <wsdl:output message="tns:getOrderInfoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="checkOrders">
+      <wsdl:input message="tns:checkOrdersSoapIn" />
+      <wsdl:output message="tns:checkOrdersSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="searchOrders">
+      <wsdl:input message="tns:searchOrdersSoapIn" />
+      <wsdl:output message="tns:searchOrdersSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="collectOrders">
+      <wsdl:input message="tns:collectOrdersSoapIn" />
+      <wsdl:output message="tns:collectOrdersSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="deleteStatStyleInfo">
+      <wsdl:input message="tns:deleteStatStyleInfoSoapIn" />
+      <wsdl:output message="tns:deleteStatStyleInfoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getAllStatStyles">
+      <wsdl:input message="tns:getAllStatStylesSoapIn" />
+      <wsdl:output message="tns:getAllStatStylesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="updateStatStyleInfo">
+      <wsdl:input message="tns:updateStatStyleInfoSoapIn" />
+      <wsdl:output message="tns:updateStatStyleInfoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="fillDataSetForExportExcel">
+      <wsdl:input message="tns:fillDataSetForExportExcelSoapIn" />
+      <wsdl:output message="tns:fillDataSetForExportExcelSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="fillExportExcel">
+      <wsdl:input message="tns:fillExportExcelSoapIn" />
+      <wsdl:output message="tns:fillExportExcelSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="updateVasInfo">
+      <wsdl:input message="tns:updateVasInfoSoapIn" />
+      <wsdl:output message="tns:updateVasInfoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getVasTypesOfProduct">
+      <wsdl:input message="tns:getVasTypesOfProductSoapIn" />
+      <wsdl:output message="tns:getVasTypesOfProductSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getRDCListOfClient">
+      <wsdl:input message="tns:getRDCListOfClientSoapIn" />
+      <wsdl:output message="tns:getRDCListOfClientSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getPartyInfoByCode">
+      <wsdl:input message="tns:getPartyInfoByCodeSoapIn" />
+      <wsdl:output message="tns:getPartyInfoByCodeSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="updateParty">
+      <wsdl:input message="tns:updatePartySoapIn" />
+      <wsdl:output message="tns:updatePartySoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getOrderDetails">
+      <wsdl:input message="tns:getOrderDetailsSoapIn" />
+      <wsdl:output message="tns:getOrderDetailsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="merge">
+      <wsdl:input message="tns:mergeSoapIn" />
+      <wsdl:output message="tns:mergeSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="fillDataSetForPrint">
+      <wsdl:input message="tns:fillDataSetForPrintSoapIn" />
+      <wsdl:output message="tns:fillDataSetForPrintSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="mutiSplit">
+      <wsdl:input message="tns:mutiSplitSoapIn" />
+      <wsdl:output message="tns:mutiSplitSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getUserEmail">
+      <wsdl:input message="tns:getUserEmailSoapIn" />
+      <wsdl:output message="tns:getUserEmailSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getRDCWHCode">
+      <wsdl:input message="tns:getRDCWHCodeSoapIn" />
+      <wsdl:output message="tns:getRDCWHCodeSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getWmsStatus">
+      <wsdl:input message="tns:getWmsStatusSoapIn" />
+      <wsdl:output message="tns:getWmsStatusSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getTmsStatus">
+      <wsdl:input message="tns:getTmsStatusSoapIn" />
+      <wsdl:output message="tns:getTmsStatusSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DoTrans">
+      <wsdl:input message="tns:DoTransSoapIn" />
+      <wsdl:output message="tns:DoTransSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="SystemWSSoap" type="tns:SystemWSSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="SetUser">
+      <soap:operation soapAction="http://st-anda.com/SetUser" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="checkUserLogin">
+      <soap:operation soapAction="http://st-anda.com/checkUserLogin" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="updateUserPass">
+      <soap:operation soapAction="http://st-anda.com/updateUserPass" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Refresh">
+      <soap:operation soapAction="http://st-anda.com/Refresh" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getClientListOfRDC">
+      <soap:operation soapAction="http://st-anda.com/getClientListOfRDC" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getAllRDCList">
+      <soap:operation soapAction="http://st-anda.com/getAllRDCList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getAllRolesOfParty">
+      <soap:operation soapAction="http://st-anda.com/getAllRolesOfParty" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getAllClientsForRights">
+      <soap:operation soapAction="http://st-anda.com/getAllClientsForRights" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getAllClients">
+      <soap:operation soapAction="http://st-anda.com/getAllClients" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getClients">
+      <soap:operation soapAction="http://st-anda.com/getClients" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="batchUpdate">
+      <soap:operation soapAction="http://st-anda.com/batchUpdate" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getOrdersHeaderAndDetail">
+      <soap:operation soapAction="http://st-anda.com/getOrdersHeaderAndDetail" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getUsersList">
+      <soap:operation soapAction="http://st-anda.com/getUsersList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="deleteUser">
+      <soap:operation soapAction="http://st-anda.com/deleteUser" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="deleteRole">
+      <soap:operation soapAction="http://st-anda.com/deleteRole" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getUserInfo">
+      <soap:operation soapAction="http://st-anda.com/getUserInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getRoleInfo">
+      <soap:operation soapAction="http://st-anda.com/getRoleInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="updateUserInfo">
+      <soap:operation soapAction="http://st-anda.com/updateUserInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="updateRoleInfo">
+      <soap:operation soapAction="http://st-anda.com/updateRoleInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getAllRoles">
+      <soap:operation soapAction="http://st-anda.com/getAllRoles" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="updateOrderInfo">
+      <soap:operation soapAction="http://st-anda.com/updateOrderInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="transferRDC">
+      <soap:operation soapAction="http://st-anda.com/transferRDC" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PLChange">
+      <soap:operation soapAction="http://st-anda.com/PLChange" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getNewGSN_NO">
+      <soap:operation soapAction="http://st-anda.com/getNewGSN_NO" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getNewGSN_NO_NEW">
+      <soap:operation soapAction="http://st-anda.com/getNewGSN_NO_NEW" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GenerateGSN_NO_NEW">
+      <soap:operation soapAction="http://st-anda.com/GenerateGSN_NO_NEW" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ApplyColQARelease">
+      <soap:operation soapAction="http://st-anda.com/ApplyColQARelease" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CheckSplitReason">
+      <soap:operation soapAction="http://st-anda.com/CheckSplitReason" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GenerateGSN_NO">
+      <soap:operation soapAction="http://st-anda.com/GenerateGSN_NO" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getNewOMS_NO">
+      <soap:operation soapAction="http://st-anda.com/getNewOMS_NO" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GenerateOMS_NO">
+      <soap:operation soapAction="http://st-anda.com/GenerateOMS_NO" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="auditOrders">
+      <soap:operation soapAction="http://st-anda.com/auditOrders" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Log">
+      <soap:operation soapAction="http://st-anda.com/Log" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="fillDataSetForExport">
+      <soap:operation soapAction="http://st-anda.com/fillDataSetForExport" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GSN_CHECK">
+      <soap:operation soapAction="http://st-anda.com/GSN_CHECK" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ExportXML2">
+      <soap:operation soapAction="http://st-anda.com/ExportXML2" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ExportXML">
+      <soap:operation soapAction="http://st-anda.com/ExportXML" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getCheckOrders">
+      <soap:operation soapAction="http://st-anda.com/getCheckOrders" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getOrderInfo">
+      <soap:operation soapAction="http://st-anda.com/getOrderInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="checkOrders">
+      <soap:operation soapAction="http://st-anda.com/checkOrders" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="searchOrders">
+      <soap:operation soapAction="http://st-anda.com/searchOrders" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="collectOrders">
+      <soap:operation soapAction="http://st-anda.com/collectOrders" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="deleteStatStyleInfo">
+      <soap:operation soapAction="http://st-anda.com/deleteStatStyleInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getAllStatStyles">
+      <soap:operation soapAction="http://st-anda.com/getAllStatStyles" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="updateStatStyleInfo">
+      <soap:operation soapAction="http://st-anda.com/updateStatStyleInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="fillDataSetForExportExcel">
+      <soap:operation soapAction="http://st-anda.com/fillDataSetForExportExcel" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="fillExportExcel">
+      <soap:operation soapAction="http://st-anda.com/fillExportExcel" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="updateVasInfo">
+      <soap:operation soapAction="http://st-anda.com/updateVasInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getVasTypesOfProduct">
+      <soap:operation soapAction="http://st-anda.com/getVasTypesOfProduct" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getRDCListOfClient">
+      <soap:operation soapAction="http://st-anda.com/getRDCListOfClient" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getPartyInfoByCode">
+      <soap:operation soapAction="http://st-anda.com/getPartyInfoByCode" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="updateParty">
+      <soap:operation soapAction="http://st-anda.com/updateParty" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getOrderDetails">
+      <soap:operation soapAction="http://st-anda.com/getOrderDetails" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="merge">
+      <soap:operation soapAction="http://st-anda.com/merge" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="fillDataSetForPrint">
+      <soap:operation soapAction="http://st-anda.com/fillDataSetForPrint" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="mutiSplit">
+      <soap:operation soapAction="http://st-anda.com/mutiSplit" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getUserEmail">
+      <soap:operation soapAction="http://st-anda.com/getUserEmail" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getRDCWHCode">
+      <soap:operation soapAction="http://st-anda.com/getRDCWHCode" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getWmsStatus">
+      <soap:operation soapAction="http://st-anda.com/getWmsStatus" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getTmsStatus">
+      <soap:operation soapAction="http://st-anda.com/getTmsStatus" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DoTrans">
+      <soap:operation soapAction="http://st-anda.com/DoTrans" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="SystemWSSoap12" type="tns:SystemWSSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="SetUser">
+      <soap12:operation soapAction="http://st-anda.com/SetUser" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="checkUserLogin">
+      <soap12:operation soapAction="http://st-anda.com/checkUserLogin" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="updateUserPass">
+      <soap12:operation soapAction="http://st-anda.com/updateUserPass" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Refresh">
+      <soap12:operation soapAction="http://st-anda.com/Refresh" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getClientListOfRDC">
+      <soap12:operation soapAction="http://st-anda.com/getClientListOfRDC" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getAllRDCList">
+      <soap12:operation soapAction="http://st-anda.com/getAllRDCList" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getAllRolesOfParty">
+      <soap12:operation soapAction="http://st-anda.com/getAllRolesOfParty" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getAllClientsForRights">
+      <soap12:operation soapAction="http://st-anda.com/getAllClientsForRights" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getAllClients">
+      <soap12:operation soapAction="http://st-anda.com/getAllClients" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getClients">
+      <soap12:operation soapAction="http://st-anda.com/getClients" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="batchUpdate">
+      <soap12:operation soapAction="http://st-anda.com/batchUpdate" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getOrdersHeaderAndDetail">
+      <soap12:operation soapAction="http://st-anda.com/getOrdersHeaderAndDetail" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getUsersList">
+      <soap12:operation soapAction="http://st-anda.com/getUsersList" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="deleteUser">
+      <soap12:operation soapAction="http://st-anda.com/deleteUser" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="deleteRole">
+      <soap12:operation soapAction="http://st-anda.com/deleteRole" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getUserInfo">
+      <soap12:operation soapAction="http://st-anda.com/getUserInfo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getRoleInfo">
+      <soap12:operation soapAction="http://st-anda.com/getRoleInfo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="updateUserInfo">
+      <soap12:operation soapAction="http://st-anda.com/updateUserInfo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="updateRoleInfo">
+      <soap12:operation soapAction="http://st-anda.com/updateRoleInfo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getAllRoles">
+      <soap12:operation soapAction="http://st-anda.com/getAllRoles" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="updateOrderInfo">
+      <soap12:operation soapAction="http://st-anda.com/updateOrderInfo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="transferRDC">
+      <soap12:operation soapAction="http://st-anda.com/transferRDC" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PLChange">
+      <soap12:operation soapAction="http://st-anda.com/PLChange" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getNewGSN_NO">
+      <soap12:operation soapAction="http://st-anda.com/getNewGSN_NO" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getNewGSN_NO_NEW">
+      <soap12:operation soapAction="http://st-anda.com/getNewGSN_NO_NEW" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GenerateGSN_NO_NEW">
+      <soap12:operation soapAction="http://st-anda.com/GenerateGSN_NO_NEW" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ApplyColQARelease">
+      <soap12:operation soapAction="http://st-anda.com/ApplyColQARelease" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CheckSplitReason">
+      <soap12:operation soapAction="http://st-anda.com/CheckSplitReason" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GenerateGSN_NO">
+      <soap12:operation soapAction="http://st-anda.com/GenerateGSN_NO" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getNewOMS_NO">
+      <soap12:operation soapAction="http://st-anda.com/getNewOMS_NO" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GenerateOMS_NO">
+      <soap12:operation soapAction="http://st-anda.com/GenerateOMS_NO" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="auditOrders">
+      <soap12:operation soapAction="http://st-anda.com/auditOrders" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Log">
+      <soap12:operation soapAction="http://st-anda.com/Log" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="fillDataSetForExport">
+      <soap12:operation soapAction="http://st-anda.com/fillDataSetForExport" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GSN_CHECK">
+      <soap12:operation soapAction="http://st-anda.com/GSN_CHECK" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ExportXML2">
+      <soap12:operation soapAction="http://st-anda.com/ExportXML2" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ExportXML">
+      <soap12:operation soapAction="http://st-anda.com/ExportXML" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getCheckOrders">
+      <soap12:operation soapAction="http://st-anda.com/getCheckOrders" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getOrderInfo">
+      <soap12:operation soapAction="http://st-anda.com/getOrderInfo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="checkOrders">
+      <soap12:operation soapAction="http://st-anda.com/checkOrders" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="searchOrders">
+      <soap12:operation soapAction="http://st-anda.com/searchOrders" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="collectOrders">
+      <soap12:operation soapAction="http://st-anda.com/collectOrders" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="deleteStatStyleInfo">
+      <soap12:operation soapAction="http://st-anda.com/deleteStatStyleInfo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getAllStatStyles">
+      <soap12:operation soapAction="http://st-anda.com/getAllStatStyles" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="updateStatStyleInfo">
+      <soap12:operation soapAction="http://st-anda.com/updateStatStyleInfo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="fillDataSetForExportExcel">
+      <soap12:operation soapAction="http://st-anda.com/fillDataSetForExportExcel" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="fillExportExcel">
+      <soap12:operation soapAction="http://st-anda.com/fillExportExcel" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="updateVasInfo">
+      <soap12:operation soapAction="http://st-anda.com/updateVasInfo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getVasTypesOfProduct">
+      <soap12:operation soapAction="http://st-anda.com/getVasTypesOfProduct" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getRDCListOfClient">
+      <soap12:operation soapAction="http://st-anda.com/getRDCListOfClient" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getPartyInfoByCode">
+      <soap12:operation soapAction="http://st-anda.com/getPartyInfoByCode" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="updateParty">
+      <soap12:operation soapAction="http://st-anda.com/updateParty" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getOrderDetails">
+      <soap12:operation soapAction="http://st-anda.com/getOrderDetails" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="merge">
+      <soap12:operation soapAction="http://st-anda.com/merge" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="fillDataSetForPrint">
+      <soap12:operation soapAction="http://st-anda.com/fillDataSetForPrint" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="mutiSplit">
+      <soap12:operation soapAction="http://st-anda.com/mutiSplit" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getUserEmail">
+      <soap12:operation soapAction="http://st-anda.com/getUserEmail" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getRDCWHCode">
+      <soap12:operation soapAction="http://st-anda.com/getRDCWHCode" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getWmsStatus">
+      <soap12:operation soapAction="http://st-anda.com/getWmsStatus" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getTmsStatus">
+      <soap12:operation soapAction="http://st-anda.com/getTmsStatus" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DoTrans">
+      <soap12:operation soapAction="http://st-anda.com/DoTrans" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="SystemWS">
+    <wsdl:port name="SystemWSSoap" binding="tns:SystemWSSoap">
+      <soap:address location="http://10.205.200.202/omsserver/SystemWS.asmx" />
+    </wsdl:port>
+    <wsdl:port name="SystemWSSoap12" binding="tns:SystemWSSoap12">
+      <soap12:address location="http://10.205.200.202/omsserver/SystemWS.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

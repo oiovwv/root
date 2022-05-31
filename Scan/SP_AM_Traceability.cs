@@ -62,31 +62,39 @@ public class SP_AM_Traceability : Form
 		string clientOrderNo = txtClientOrderNo.Text.TrimStart('0');
 		ObSetRootA model = new ObSetRootA();
 		ObSetRootA res = PostBase.GetNeedScanInfo(clientOrderNo, 2, model, isPro);
-		if (res.result.d.results.Count > 0)
-		{
-			type = res.result.d.results[0].ExOBMsg.results[0].Type.ToString();
-			msg = res.result.d.results[0].ExOBMsg.results[0].Message.ToString();
-			param = res.result.d.results[0].ExOBQty.results;
-			if (type == "E")
+        if (res.result == null)
+        {
+			MessageBox.Show("请求失败，请稍后再试");
+		}
+        else
+        {
+			if (res.result.d.results.Count > 0)
 			{
-				if (msg.IndexOf("Scanning finished") > 0)
+				type = res.result.d.results[0].ExOBMsg.results[0].Type.ToString();
+				msg = res.result.d.results[0].ExOBMsg.results[0].Message.ToString();
+				param = res.result.d.results[0].ExOBQty.results;
+				if (type == "E")
 				{
-					ShowScreen(param, clientOrderNo);
+					if (msg.IndexOf("Scanning finished") > 0)
+					{
+						ShowScreen(param, clientOrderNo);
+					}
+					else
+					{
+						MessageBox.Show(msg);
+					}
 				}
 				else
 				{
-					MessageBox.Show(msg);
+					ShowScreen(param, clientOrderNo);
 				}
 			}
 			else
 			{
-				ShowScreen(param, clientOrderNo);
+				MessageBox.Show("请求成功，但无数据返回~");
 			}
 		}
-		else
-		{
-			MessageBox.Show("请求成功，但无数据返回~");
-		}
+		
 	}
 
 	public void ShowScreen(List<ExOBQtyResultsItem> list, string delivery)

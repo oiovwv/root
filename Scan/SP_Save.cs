@@ -104,6 +104,11 @@ public class SP_Save : Form
 	{
 		if (!string.IsNullOrEmpty(txtPcode.Text))
 		{
+			string result = string.Empty;
+			//MessageBox.Show("完成PCODE输入");
+			int startTime = System.Environment.TickCount;
+
+
 			string code = txtPcode.Text.Trim().ToUpper();
 			string sCode = SBCToDBC(code);
 			txtPcode.Text = sCode;
@@ -125,8 +130,24 @@ public class SP_Save : Form
 			traceability.ExSaveMsg = msgs;
 			traceability.IxOBQty = items;
 			string json = PostBase.ModelToJson(traceability);
-			string result = PostBase.GetApiResult(json, 3, isPro);
-			if (result.IndexOf("出错") >= 0)
+
+			int endTime = System.Environment.TickCount;
+			double runTime = (endTime - startTime) / 1000.0;
+			runTime = Math.Round(runTime, 1);
+			//MessageBox.Show("从完成pocde输入到参数设置完成用时：" + runTime + "秒。");
+
+			//result = PostBase.GetApiResult(json, 3, isPro);
+
+			//20220526
+			result = PostBase.GetApiResultNew(json, 3, isPro);
+
+			int resTime = System.Environment.TickCount;
+			double resRunTime = (resTime - startTime) / 1000.0;
+			resRunTime = Math.Round(resRunTime, 1);
+			//MessageBox.Show("从完成参数设置到请求结束用时：" + resRunTime + "秒。");
+
+
+			if (result.IndexOf("出错") >= 0 || result.IndexOf("异常") >= 0)
 			{
 				PostBase.MessageTips("请求出错，无数据返回~");
 				return;
@@ -145,22 +166,30 @@ public class SP_Save : Form
 				{
 					ObSetRootA model = new ObSetRootA();
 					ObSetRootA dataApi2 = PostBase.GetNeedScanInfo(clientOrderNo, 2, model, isPro);
-					if (dataApi2.result.d.results.Count > 0)
-					{
-						string t = dataApi2.result.d.results[0].ExOBMsg.results[0].Type.ToString();
-						string i = dataApi2.result.d.results[0].ExOBMsg.results[0].Message.ToString();
-						List<ExOBQtyResultsItem> p = dataApi2.result.d.results[0].ExOBQty.results;
-						if (t == "E" && p.Count > 1)
+                    if (dataApi2.result == null)
+                    {
+						MessageBox.Show("重扫请求数据为null,请稍后再试");
+					}
+                    else
+                    {
+						if (dataApi2.result.d.results.Count > 0)
 						{
-							PostBase.MessageTips(i);
+							string t = dataApi2.result.d.results[0].ExOBMsg.results[0].Type.ToString();
+							string i = dataApi2.result.d.results[0].ExOBMsg.results[0].Message.ToString();
+							List<ExOBQtyResultsItem> p = dataApi2.result.d.results[0].ExOBQty.results;
+							if (t == "E" && p.Count > 1)
+							{
+								PostBase.MessageTips(i);
+							}
+							GetTotalQty(p);
+							GetCurrentSkuRemainingQty(p, material, way);
 						}
-						GetTotalQty(p);
-						GetCurrentSkuRemainingQty(p, material, way);
+						else
+						{
+							PostBase.MessageTips("获取OB信息：请求成功，但无数据返回~");
+						}
 					}
-					else
-					{
-						PostBase.MessageTips("获取OB信息：请求成功，但无数据返回~");
-					}
+					
 				}
 				else
 				{

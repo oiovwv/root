@@ -77,7 +77,7 @@ public class SP_OEM_Save : Form
 		{
 			Name = "Rescan",
 			HeaderText = "Rescan",
-			DefaultCellStyle = 
+			DefaultCellStyle =
 			{
 				NullValue = "Rescan"
 			}
@@ -125,8 +125,10 @@ public class SP_OEM_Save : Form
 
 	private void Save(int rowIndex)
 	{
+
 		if (!string.IsNullOrEmpty(txtBarcode.Text.Trim()))
 		{
+			string result = string.Empty;
 			OEMTraceability o = new OEMTraceability();
 			o.Delivery = txtOrderNo.Text.Trim();
 			o.Rescan = (isRescan ? "X" : "");
@@ -141,8 +143,11 @@ public class SP_OEM_Save : Form
 			msgs.Add(_item);
 			o.ExSaveMsg_NonOEM = msgs;
 			string json = PostBase.ModelToJson(o);
-			string result = PostBase.GetApiResult(json, 5, isPro);
-			if (result.IndexOf("出错") >= 0)
+			//result = PostBase.GetApiResult(json, 5, isPro);
+			//20220526
+			result = PostBase.GetApiResultNew(json, 5, isPro);
+
+			if (result.IndexOf("出错") >= 0 || result.IndexOf("异常") >= 0)
 			{
 				PostBase.MessageTips("请求出错，无数据返回~");
 				return;
@@ -163,6 +168,7 @@ public class SP_OEM_Save : Form
 				string msg = res.result.d.ExSaveMsg_NonOEM.results[0].Message;
 				if (type == "S")
 				{
+					PostBase.playSuccessTips();
 					double openQty2 = double.Parse(dgv.Rows[rowIndex].Cells["OpenQty"].Value.ToString());
 					double scannedQty2 = double.Parse(dgv.Rows[rowIndex].Cells["QtyScanned"].Value.ToString());
 					DataGridViewCell dataGridViewCell = dgv.Rows[rowIndex].Cells["QtyScanned"];
@@ -172,8 +178,14 @@ public class SP_OEM_Save : Form
 					num = (openQty2 -= 1.0);
 					dataGridViewCell2.Value = num.ToString("f3");
 					txtLastBarcode.Text = txtBarcode.Text;
-				}
-				MessageBox.Show(msg);
+					txtBarcode.Text = string.Empty;
+                }
+                else
+                {
+					PostBase.MessageTips(msg);
+                }
+				//MessageBox.Show(msg);
+				CheckResult(rowIndex, sku);
 			}
 		}
 		else
@@ -182,6 +194,13 @@ public class SP_OEM_Save : Form
 		}
 	}
 
+	private void CheckResult(int rowIndex, string sku)
+    {
+        if (dgv.Rows[rowIndex].Cells["TotalQty"].Value.ToString() == dgv.Rows[rowIndex].Cells["QtyScanned"].Value.ToString())
+        {
+			MessageBox.Show("IC：" + sku + "扫描完成");
+		}
+    }
 	protected override void Dispose(bool disposing)
 	{
 		if (disposing && components != null)

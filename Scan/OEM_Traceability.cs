@@ -36,25 +36,34 @@ public class OEM_Traceability : Form
 		string clientOrderNo = txtOrderNo.Text.TrimStart('0');
 		OEMRootA model = new OEMRootA();
 		OEMRootA res = PostBase.GetNeedScanInfo(clientOrderNo, 4, model, isPro);
-		if (res.result.d.results.Count > 0)
+		if (res.result == null)
 		{
-			string type = res.result.d.results[0].ExOBMsg_NonOEM.results[0].Type.ToString();
-			string msg = res.result.d.results[0].ExOBMsg_NonOEM.results[0].Message.ToString();
-			List<OEMResultsItem> param = res.result.d.results[0].ExOBQty_NonOEM.results;
-			if (type == "E")
+			MessageBox.Show("请求失败，请稍后再试");
+		}
+		else 
+		{
+			if (res.result.d.results.Count > 0)
 			{
-				MessageBox.Show(msg);
-				return;
+				string type = res.result.d.results[0].ExOBMsg_NonOEM.results[0].Type.ToString();
+				string msg = res.result.d.results[0].ExOBMsg_NonOEM.results[0].Message.ToString();
+				List<OEMResultsItem> param = res.result.d.results[0].ExOBQty_NonOEM.results;
+				if (type == "E")
+				{
+					MessageBox.Show(msg);
+					return;
+				}
+				DataTable dt = CreateDataTable(param);
+				SP_OEM_Save sP_OEM_Save = new SP_OEM_Save(clientOrderNo, dt, isPro);
+				sP_OEM_Save.Owner = this;
+				sP_OEM_Save.ShowDialog();
 			}
-			DataTable dt = CreateDataTable(param);
-			SP_OEM_Save sP_OEM_Save = new SP_OEM_Save(clientOrderNo, dt, isPro);
-			sP_OEM_Save.Owner = this;
-			sP_OEM_Save.ShowDialog();
+			else
+			{
+				MessageBox.Show("请求成功，但无数据返回~");
+			}
 		}
-		else
-		{
-			MessageBox.Show("请求成功，但无数据返回~");
-		}
+
+		
 	}
 
 	private DataTable CreateDataTable(List<OEMResultsItem> list)
